@@ -1,0 +1,7 @@
+[package]
+org = "nuwant"
+name = "module_ballerinax_googleapis_drive"
+version = "0.1.0"
+
+[build-options]
+observabilityIncluded = true
