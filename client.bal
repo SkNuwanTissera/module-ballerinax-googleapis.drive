@@ -23,6 +23,14 @@ public client class Client {
     remote function getAbout(string? fields) returns @tainted json|error {
         return getDriveInfo(self.httpClient , fields);
     }
+
+    remote function getFileById(string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
+        return getFileById(self.httpClient , fileId, optional);
+    }
+
+    remote function getFiles() returns @tainted stream<File>|error {
+        return getAllFiles(self.httpClient);
+    }
 }
 
 public type DriveConfiguration record {

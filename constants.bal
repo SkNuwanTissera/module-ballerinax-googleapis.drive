@@ -29,6 +29,9 @@ const string COPY_TO_REQUEST = ":copyTo";
 //Secure client configs
 const string SCHEME = "oauth";
 
+// URL encoding
+const string ENCODING_CHARSET = "utf-8";
+
 //Symbols
 const string QUESTION_MARK = "?";
 const string PATH_SEPARATOR = "/";
@@ -51,13 +54,17 @@ const string DRIVE_URL = "https://www.googleapis.com";
 const string DRIVE_PATH = "/drive/v3";
 const string ABOUT = "/about";
 const string FILES = "/files";
-const string FIELDS = "fields";
 const string Q = "q";
 const string MIME_TYPE = "mimeType";
 const string APPLICATION = "'application/vnd.google-apps.spreadsheet'";
-const string AND = "&";
+const string AMPERSAND = "&";
 const string PAGE_TOKEN = "pageToken";
 
 // Error
 const string ERR_FILE_RESPONSE =  "Error occurred while constructing DriveResponse record.";
 
+// Optional Query Parameters
+const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
+const string FIELDS = "fields";
+const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
+const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
