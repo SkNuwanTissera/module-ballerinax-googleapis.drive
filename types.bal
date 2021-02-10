@@ -71,8 +71,15 @@ public type File record {|
     boolean isAppAuthorized?;
     string exportLinks?;
     ShortcutDetails shortcutDetails?;
+    ContentRestrictions contentRestrictions?;
 
 |};
+
+public type ContentRestrictions record {|
+    string targetId;
+    string targetMimeType;
+|};
+
 
 public type ShortcutDetails record {|
     string targetId;
@@ -149,6 +156,8 @@ public type User record {|
 |};
 
 public type Capabilities record {|
+    // consider 
+    // boolean...s
     boolean	canAddChildren;
     boolean canAddFolderFromAnotherDrive;
     boolean canAddMyDriveParent;
