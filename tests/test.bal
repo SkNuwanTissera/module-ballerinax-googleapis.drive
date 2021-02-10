@@ -36,10 +36,10 @@ function testgetFileById() {
 }
 
 GetFileOptional optional = {
-    // acknowledgeAbuse: false
-    // fields: "user",
-    // includePermissionsForView : "published",
-    // supportsAllDrives : false
+    acknowledgeAbuse: false,
+    fields: "*",
+    includePermissionsForView : "published",
+    supportsAllDrives : false
 };
 
 @test:Config {}
