@@ -11,13 +11,6 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted j
 
 function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
 
-    // /drive/v3/files/14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4?acknowledgeAbuse=true
-    // &includePermissionsForView=aaaaa&supportsAllDrives=true&supportsTeamDrives=true&alt=json
-    // &fields=user&prettyPrint=true&quotaUser=bbbb&userIp=ccccccc&key=AIzaSyAa8yy0GdcGPHdtD083HiGGx_S0vMPScDM
-
-    // /drive/v3/files/14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4?acknowledgeAbuse=false
-    // &supportsAllDrives=false&supportsTeamDrives=false&alt=json
-    // &prettyPrint=false&key=AIzaSyAa8yy0GdcGPHdtD083HiGGx_S0vMPScDM
     string path = prepareUrlWithEventOptional(fileId, optional);
     log:print(path.toString());
     json | error resp = sendRequest(httpClient, path);

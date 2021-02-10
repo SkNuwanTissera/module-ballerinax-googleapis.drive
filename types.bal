@@ -1,4 +1,4 @@
-public type DriveInfo record {|
+public type DriveInfo record {
     string kind = "";
     // User user = [];
     // StorageQuota storageQuota = {};
@@ -13,9 +13,9 @@ public type DriveInfo record {|
     // boolean canCreateTeamDrives = false;
     // boolean canCreateDrives = false;
 
-|};
+};
 
-public type File record {|
+public type File record {
     string kind;
     string id;
     string name;
@@ -73,26 +73,28 @@ public type File record {|
     ShortcutDetails shortcutDetails?;
     ContentRestrictions contentRestrictions?;
 
-|};
+};
 
-public type ContentRestrictions record {|
+public type ContentRestrictions record {
+    boolean readOnly?;
+    string reason?;
+    User restrictingUser?;
+    string restrictionTime?;
+    string 'type?;
+};
+
+public type ShortcutDetails record {
     string targetId;
     string targetMimeType;
-|};
+};
 
-
-public type ShortcutDetails record {|
-    string targetId;
-    string targetMimeType;
-|};
-
-public type VideoMediaMetadata record {|
+public type VideoMediaMetadata record {
     int width;
     int height;
     float durationMillis;
-|};
+};
 
-public type ImageMediaMetadata record {|
+public type ImageMediaMetadata record {
     int width;
     int height;
     int rotation;
@@ -114,48 +116,48 @@ public type ImageMediaMetadata record {|
     int maxApertureValue;
     int subjectDistance;
     string lens;
-|};
+};
 
-public type Location record {|
+public type Location record {
     int latitude; //double in API spec
     int longitude; //double in API spec
     int altitude; //double in API spec
-|};
+};
 
-public type ContentHints record {|
+public type ContentHints record {
     Thumbnail thumbnail;
     string indexableText;
-|};
+};
 
-public type Thumbnail record {|
+public type Thumbnail record {
     byte image;
     string mimeType;
-|};
+};
 
-public type FilesResponse record {|
+public type FilesResponse record {
     string kind;
     string nextPageToken?;
     boolean incompleteSearch;
     File[] files;
-|};
+};
 
-public type GetFileOptional record {|
+public type GetFileOptional record {
     boolean? acknowledgeAbuse = ();
     string? fields = ();
     string? includePermissionsForView = ();
     boolean? supportsAllDrives = ();
-|};
+};
 
-public type User record {|
+public type User record {
     string kind;
     string displayName;
     string photoLink;
     boolean me;
     string permissionId;
     string emailAddress;
-|};
+};
 
-public type Capabilities record {|
+public type Capabilities record {
     // consider 
     // boolean...s
     boolean	canAddChildren;
@@ -192,12 +194,12 @@ public type Capabilities record {|
     boolean canTrash;
     boolean canTrashChildren;
     boolean canUntrash;
-|};
+};
 
-public type Permissions record {|
+public type Permissions record {
     string kind;
     string id;
-    string type;
+    string 'type;
     string emailAddress;
     string domain;
     string role;
@@ -210,18 +212,18 @@ public type Permissions record {|
     PermissionDetails[] permissionDetails?;
     boolean deleted;
 
-|};
+};
 
-public type TeamDrivePermissionDetails record {|
+public type TeamDrivePermissionDetails record {
     string teamDrivePermissionType;
     string role;
     string inheritedFrom;
     boolean inherited;
-|}
+};
 
-public type PermissionDetails record {|
+public type PermissionDetails record {
     string permissionType;
     string role;
     string inheritedFrom;
     boolean inherited;
-|}
+};
