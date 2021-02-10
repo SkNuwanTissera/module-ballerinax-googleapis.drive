@@ -28,7 +28,9 @@ function getFileById(http:Client httpClient, string fileId, GetFileOptional? opt
 }
 
 function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error{
-    string path = DRIVE_PATH + FILES;
+
+    string path = prepareUrl([DRIVE_PATH, FILES]);
+    log:print(path.toString());
     json | error resp = sendRequest(httpClient, path);
     File[] files = [];
     if resp is json {
