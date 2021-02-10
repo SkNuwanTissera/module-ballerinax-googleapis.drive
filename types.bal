@@ -51,7 +51,78 @@ public type File record {|
     boolean shared?;
     boolean ownedByMe?;
     Capabilities capabilities?;
+    boolean viewersCanCopyContent?;
+    boolean copyRequiresWriterPermission?;
+    boolean writersCanShare?;
+    Permissions[] permissions?;
+    string[] permissionIds?;
+    boolean hasAugmentedPermissions;
+    string folderColorRgb;
+    string originalFilename;
+    string fullFileExtension;
+    string fileExtension;
+    string md5Checksum;
+    int size?; 
+    int quotaBytesUsed?;
+    string headRevisionId?;
+    ContentHints contentHints?;
+    ImageMediaMetadata imageMediaMetadata?;
+    VideoMediaMetadata videoMediaMetadata?;
+    boolean isAppAuthorized?;
+    string exportLinks?;
+    ShortcutDetails shortcutDetails?;
 
+|};
+
+public type ShortcutDetails record {|
+    string targetId;
+    string targetMimeType;
+|};
+
+public type VideoMediaMetadata record {|
+    int width;
+    int height;
+    float durationMillis;
+|};
+
+public type ImageMediaMetadata record {|
+    int width;
+    int height;
+    int rotation;
+    Location location;
+    string time;
+    string cameraMake;
+    string cameraModel;
+    int exposureTime;
+    int aperture;
+    boolean flashUsed;
+    int focalLength;
+    int isoSpeed;
+    string meteringMode;
+    string sensor;
+    string exposureMode;
+    string colorSpace;
+    string whiteBalance;
+    int exposureBias;
+    int maxApertureValue;
+    int subjectDistance;
+    string lens;
+|};
+
+public type Location record {|
+    int latitude; //double in API spec
+    int longitude; //double in API spec
+    int altitude; //double in API spec
+|};
+
+public type ContentHints record {|
+    Thumbnail thumbnail;
+    string indexableText;
+|};
+
+public type Thumbnail record {|
+    byte image;
+    string mimeType;
 |};
 
 public type FilesResponse record {|
@@ -113,3 +184,35 @@ public type Capabilities record {|
     boolean canTrashChildren;
     boolean canUntrash;
 |};
+
+public type Permissions record {|
+    string kind;
+    string id;
+    string type;
+    string emailAddress;
+    string domain;
+    string role;
+    string view;
+    boolean allowFileDiscovery;
+    string displayName;
+    string photoLink;
+    string expirationTime;
+    TeamDrivePermissionDetails[] teamDrivePermissionDetails?;
+    PermissionDetails[] permissionDetails?;
+    boolean deleted;
+
+|};
+
+public type TeamDrivePermissionDetails record {|
+    string teamDrivePermissionType;
+    string role;
+    string inheritedFrom;
+    boolean inherited;
+|}
+
+public type PermissionDetails record {|
+    string permissionType;
+    string role;
+    string inheritedFrom;
+    boolean inherited;
+|}
