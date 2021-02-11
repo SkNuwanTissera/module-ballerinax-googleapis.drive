@@ -27,8 +27,8 @@ public type File record {
     User trashingUser?;
     string trashedTime?;
     string[] parents?;
-    string properties?;
-    string appProperties?;
+    StringKeyValuePairs properties?;
+    StringKeyValuePairs appProperties?;
     string[] spaces?;
     int 'version?;
     string webContentLink?;
@@ -56,12 +56,12 @@ public type File record {
     boolean writersCanShare?;
     Permissions[] permissions?;
     string[] permissionIds?;
-    boolean hasAugmentedPermissions;
-    string folderColorRgb;
-    string originalFilename;
-    string fullFileExtension;
-    string fileExtension;
-    string md5Checksum;
+    boolean hasAugmentedPermissions?;
+    string folderColorRgb?;
+    string originalFilename?;
+    string fullFileExtension?;
+    string fileExtension?;
+    string md5Checksum?;
     int size?; 
     int quotaBytesUsed?;
     string headRevisionId?;
@@ -69,11 +69,15 @@ public type File record {
     ImageMediaMetadata imageMediaMetadata?;
     VideoMediaMetadata videoMediaMetadata?;
     boolean isAppAuthorized?;
-    string exportLinks?;
+    StringKeyValuePairs exportLinks?;
     ShortcutDetails shortcutDetails?;
     ContentRestrictions contentRestrictions?;
 
 };
+
+public type StringKeyValuePairs record {|
+    string...;
+|};
 
 public type ContentRestrictions record {
     boolean readOnly?;
