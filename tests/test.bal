@@ -29,10 +29,19 @@ function testdriveGetAbout() {
 
 @test:Config {}
 function testgetFileById() {
-    File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
+    // File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
     // if (res1 is File){
     //     log:print("File Kind :: "+ res1.kind + " Name :: "+ res1.name);
     // }
+}
+
+@test:Config {}
+function testgetFileByPath() {
+
+    File | error res1 = driveClient->getFileByPath("https://drive.google.com/file/d/1ZiiFo9G4EHwlD2YHSGD4iOGvG73phlOX/view?usp=sharing");
+    if (res1 is File){
+        log:print("@@@@@@@@@@@@@@@@@File Kind :: "+ res1.kind + " Name :: "+ res1.name);
+    }
 }
 
 GetFileOptional optional = {
@@ -44,10 +53,10 @@ GetFileOptional optional = {
 
 @test:Config {}
 function testgetFileByIdwithOptionalParameters() {
-    File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
-    if (res1 is File){
-        log:print("File Kind :: "+ res1.kind + " Name :: "+ res1.name);
-    }
+    // File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
+    // if (res1 is File){
+    //     log:print("File Kind :: "+ res1.kind + " Name :: "+ res1.name);
+    // }
 }
 
 @test:Config {}
@@ -59,3 +68,5 @@ function testgetFiles() {
     //     });
     // }
 }
+
+
