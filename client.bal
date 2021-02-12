@@ -28,7 +28,6 @@ public client class Client {
         return getFileById(self.httpClient , fileId, optional);
     }
 
-    //partially implemented
     remote function getFileByPath(string filePath, GetFileOptional? optional = ()) returns @tainted File|error {
         return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
     }
@@ -37,7 +36,9 @@ public client class Client {
         return getAllFiles(self.httpClient);
     }
 
-    //new function : Create/upload files
+    remote function createFile(json requestBody) {
+        return createNewFile(self.httpClient, requestBody);
+    }
 }
 
 public type DriveConfiguration record {

@@ -23,6 +23,31 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
     }
 }
 
+function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
+returns @tainted json | error {
+    http:Request httpRequest = new;
+    httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.folder");
+    if (jsonPayload != ()) {
+        httpRequest.setJsonPayload(<@untainted>jsonPayload);
+    }
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+    if (httpResponse is http:Response) {
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
+}
+
 isolated function getDriveError(json|error errorResponse) returns error {
   if (errorResponse is json) {
         return error(errorResponse.toString());
@@ -122,7 +147,7 @@ returns string {
 # 
 # + url - url copied from google drive.
 # + return - ID as string or Error
-isolated function getIdFromUrl(string url) returns string | error {
+function getIdFromUrl(string url) returns string | error {
 
     string id = EMPTY_STRING;
     int startIndex = 0;

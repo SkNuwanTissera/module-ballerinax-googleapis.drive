@@ -50,4 +50,12 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
+function createNewFile(http:Client httpClient, json requestBody) {
+    
+    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
+    log:print("CREATE **********" +path);
+    json | error resp = sendRequestWithPayload(httpClient, path, requestBody);
+    log:print(resp.toString());
+}
+
 

@@ -59,6 +59,11 @@ const int INT_VALUE_83 = 83;
 const string DRIVE_URL = "https://www.googleapis.com";
 const string DRIVE_PATH = "/drive/v3";
 const string ABOUT = "/about";
+const string UPLOAD = "/upload";
+const string UPLOAD_TYPE = "uploadType";
+const string TYPE_MEDIA = "media";
+const string TYPE_MULTIPART = "multipart";
+const string TYPE_RESUMABLE = "resumable";
 const string FILES = "/files";
 const string Q = "q";
 const string MIME_TYPE = "mimeType";
@@ -75,3 +80,6 @@ const string FIELDS = "fields";
 const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
 const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
 
+//Headers
+const string CONTENT_TYPE = "Content-Type";
+const string CONTENT_LENGTH = "Content-Length";
