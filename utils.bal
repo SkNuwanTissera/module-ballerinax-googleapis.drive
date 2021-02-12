@@ -2,7 +2,7 @@ import ballerina/http;
 import ballerina/encoding;
 import ballerina/log;
 import ballerina/stringutils;
-import ballerina/io;
+// import ballerina/io;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->get(<@untainted>path);
@@ -118,26 +118,20 @@ returns string {
 
 function getIdFromUrl(string url) returns string | error {
 
-    string id = "";
-    boolean isFile = stringutils:contains(url,"/file/");
-    boolean isFolder = stringutils:contains(url,"/folders/");
-    boolean isWorkspaceDocument = stringutils:contains(url,"/edit");
+    string id = EMPTY_STRING;
+    int startIndex = 0;
+    boolean isFile = stringutils:contains(url,_FILE);
+    boolean isFolder = stringutils:contains(url,_FOLDER);
+    boolean isWorkspaceDocument = stringutils:contains(url,_WORKSPACE_DOC);
 
-    io:println("isFile : "  ,isFile);
-     io:println("isFolder :" ,isFolder);
-    io:println("isWorkspaceDocument : "  ,isWorkspaceDocument);
-
-    if (isFile){ //ID length :33
-        int x = stringutils:lastIndexOf(url,"/file/");
-        id = url.substring(x+8, x+41);       
-    }
-    else if (isFolder){ //ID length :33
-        int x = stringutils:lastIndexOf(url,"/folders/");
-        id = url.substring(x+8,x+42);
+    if (isFile){ 
+        startIndex = stringutils:lastIndexOf(url,_FILE);
+        id = url.substring(startIndex+INT_VALUE_8, startIndex+INT_VALUE_41);       
+    } else if (isFolder){
+        startIndex = stringutils:lastIndexOf(url,_FOLDER);
+        id = url.substring(startIndex+INT_VALUE_8,startIndex+INT_VALUE_42);
     } else if (isWorkspaceDocument) {
-        id = url.substring(39,83);
-    }
-     io:println("@@@@@@@@@@@ID#################" ,id);
-
+        id = url.substring(INT_VALUE_39,INT_VALUE_83);
+    } 
     return id;
 }

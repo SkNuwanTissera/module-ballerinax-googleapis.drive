@@ -44,10 +44,16 @@ const string EXCLAMATION_MARK = "!";
 const string EQUAL = "=";
 const string _ALL = "*";
 
-// URL constants
-const string URL_START = "https://drive.google.com/drive/";
-const string URL_END = "/edit";
-const int ID_START_INDEX = 39;
+// Regex constants
+const string _FILE = "/file/";
+const string _FOLDER = "/folders/";
+const string _WORKSPACE_DOC = "/edit";
+const int INT_VALUE_8 = 8;
+const int INT_VALUE_39 = 39;
+const int INT_VALUE_41 = 41;
+const int INT_VALUE_42 = 42;
+const int INT_VALUE_83 = 83;
+
 
 //Drive
 const string DRIVE_URL = "https://www.googleapis.com";
@@ -68,3 +74,4 @@ const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
 const string FIELDS = "fields";
 const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
 const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
+
