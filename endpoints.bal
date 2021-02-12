@@ -10,9 +10,10 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted j
 }
 
 function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
+    log:print("!!!!!!!!1111333");
 
     string path = prepareUrlWithEventOptional(fileId, optional);
-    log:print(path.toString());
+    log:print("!!!!!!!!"+path);
     json | error resp = sendRequest(httpClient, path);
     log:print(resp.toString());
     if resp is json {
@@ -50,4 +51,5 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
         return resp;
     }
 }
+
 

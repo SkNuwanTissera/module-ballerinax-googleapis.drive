@@ -38,7 +38,7 @@ function testgetFileById() {
 @test:Config {}
 function testgetFileByPath() {
 
-    File | error res1 = driveClient->getFileByPath("https://drive.google.com/file/d/1ZiiFo9G4EHwlD2YHSGD4iOGvG73phlOX/view?usp=sharing");
+    File | error res1 = driveClient->getFileByPath("https://drive.google.com/drive/u/0/folders/1U9xlZs0JbdxFgIDPRLJY1VmBQHzbrcju");
     if (res1 is File){
         log:print("@@@@@@@@@@@@@@@@@File Kind :: "+ res1.kind + " Name :: "+ res1.name);
     }

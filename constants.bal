@@ -45,7 +45,7 @@ const string EQUAL = "=";
 const string _ALL = "*";
 
 // URL constants
-const string URL_START = "https://docs.google.com/spreadsheets/d/";
+const string URL_START = "https://drive.google.com/drive/";
 const string URL_END = "/edit";
 const int ID_START_INDEX = 39;
 

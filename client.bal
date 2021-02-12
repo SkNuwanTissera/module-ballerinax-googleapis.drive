@@ -2,6 +2,7 @@
 
 import ballerina/http;
 import ballerina/oauth2;
+import ballerina/log;
 
 public client class Client {
 
@@ -26,6 +27,17 @@ public client class Client {
 
     remote function getFileById(string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
         return getFileById(self.httpClient , fileId, optional);
+    }
+
+    remote function getFileByPath(string filePath, GetFileOptional? optional = ()) returns @tainted File|error {
+        var x = getIdFromUrl(filePath);
+        log:print("Test"+filePath);
+        if (x is string) {
+            log:print("Test"+x.toString());
+        }else {
+            log:print("Test"+x.toString());
+        }
+        return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
     }
 
     remote function getFiles() returns @tainted stream<File>|error {
