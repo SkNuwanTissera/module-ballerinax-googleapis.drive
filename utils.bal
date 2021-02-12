@@ -116,20 +116,28 @@ returns string {
     return url;
 }
 
-//partially implemented
-//issue with checking contains in string - needs a solution.
-function getIdFromUrl(string urll) returns string | error {
+function getIdFromUrl(string url) returns string | error {
 
-    string url = "https://drive.google.com/file/d/1j8sQMqEKx7yWCmtYtNK5iYCOE8A3joxj/view?usp=sharing";
+    string id = "";
+    boolean isFile = stringutils:contains(url,"/file/");
+    boolean isFolder = stringutils:contains(url,"/folders/");
+    boolean isWorkspaceDocument = stringutils:contains(url,"/edit");
 
-    if (!url.startsWith(URL_START)) {
-        return error("Invalid url: " + url);
-    } else {
-        boolean isFile = stringutils:contains(url,"/file/");
-        boolean isFolder = stringutils:contains(url,"/folder/");
-        boolean isWorkspaceDocument = stringutils:contains(url,"/spreadsheets/");
-        io:println("isFile"  ,isFile);
-        io:println("isFolder" ,isFolder);
-        io:println("isWorkspaceDocument"  ,isWorkspaceDocument);
+    io:println("isFile : "  ,isFile);
+     io:println("isFolder :" ,isFolder);
+    io:println("isWorkspaceDocument : "  ,isWorkspaceDocument);
+
+    if (isFile){ //ID length :33
+        int x = stringutils:lastIndexOf(url,"/file/");
+        id = url.substring(x+8, x+41);       
     }
+    else if (isFolder){ //ID length :33
+        int x = stringutils:lastIndexOf(url,"/folders/");
+        id = url.substring(x+8,x+42);
+    } else if (isWorkspaceDocument) {
+        id = url.substring(39,83);
+    }
+     io:println("@@@@@@@@@@@ID#################" ,id);
+
+    return id;
 }
