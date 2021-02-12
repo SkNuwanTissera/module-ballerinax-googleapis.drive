@@ -1,7 +1,7 @@
 import ballerina/config;
 import ballerina/test;
-import ballerina/log;
-import ballerina/io;
+// import ballerina/log;
+// import ballerina/io;
 
 DriveConfiguration config = {
     oauth2Config: {
@@ -69,17 +69,9 @@ function testgetFiles() {
     // }
 }
 
-// @test:Config {}
-// function testCode(){
-//     string url = "https://drive.google.com/file/d/1j8sQMqEKx7yWCmtYtNK5iYCOE8A3joxj/view?usp=sharing";
-//     int? index = url.indexOf("/d/");
-//     // boolean isFile = url.includes("file");
-//     if (index is int) {
-//         log:print("IndexOf:  "+index.toString());
-//         // log:print("Type File:  "+isFile.toString());
-//     }
-//     string s3 = url.substring(0, 4);
-//     io:println("SubString: ", s3);
-//     io:println(stringutils:contains("Hello World","He"));
-// }
+@test:Config {}
+function testCode(){
+    
+
+}
 

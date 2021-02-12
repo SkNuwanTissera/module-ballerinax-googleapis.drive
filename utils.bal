@@ -2,6 +2,7 @@ import ballerina/http;
 import ballerina/encoding;
 import ballerina/log;
 import ballerina/stringutils;
+import ballerina/io;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->get(<@untainted>path);
@@ -117,10 +118,18 @@ returns string {
 
 //partially implemented
 //issue with checking contains in string - needs a solution.
-isolated function getIdFromUrl(string url) returns string | error {
+function getIdFromUrl(string urll) returns string | error {
+
+    string url = "https://drive.google.com/file/d/1j8sQMqEKx7yWCmtYtNK5iYCOE8A3joxj/view?usp=sharing";
+
     if (!url.startsWith(URL_START)) {
         return error("Invalid url: " + url);
     } else {
         boolean isFile = stringutils:contains(url,"/file/");
+        boolean isFolder = stringutils:contains(url,"/folder/");
+        boolean isWorkspaceDocument = stringutils:contains(url,"/spreadsheets/");
+        io:println("isFile"  ,isFile);
+        io:println("isFolder" ,isFolder);
+        io:println("isWorkspaceDocument"  ,isWorkspaceDocument);
     }
 }

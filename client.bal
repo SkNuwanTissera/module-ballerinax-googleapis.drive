@@ -2,7 +2,6 @@
 
 import ballerina/http;
 import ballerina/oauth2;
-import ballerina/log;
 
 public client class Client {
 
@@ -38,10 +37,7 @@ public client class Client {
         return getAllFiles(self.httpClient);
     }
 
-    remote function getFiles() returns @tainted stream<File>|error {
-        return getAllFiles(self.httpClient);
-    }
-
+    //new function : Create/upload files
 }
 
 public type DriveConfiguration record {
