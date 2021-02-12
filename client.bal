@@ -29,20 +29,19 @@ public client class Client {
         return getFileById(self.httpClient , fileId, optional);
     }
 
+    //partially implemented
     remote function getFileByPath(string filePath, GetFileOptional? optional = ()) returns @tainted File|error {
-        var x = getIdFromUrl(filePath);
-        log:print("Test"+filePath);
-        if (x is string) {
-            log:print("Test"+x.toString());
-        }else {
-            log:print("Test"+x.toString());
-        }
         return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
     }
 
     remote function getFiles() returns @tainted stream<File>|error {
         return getAllFiles(self.httpClient);
     }
+
+    remote function getFiles() returns @tainted stream<File>|error {
+        return getAllFiles(self.httpClient);
+    }
+
 }
 
 public type DriveConfiguration record {

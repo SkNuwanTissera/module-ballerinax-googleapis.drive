@@ -1,6 +1,7 @@
 import ballerina/http;
 import ballerina/encoding;
 import ballerina/log;
+import ballerina/stringutils;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->get(<@untainted>path);
@@ -114,15 +115,12 @@ returns string {
     return url;
 }
 
+//partially implemented
+//issue with checking contains in string - needs a solution.
 isolated function getIdFromUrl(string url) returns string | error {
     if (!url.startsWith(URL_START)) {
         return error("Invalid url: " + url);
     } else {
-        int? endIndex = url.indexOf(URL_END);
-        if (endIndex is ()) {
-            return error("Invalid url: " + url);
-        } else {
-            return url.substring(ID_START_INDEX, endIndex);
-        }
+        boolean isFile = stringutils:contains(url,"/file/");
     }
 }
