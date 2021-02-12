@@ -116,7 +116,13 @@ returns string {
     return url;
 }
 
-function getIdFromUrl(string url) returns string | error {
+# Get ID from URL
+# URL can for a file, folder, blob(Text, images, videos, and PDFs), 
+# or workspace document (Spreadsheets, Presentation, Document, etc..)
+# 
+# + url - url copied from google drive.
+# + return - ID as string or Error
+isolated function getIdFromUrl(string url) returns string | error {
 
     string id = EMPTY_STRING;
     int startIndex = 0;
