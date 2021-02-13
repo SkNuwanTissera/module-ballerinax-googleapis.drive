@@ -25,12 +25,13 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 
 function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->delete(<@untainted>path);
+    log:print("#####"+path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("$$$$$",jsonResponse.toString());
+            log:print("$$$$$"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }

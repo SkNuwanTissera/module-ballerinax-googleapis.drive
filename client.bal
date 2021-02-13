@@ -43,6 +43,10 @@ public client class Client {
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
+
+    remote function deleteFileByPath(string filePath, DeleteFileOptional? optional = ()) returns @tainted json|error{
+        return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
+    }
 } 
 
 public type DriveConfiguration record {
