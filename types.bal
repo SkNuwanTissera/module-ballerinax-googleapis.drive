@@ -156,6 +156,16 @@ public type DeleteFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+public type CopyFileOptional record {
+    string? fields = ();
+    boolean? ignoreDefaultVisibility = ();
+    string? includePermissionsForView = ();
+    boolean? keepRevisionForever = ();
+    string? ocrLanguage = ();
+    boolean? supportsAllDrives = ();
+
+}
+
 public type User record {
     string kind;
     string displayName;

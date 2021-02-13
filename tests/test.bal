@@ -108,12 +108,12 @@ DeleteFileOptional delete_optional = {
 
 // }
 
-@test:Config {}
-function testDeleteFileByPath(){
-    string path1 = "https://drive.google.com/file/d/1abk00CaVfzJAmIywmVawWWXqMIm43YRe/view?usp=sharing";
-    json | error res = driveClient->deleteFileByPath(path1, delete_optional);
-    if (res is json){
-        log:print(res.toString());
-    }
+// @test:Config {}
+// function testDeleteFileByPath(){
+//     string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
+//     json | error res = driveClient->deleteFileByPath(path1, delete_optional);
+//     if (res is json){
+//         log:print(res.toString());
+//     }
 
-}
+// }

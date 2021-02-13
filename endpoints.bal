@@ -50,11 +50,11 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
-function createNewFile(http:Client httpClient, json requestBody) returns @tainted File|error{
+// TO-DO : Needs Upload type support, Map input json body to file (ClonewithType)
+function createNewFile(http:Client httpClient, json fileResource) returns @tainted File|error{
     
     string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MULTIPART]);
-    log:print("CREATE **********" +path);
-    json | error resp = sendRequestWithPayload(httpClient, path, requestBody);
+    json | error resp = sendRequestWithPayload(httpClient, path, fileResource);
     log:print(resp.toString());
     if resp is json {
         File|error file = resp.cloneWithType(File);

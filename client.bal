@@ -47,6 +47,10 @@ public client class Client {
     remote function deleteFileByPath(string filePath, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
     }
+
+    remote function copyFile(string fileId, CopyFileOptional? optional = ()) returns @tainted File|error{
+        return copyFile(self.httpClient, fileId, optional);
+    }
 } 
 
 public type DriveConfiguration record {
