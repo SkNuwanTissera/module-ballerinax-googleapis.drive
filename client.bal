@@ -36,10 +36,14 @@ public client class Client {
         return getAllFiles(self.httpClient);
     }
 
-    remote function createFile(json requestBody) {
+    remote function createFile(json requestBody) returns @tainted File|error{
         return createNewFile(self.httpClient, requestBody);
     }
-}
+
+    remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
+        return deleteFileById(self.httpClient, fileId, optional);
+    }
+} 
 
 public type DriveConfiguration record {
     oauth2:DirectTokenConfig oauth2Config;

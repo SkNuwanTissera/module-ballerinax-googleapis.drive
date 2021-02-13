@@ -152,6 +152,10 @@ public type GetFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+public type DeleteFileOptional record {
+    boolean? supportsAllDrives = ();
+};
+
 public type User record {
     string kind;
     string displayName;

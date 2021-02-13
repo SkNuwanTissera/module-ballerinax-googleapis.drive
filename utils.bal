@@ -23,10 +23,30 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
     }
 }
 
+function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
+    var httpResponse = httpClient->delete(<@untainted>path);
+    if (httpResponse is http:Response) {
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            log:print("$$$$$",jsonResponse.toString());
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
+}
+
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
     http:Request httpRequest = new;
-    httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.folder");
+    httpRequest.setHeader(CONTENT_TYPE,"multipart/related");
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
@@ -68,7 +88,7 @@ isolated function validateStatusCode(json response, int statusCode) returns erro
 # + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithEventOptional(string fileId , GetFileOptional? optional = ()) returns string {
+function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
@@ -165,4 +185,25 @@ function getIdFromUrl(string url) returns string | error {
         id = url.substring(INT_VALUE_39,INT_VALUE_83);
     } 
     return id;
+}
+
+# Prepare URL with optional parameters on Delete Request
+# 
+# + fileId - File id
+# + optional - Delete Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
+    if (optional is DeleteFileOptional) {
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
 }

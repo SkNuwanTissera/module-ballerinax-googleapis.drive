@@ -11,7 +11,7 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted j
 
 function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
 
-    string path = prepareUrlWithEventOptional(fileId, optional);
+    string path = prepareUrlWithFileOptional(fileId, optional);
     json | error resp = sendRequest(httpClient, path);
     log:print(resp.toString());
     if resp is json {
@@ -23,7 +23,7 @@ function getFileById(http:Client httpClient, string fileId, GetFileOptional? opt
         }
     } else {
         return resp;
-    }
+    } 
 }
 
 function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error{
@@ -50,12 +50,30 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
-function createNewFile(http:Client httpClient, json requestBody) {
+function createNewFile(http:Client httpClient, json requestBody) returns @tainted File|error{
     
-    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
+    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MULTIPART]);
     log:print("CREATE **********" +path);
     json | error resp = sendRequestWithPayload(httpClient, path, requestBody);
     log:print(resp.toString());
+    if resp is json {
+        File|error file = resp.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return resp;
+    } 
+}
+
+function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
+
+    string path = prepareUrlWithDeleteOptional(fileId, optional);
+    json | error resp = deleteRequest(httpClient, path);
+    return resp;
+
 }
 
 

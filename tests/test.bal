@@ -84,10 +84,26 @@ json requestBody = {
     description : "testballerinaconnecter"
 };
 
-@test:Config {}
-function testCreateNewFile(){
+// @test:Config {}
+// function testCreateNewFile(){
 
-    _ = driveClient->createFile(requestBody);
+//     File | error res = driveClient->createFile({"name": "cat.jpg"});
+//     if (res is File){
+//         log:print("File Kind :: "+ res.kind + " Name :: "+ res.name);
+//     }
+// }
+
+DeleteFileOptional delete_optional = {
+
+    supportsAllDrives : false
+};
+
+@test:Config {}
+function testDeleteFile(){
+
+    json | error res = driveClient->deleteFileById("1eGnZLdQjuzoKDlQNMKXrhi0Dp3hQ0hMMCT5lcGkUlPI", delete_optional);
+    if (res is json){
+        log:print(res.toString());
+    }
 
 }
-
