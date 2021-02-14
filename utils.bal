@@ -220,20 +220,20 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId, COPY]);
     if (optional is CopyFileOptional) {
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        if (optional.fields is string) {
+            optionalMap[FIELDS] = optional.fields.toString();
         }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        if (optional.ignoreDefaultVisibility is boolean) {
+            optionalMap[IGNORE_DEFAULT_VISIBILITY] = optional.ignoreDefaultVisibility.toString();
         }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
         }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        if (optional.keepRevisionForever is boolean) {
+            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
         }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        if (optional.ocrLanguage is string) {
+            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
         }
         if (optional.supportsAllDrives is boolean) {
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
