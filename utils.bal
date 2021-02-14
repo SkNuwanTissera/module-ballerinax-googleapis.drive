@@ -25,7 +25,7 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 
 function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->delete(<@untainted>path);
-    log:print("#####"+path);
+    log:print("#######%$#%#$"+path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
@@ -60,7 +60,7 @@ returns @tainted json | error {
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
-            print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
+            log:print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
             return jsonResponse;
         } else {
             return getDriveError(jsonResponse);

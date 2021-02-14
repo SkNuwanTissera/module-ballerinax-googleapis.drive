@@ -79,10 +79,11 @@ function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptiona
 function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
 
     json payload = check fileResource.cloneWithType(json);
-    string path = prepareUrlWithCopyOptional([fileId, optional);
-    json|error resp = sendRequestWithPayload(httpClient, path, payload);
+    string path = prepareUrlWithCopyOptional(fileId, optional);
     log:print("##########" +path.toString());
+    json|error resp = sendRequestWithPayload(httpClient, path, payload);
     if resp is json {
+        log:print("##########" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
