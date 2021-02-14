@@ -82,14 +82,9 @@ const string FIELDS = "fields";
 const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
 const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
 // File - COPY
-const string FIELDS = "fields";
-const string IGNORE_DEFAULT_VISIBILITY = "ignoreDefaultVisibility";
-const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
+const string IGNORE_DEFAULT_VISIBILITY = "ignoreDefaultVisibility";;
 const string KEEP_REVISION_FOREVER = "keepRevisionForever";
 const string OCR_LANGUAGE = "ocrLanguage";
-const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
-
-
 
 //Headers
 const string CONTENT_TYPE = "Content-Type";

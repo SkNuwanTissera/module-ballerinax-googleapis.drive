@@ -60,6 +60,7 @@ returns @tainted json | error {
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
+            print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
             return jsonResponse;
         } else {
             return getDriveError(jsonResponse);
