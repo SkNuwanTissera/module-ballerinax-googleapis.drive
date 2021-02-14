@@ -208,3 +208,42 @@ function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? option
     }
     return path;
 }
+
+
+# Prepare URL with optional parameters on Copy Request
+# 
+# + fileId - File id
+# + optional - Copy Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES, fileId, COPY]);
+    if (optional is CopyFileOptional) {
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
+
+

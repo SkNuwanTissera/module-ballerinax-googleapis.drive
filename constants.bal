@@ -76,10 +76,20 @@ const string PAGE_TOKEN = "pageToken";
 const string ERR_FILE_RESPONSE =  "Error occurred while constructing DriveResponse record.";
 
 // Optional Query Parameters
+// File - GET
 const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
 const string FIELDS = "fields";
 const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
 const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
+// File - COPY
+const string FIELDS = "fields";
+const string IGNORE_DEFAULT_VISIBILITY = "ignoreDefaultVisibility";
+const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
+const string KEEP_REVISION_FOREVER = "keepRevisionForever";
+const string OCR_LANGUAGE = "ocrLanguage";
+const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
+
+
 
 //Headers
 const string CONTENT_TYPE = "Content-Type";
