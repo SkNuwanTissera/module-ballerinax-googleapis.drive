@@ -36,7 +36,7 @@ public client class Client {
         return getAllFiles(self.httpClient);
     }
 
-    remote function createFile(json requestBody) returns @tainted File|error{
+    remote function createFile(json? requestBody = ()) returns @tainted File|error{
         return createNewFile(self.httpClient, requestBody);
     }
 
@@ -48,8 +48,8 @@ public client class Client {
         return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
     }
 
-    remote function copyFile(string fileId, CopyFileOptional? optional = ()) returns @tainted File|error{
-        return copyFile(self.httpClient, fileId, optional);
+    remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+        return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 } 
 

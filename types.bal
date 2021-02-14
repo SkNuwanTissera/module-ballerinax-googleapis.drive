@@ -163,8 +163,7 @@ public type CopyFileOptional record {
     boolean? keepRevisionForever = ();
     string? ocrLanguage = ();
     boolean? supportsAllDrives = ();
-
-}
+};
 
 public type User record {
     string kind;

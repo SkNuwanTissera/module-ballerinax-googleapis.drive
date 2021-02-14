@@ -65,6 +65,7 @@ const string TYPE_MEDIA = "media";
 const string TYPE_MULTIPART = "multipart";
 const string TYPE_RESUMABLE = "resumable";
 const string FILES = "/files";
+const string COPY = "/copy";
 const string Q = "q";
 const string MIME_TYPE = "mimeType";
 const string APPLICATION = "'application/vnd.google-apps.spreadsheet'";
