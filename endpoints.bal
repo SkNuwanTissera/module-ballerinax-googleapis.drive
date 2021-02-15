@@ -13,7 +13,7 @@ function getFileById(http:Client httpClient, string fileId, GetFileOptional? opt
 
     string path = prepareUrlWithFileOptional(fileId, optional);
     json | error resp = sendRequest(httpClient, path);
-    log:print(resp.toString());
+    log:print(<string> resp);
     if resp is json {
         File|error file = resp.cloneWithType(File);
         if (file is File) {
@@ -97,10 +97,10 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
 function updateFile(http:Client httpClient, string fileId, UpdateFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
 
     json payload = check fileResource.cloneWithType(json);
-    string path = prepareUrlWithCopyOptional(fileId, optional);
+    string path = prepareUrlWithUpdateOptional(fileId, optional);
     log:print("##########" +path.toString());
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
-    if resp is json {
+    if resp is json { //use a separate function for this
         log:print("##########" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
