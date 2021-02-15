@@ -166,7 +166,7 @@ public type CopyFileOptional record {
 };
 
 public type UpdateFileOptional record {
-   string uploadType; 
+   string uploadType; // use enum/finitetype UpdateType uploadType;
    string? addParents = (); 
    string? includePermissionsForView = (); 
    string? keepRevisionForever = (); 

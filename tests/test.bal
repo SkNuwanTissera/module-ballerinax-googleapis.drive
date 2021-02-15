@@ -60,16 +60,6 @@ function testgetFileByIdwithOptionalParameters() {
 }
 
 @test:Config {}
-function testgetFiles() {
-    // stream<File>|error res = driveClient->getFiles();
-    // if (res is stream<File>){
-    //     error? e = res.forEach(function (File file1) {
-    //         log:print("File Kind :: "+ file1.kind + " Name :: "+ file1.name);
-    //     });
-    // }
-}
-
-@test:Config {}
 function testGetIDbyPath(){
     string url = "https://drive.google.com/file/d/1j8sQMqEKx7yWCmtYtNK5iYCOE8A3joxj/view?usp=sharing";
     // string url = "https://drive.google.com/drive/folders/1U9xlZs0JbdxFgIDPRLJY1VmBQHzbrcju?usp=sharingaring";
@@ -126,8 +116,6 @@ DeleteFileOptional delete_optional = {
 
 // @test:Config {}
 // function testCopyFile(){
-//     //https://docs.google.com/document/d/14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4/edit?usp=sharing
-//     //https://drive.google.com/file/d/1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3/view?usp=sharing
 //     File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
 //     // File|error res = driveClient->copyFile("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
 //     if (res is File){
@@ -136,7 +124,27 @@ DeleteFileOptional delete_optional = {
 //             log:print(file.toString());
 //         }
 //     }
-    
+// }
 
 
+// @test:Config {}
+// function testgetFiles() {
+//     stream<File>|error res = driveClient->getFiles();
+//     if (res is stream<File>){
+//         error? e = res.forEach(function (File file1) {
+//             log:print(convertFiletoString(file1));
+//         });
+//     }
+// }
+
+@test:Config {}
+function testUpdateFiles() {
+    // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
+    File|error res = driveClient->updateFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie");
+        if (res is File){
+            json|error file = res.cloneWithType(json);
+            if (file is json) {
+                log:print(file.toString());
+            }
+        }   
 }
