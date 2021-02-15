@@ -16,10 +16,10 @@ public type DriveInfo record {
 };
 
 public type File record {
-    string kind?;
-    string id?; // Id is optional in File Copy
-    string name?;
-    string mimeType?;
+    string kind;
+    string id; 
+    string name;
+    string mimeType;
     string description?;
     boolean starred?;
     boolean trashed?;
@@ -243,4 +243,64 @@ public type PermissionDetails record {
     string role;
     string inheritedFrom;
     boolean inherited;
+};
+
+public type FileCopy record {
+    string kind;
+    string id?; 
+    string name?;
+    string mimeType;
+    string description?;
+    boolean starred?;
+    boolean trashed?;
+    boolean explicitlyTrashed?;
+    User trashingUser?;
+    string trashedTime?;
+    string[] parents?;
+    StringKeyValuePairs properties?;
+    StringKeyValuePairs appProperties?;
+    string[] spaces?;
+    int 'version?;
+    string webContentLink?;
+    string webViewLink?;
+    string iconLink?;
+    boolean hasThumbnail?;
+    string thumbnailLink?;
+    int thumbnailVersion?;
+    string viewedByMe?;
+    string viewedByMeTime?;
+    string createdTime?;
+    string modifiedTime?;
+    string modifiedByMeTime?;
+    string sharedWithMeTime?;
+    User sharingUser?;
+    User[] owners?;
+    string teamDriveId?;
+    string driveId?;
+    User lastModifyingUser?;
+    boolean shared?;
+    boolean ownedByMe?;
+    Capabilities capabilities?;
+    boolean viewersCanCopyContent?;
+    boolean copyRequiresWriterPermission?;
+    boolean writersCanShare?;
+    Permissions[] permissions?;
+    string[] permissionIds?;
+    boolean hasAugmentedPermissions?;
+    string folderColorRgb?;
+    string originalFilename?;
+    string fullFileExtension?;
+    string fileExtension?;
+    string md5Checksum?;
+    int size?; 
+    int quotaBytesUsed?;
+    string headRevisionId?;
+    ContentHints contentHints?;
+    ImageMediaMetadata imageMediaMetadata?;
+    VideoMediaMetadata videoMediaMetadata?;
+    boolean isAppAuthorized?;
+    StringKeyValuePairs exportLinks?;
+    ShortcutDetails shortcutDetails?;
+    ContentRestrictions contentRestrictions?;
+
 };

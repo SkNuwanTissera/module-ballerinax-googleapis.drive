@@ -83,7 +83,7 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
     log:print("##########" +path.toString());
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
     if resp is json {
-        log:print("##########" +resp.toString());
+        og:print("##########" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
