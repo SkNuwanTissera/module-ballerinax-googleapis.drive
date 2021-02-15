@@ -51,6 +51,10 @@ public client class Client {
     remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
+
+    remote function updateFile(string fileId, UpdateFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+        return updateFile(self.httpClient, fileId, optional, fileResource);
+    }
 } 
 
 public type DriveConfiguration record {
