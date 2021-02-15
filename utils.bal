@@ -248,10 +248,10 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
 }
 
 function convertFiletoString(File file) returns string{
-    if (res is File){
-        json|error jsonObject = res.cloneWithType(json);
-        if (jsonObject is json) {
-            return jsonObject.toString();
-        }
-    }
+    string stringObj = EMPTY_STRING;
+    json|error jsonObject = file.cloneWithType(json);
+    if (jsonObject is json) {
+        stringObj = jsonObject.toString();
+    }  
+    return stringObj;
 }
