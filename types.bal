@@ -16,10 +16,10 @@ public type DriveInfo record {
 };
 
 public type File record {
-    string kind;
-    string id;
-    string name;
-    string mimeType;
+    string kind?;
+    string id?; // Id is optional in File Copy
+    string name?;
+    string mimeType?;
     string description?;
     boolean starred?;
     boolean trashed?;
