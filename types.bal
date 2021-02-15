@@ -75,9 +75,9 @@ public type File record {
 
 };
 
-public type StringKeyValuePairs record {
+public type StringKeyValuePairs record {|
     string...;
-};
+|};
 
 public type ContentRestrictions record {
     boolean readOnly?;
