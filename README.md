@@ -1,6 +1,6 @@
 ## Google Drive Connecter
 
-#### Get Link from file or folder
-go to gdrive.
-right click on a folder or file.
-Click get link. Then copy the link.
+#### How to Get a Link for a file in Google drive
+1. Go to gdrive.
+2. Right click on a folder or file.
+3. Click get link. Then copy the link.
