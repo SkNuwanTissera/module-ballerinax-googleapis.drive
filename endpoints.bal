@@ -80,6 +80,24 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithCopyOptional(fileId, optional);
+    json|error resp = sendRequestWithPayload(httpClient, path, payload);
+    if resp is json {
+        File|error file = resp.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return resp;
+    }
+
+}
+
+function updateFile(http:Client httpClient, string fileId, UpdateFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
+
+    json payload = check fileResource.cloneWithType(json);
+    string path = prepareUrlWithCopyOptional(fileId, optional);
     log:print("##########" +path.toString());
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
     if resp is json {
@@ -95,7 +113,5 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
     }
 
 }
-
-
 
 
