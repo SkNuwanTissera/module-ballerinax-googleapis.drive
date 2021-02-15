@@ -120,7 +120,7 @@ DeleteFileOptional delete_optional = {
 
 CopyFileOptional optionals2 = {};
 
-File payload2 = {
+FileCopy payload2 = {
     name : "Sk1235"
 };
 

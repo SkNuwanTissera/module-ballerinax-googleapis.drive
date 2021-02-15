@@ -246,10 +246,10 @@ public type PermissionDetails record {
 };
 
 public type FileCopy record {
-    string kind;
+    string kind?;
     string id?; 
     string name?;
-    string mimeType;
+    string mimeType?;
     string description?;
     boolean starred?;
     boolean trashed?;

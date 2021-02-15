@@ -76,7 +76,7 @@ function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptiona
 
 }
 
-function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
+function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optional = (), FileCopy? fileResource = ()) returns @tainted File|error {
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithCopyOptional(fileId, optional);
