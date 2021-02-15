@@ -120,7 +120,7 @@ DeleteFileOptional delete_optional = {
 
 CopyFileOptional optionals2 = {};
 
-FileCopy payload2 = {
+File payload2 = {
     name : "Sk1235"
 };
 
@@ -131,7 +131,10 @@ function testCopyFile(){
     File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
     // File|error res = driveClient->copyFile("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
     if (res is File){
-        log:print("File Kind :: "+ res.kind + " Name :: "+ res.name);
+        json|error file = res.cloneWithType(json);
+        if (file is json) {
+            log:print(file.toString());
+        }
     }
     
 
