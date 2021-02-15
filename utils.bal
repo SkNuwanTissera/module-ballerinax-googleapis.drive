@@ -247,4 +247,11 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
     return path;
 }
 
-
+function convertFiletoString(File file) returns string{
+    if (res is File){
+        json|error jsonObject = res.cloneWithType(json);
+        if (jsonObject is json) {
+            return jsonObject.toString();
+        }
+    }
+}
