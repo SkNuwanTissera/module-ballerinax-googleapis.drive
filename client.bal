@@ -48,7 +48,7 @@ public client class Client {
         return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
     }
 
-    remote function copyFile(string fileId, CopyFileOptional? optional = (), FileCopy? fileResource = ()) returns @tainted File|error{
+    remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 } 
