@@ -84,37 +84,6 @@ isolated function validateStatusCode(json response, int statusCode) returns erro
     }
 }
 
-
-# Prepare URL with optional parameters.
-# 
-# + fileId - File id
-# + optional - Record that contains optional parameters
-# + return - The prepared URL with encoded query
-function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
-    string[] value = [];
-    map<string> optionalMap = {};
-    string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
-    if (optional is GetFileOptional) {
-        if (optional.acknowledgeAbuse is boolean) {
-            optionalMap[ACKKNOWLEDGE_ABUSE] = optional.acknowledgeAbuse.toString();
-        }
-        if (optional.fields is string) {
-            optionalMap[FIELDS] = optional.fields.toString();
-        }
-        if (optional.includePermissionsForView is string) {
-            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
-        }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
-        }
-        optionalMap.forEach(function(string val) {
-            value.push(val);
-        });
-        path = prepareQueryUrl([path], optionalMap.keys(), value);
-    }
-    return path;
-}
-
 # Prepare URL.
 # 
 # + paths - An array of paths prefixes
@@ -189,6 +158,36 @@ function getIdFromUrl(string url) returns string | error {
     return id;
 }
 
+# Prepare URL with optional parameters.
+# 
+# + fileId - File id
+# + optional - Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
+    if (optional is GetFileOptional) {
+        if (optional.acknowledgeAbuse is boolean) {
+            optionalMap[ACKKNOWLEDGE_ABUSE] = optional.acknowledgeAbuse.toString();
+        }
+        if (optional.fields is string) {
+            optionalMap[FIELDS] = optional.fields.toString();
+        }
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
+
 # Prepare URL with optional parameters on Delete Request
 # 
 # + fileId - File id
@@ -246,6 +245,53 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
     }
     return path;
 }
+
+# Prepare URL with optional parameters on Update Request
+# 
+# + fileId - File id
+# + optional - Update Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlWithUpdateOptional(string fileId , UpdateFileOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
+    if (optional is UpdateFileOptional) {
+        if (optional.uploadType is string) { // Required Query Param
+
+            optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+            
+            // Optional Query Params
+            if (optional.addParents is string) {
+                optionalMap[ADD_PARENTS] = optional.addParents.toString();
+            }
+            if (optional.includePermissionsForView is string) {
+                optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+            }
+            if (optional.keepRevisionForever is boolean) {
+                optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
+            }
+            if (optional.ocrLanguage is string) {
+                optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
+            }
+            if (optional.removeParents is string) {
+                optionalMap[REMOVE_PARENTS] = optional.removeParents.toString();
+            }
+            if (optional.supportsAllDrives is boolean) {
+                optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+            }
+            if (optional.useContentAsIndexableText is boolean) {
+                optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
+            }
+            
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
+
 
 function convertFiletoString(File file) returns string{
     string stringObj = EMPTY_STRING;
