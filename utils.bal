@@ -47,7 +47,7 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
     http:Request httpRequest = new;
-    httpRequest.setHeader(CONTENT_TYPE,"multipart/related");
+    //httpRequest.setHeader(CONTENT_TYPE,"multipart/related");
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
