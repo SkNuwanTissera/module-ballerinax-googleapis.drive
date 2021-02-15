@@ -165,6 +165,17 @@ public type CopyFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+public type UpdateFileOptional record {
+   string uploadType; 
+   string? addParents = (); 
+   string? includePermissionsForView = (); 
+   string? keepRevisionForever = (); 
+   string? ocrLanguage = (); 
+   string? removeParents = (); 
+   boolean? supportsAllDrives = (); 
+   boolean? useContentAsIndexableText = (); 
+}
+
 public type User record {
     string kind;
     string displayName;
