@@ -305,12 +305,14 @@ function convertFiletoString(File file) returns string{
     return stringObj;
 }
 
-function printFileasString(File file) returns string{
+function printFileasString(File|error file) returns string{
     string stringObj = EMPTY_STRING;
-    json|error jsonObject = file.cloneWithType(json);
-    if (jsonObject is json) {
-        stringObj = jsonObject.toString();
-        log:print(<string> stringObj);
-    }  // handle error scenario
+    if (file is File){
+        json|error jsonObject = file.cloneWithType(json);
+        if (jsonObject is json) {
+            stringObj = jsonObject.toString();
+            log:print(<string> stringObj);
+        }  // handle error scenario
+    }
     return stringObj;
 }
