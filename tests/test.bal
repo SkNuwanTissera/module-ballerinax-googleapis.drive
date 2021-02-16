@@ -141,10 +141,5 @@ DeleteFileOptional delete_optional = {
 function testUpdateFiles() {
     // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
     File|error res = driveClient->updateFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie");
-    if (res is File){
-        json|error file = res.cloneWithType(json);
-        if (file is json) {
-            log:print(file.toString());
-        }
-    }   
+    _ = printFileasString(res);
 }
