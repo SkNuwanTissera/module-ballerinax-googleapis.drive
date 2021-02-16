@@ -1,6 +1,6 @@
 import ballerina/config;
 import ballerina/test;
-import ballerina/log;
+// import ballerina/log;
 // import ballerina/io;
 
 DriveConfiguration config = {
@@ -137,9 +137,13 @@ DeleteFileOptional delete_optional = {
 //     }
 // }
 
+UpdateFileOptional optionals3 = {
+    uploadType : "media"
+};
+
 @test:Config {}
 function testUpdateFiles() {
     // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
-    File|error res = driveClient->updateFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie");
+    File|error res = driveClient->updateFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3);
     _ = printFileasString(res);
 }

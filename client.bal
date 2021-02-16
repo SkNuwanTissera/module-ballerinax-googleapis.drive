@@ -52,7 +52,7 @@ public client class Client {
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function updateFile(string fileId, UpdateFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+    remote function updateFile(string fileId, UpdateFileOptional optional, File? fileResource = ()) returns @tainted File|error{
         return updateFile(self.httpClient, fileId, optional, fileResource);
     }
 } 
