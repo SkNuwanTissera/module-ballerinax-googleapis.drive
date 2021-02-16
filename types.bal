@@ -169,12 +169,12 @@ public type UpdateFileOptional record {
    string uploadType; // use enum/finitetype UpdateType uploadType;
    string? addParents = (); 
    string? includePermissionsForView = (); 
-   string? keepRevisionForever = (); 
+   boolean? keepRevisionForever = (); 
    string? ocrLanguage = (); 
    string? removeParents = (); 
    boolean? supportsAllDrives = (); 
    boolean? useContentAsIndexableText = (); 
-}
+};
 
 public type User record {
     string kind;
