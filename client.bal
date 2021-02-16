@@ -35,11 +35,7 @@ public client class Client {
     remote function getFiles() returns @tainted stream<File>|error {
         return getAllFiles(self.httpClient);
     }
-
-    remote function createFile(json? requestBody = ()) returns @tainted File|error{
-        return createNewFile(self.httpClient, requestBody);
-    }
-
+    
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
@@ -61,7 +57,7 @@ public client class Client {
     }
 
     remote function uploadFile(UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
-        return createMetaDataFile(self.httpClient, optional, fileData);
+        return createNewFile(self.httpClient, optional, fileData);
     }
 } 
 

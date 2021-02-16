@@ -51,9 +51,9 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
 }
 
 // TO-DO : Needs Upload type support, Map input json body to file (ClonewithType)
-function createNewFile(http:Client httpClient, json fileResource) returns @tainted File|error{
+function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
     
-    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MULTIPART]);
+    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
     json | error resp = sendRequestWithPayload(httpClient, path, fileResource);
     log:print(resp.toString());
     if resp is json {
@@ -120,6 +120,6 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
     log:print("##########" +path.toString());
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
     return convertJSONtoFile(resp);
-
+    
 }
 
