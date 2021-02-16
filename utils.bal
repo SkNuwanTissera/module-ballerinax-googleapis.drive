@@ -79,7 +79,7 @@ returns @tainted json | error {
         log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
-    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+    var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
         log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         int statusCode = httpResponse.statusCode;
@@ -103,17 +103,13 @@ function uploadRequestWithPayload(http:Client httpClient, string path, json json
 returns @tainted json | error {
 
     http:Request httpRequest = new;
-
     if (jsonPayload != ()) {
         log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
-        if(jsonPayload.mimeType != ()){
-            httpRequest.setHeader(CONTENT_TYPE,jsonPayload.mimeType);
-        }
     }
-    var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
-        log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
+        log:print("Hi from uploadRequestWithPayload - " +httpResponse.toString());
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
@@ -409,13 +405,13 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithUploadOptional(UploadFileOptional? optional = ()) returns string {
+function prepareUrlwithUploadOptional(CreatFileOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
-    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
-    if (optional is UploadFileOptional) {
+    string path = prepareUrl([DRIVE_PATH, FILES]);
+    if (optional is CreatFileOptional) {
         //Required Param
-        optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+        //optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
         //Optional Params
         if (optional.ignoreDefaultVisibility is boolean) {
             optionalMap[IGNORE_DEFAULT_VISIBILITY] = optional.ignoreDefaultVisibility.toString();
