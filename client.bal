@@ -59,6 +59,10 @@ public client class Client {
     remote function createMetaDataFile(CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
+
+    remote function uploadFile(CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+        return createMetaDataFile(self.httpClient, optional, fileData);
+    }
 } 
 
 public type DriveConfiguration record {

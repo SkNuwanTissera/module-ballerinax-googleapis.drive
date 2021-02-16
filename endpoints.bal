@@ -121,6 +121,5 @@ function createMetaDataFile(http:Client httpClient, CreatFileOptional? optional 
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
     return convertJSONtoFile(resp);
 
-
 }
 
