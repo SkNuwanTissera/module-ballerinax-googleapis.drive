@@ -76,12 +76,12 @@ returns @tainted json | error {
 
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
-        log:print("Hi from sendRequestWithPayload - " +jsonPayload.toString());
+        log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
-    var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
-        log:print("Hi from sendRequestWithPayload - " +jsonPayload.toString());
+        log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
@@ -103,11 +103,13 @@ function uploadRequestWithPayload(http:Client httpClient, string path, json json
 returns @tainted json | error {
 
     http:Request httpRequest = new;
-    httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.folder");
 
     if (jsonPayload != ()) {
         log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
+        if(jsonPayload.mimeType != ()){
+            httpRequest.setHeader(CONTENT_TYPE,jsonPayload.mimeType);
+        }
     }
     var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
@@ -366,7 +368,7 @@ function printFileasString(File|error file) returns error?{
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
         if (jsonObject is json) {
-            log:print(<string> jsonObject);
+            log:print(jsonObject.toString());
         }  else {
             return getDriveError(jsonObject);
         }
@@ -410,7 +412,7 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
 function prepareUrlwithUploadOptional(UploadFileOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
-    string path = prepareUrl([DRIVE_PATH, FILES]);
+    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     if (optional is UploadFileOptional) {
         //Required Param
         optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();

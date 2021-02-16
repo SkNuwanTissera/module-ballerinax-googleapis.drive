@@ -137,18 +137,37 @@ DeleteFileOptional delete_optional = {
 //     }
 // }
 
-UpdateFileMetadataOptional optionals3 = {
-    //uploadType : "media"
+// UpdateFileMetadataOptional optionals3 = {
+//     //uploadType : "media"
+// };
+
+// File payload3 = {
+//     name : "hellothari"
+// };
+
+
+// @test:Config {}
+// function testUpdateFiles() {
+//     // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
+//     File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
+//     error? err = printFileasString(res);
+// }
+
+
+#####
+
+UploadFileOptional optionals4 = {
+    uploadType : "media"
 };
 
-File payload3 = {
-    name : "hellothari"
+File payload4 = {
+    mimeType : "application/vnd.google-apps.document",
+    name : "hello"
 };
 
 
 @test:Config {}
-function testUpdateFiles() {
-    // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
-    File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
+function testSimpleUpload() {
+    File|error res = driveClient->simpleFileUpload(optionals4, payload4);
     error? err = printFileasString(res);
 }
