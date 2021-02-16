@@ -176,6 +176,17 @@ public type UpdateFileOptional record {
    boolean? useContentAsIndexableText = (); 
 };
 
+public type UpdateFileMetadataOptional record {
+   never uploadType?; // use enum/finitetype UpdateType uploadType;
+   string? addParents = (); 
+   string? includePermissionsForView = (); 
+   boolean? keepRevisionForever = (); 
+   string? ocrLanguage = (); 
+   string? removeParents = (); 
+   boolean? supportsAllDrives = (); 
+   boolean? useContentAsIndexableText = (); 
+};
+
 public type User record {
     string kind;
     string displayName;
