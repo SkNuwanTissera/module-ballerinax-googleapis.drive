@@ -156,18 +156,18 @@ DeleteFileOptional delete_optional = {
 
 #####
 
-UploadFileOptional optionals4 = {
-    uploadType : "media"
+CreatFileOptional optionals4 = {
+    ignoreDefaultVisibility : false
 };
 
 File payload4 = {
     mimeType : "application/vnd.google-apps.document",
-    name : "hello"
+    name : "hello123",
+    parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
 };
 
-
 @test:Config {}
-function testSimpleUpload() {
-    File|error res = driveClient->simpleFileUpload(optionals4, payload4);
+function testCreateFile() {
+    File|error res = driveClient->createMetaDataFile(optionals4, payload4);
     error? err = printFileasString(res);
 }
