@@ -56,11 +56,11 @@ public client class Client {
         return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function createMetaDataFile(CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+    remote function createMetaDataFile(CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 
-    remote function uploadFile(CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+    remote function uploadFile(UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 } 

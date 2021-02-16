@@ -405,11 +405,11 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithUploadOptional(CreatFileOptional? optional = ()) returns string {
+function prepareUrlwithUploadOptional(CreateFileOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
-    if (optional is CreatFileOptional) {
+    if (optional is CreateFileOptional) {
         //Required Param
         //optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
         //Optional Params

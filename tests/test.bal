@@ -156,7 +156,7 @@ DeleteFileOptional delete_optional = {
 
 #####
 
-CreatFileOptional optionals4 = {
+CreateFileOptional optionals4 = {
     ignoreDefaultVisibility : false
 };
 

@@ -165,7 +165,7 @@ public type CopyFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
-public type CreatFileOptional record {
+public type CreateFileOptional record {
     never uploadType?; // use enum/finitetype UpdateType uploadType;
     boolean? ignoreDefaultVisibility = ();
     string? includePermissionsForView = (); 

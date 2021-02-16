@@ -113,7 +113,7 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
-function createMetaDataFile(http:Client httpClient, CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
+function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithUploadOptional(optional);
