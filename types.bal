@@ -165,15 +165,14 @@ public type CopyFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
-public type UpdateFileOptional record {
-   string uploadType; // use enum/finitetype UpdateType uploadType;
-   string? addParents = (); 
-   string? includePermissionsForView = (); 
-   boolean? keepRevisionForever = (); 
-   string? ocrLanguage = (); 
-   string? removeParents = (); 
-   boolean? supportsAllDrives = (); 
-   boolean? useContentAsIndexableText = (); 
+public type UploadFileOptional record {
+    string uploadType; // use enum/finitetype UpdateType uploadType;
+    boolean? ignoreDefaultVisibility = ();
+    string? includePermissionsForView = (); 
+    boolean? keepRevisionForever = (); 
+    string? ocrLanguage = ();  
+    boolean? supportsAllDrives = (); 
+    boolean? useContentAsIndexableText = (); 
 };
 
 public type UpdateFileMetadataOptional record {
