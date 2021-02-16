@@ -46,8 +46,35 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
 
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
+
     http:Request httpRequest = new;
     //httpRequest.setHeader(CONTENT_TYPE,"multipart/related");
+    if (jsonPayload != ()) {
+        httpRequest.setJsonPayload(<@untainted>jsonPayload);
+    }
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+    if (httpResponse is http:Response) {
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            log:print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
+}
+
+function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
+returns @tainted json | error {
+    
+    http:Request httpRequest = new;
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
@@ -252,15 +279,16 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
 # + optional - Update Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlWithUpdateOptional(string fileId , UpdateFileOptional? optional = ()) returns string {
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
+
     if (optional is UpdateFileOptional) {
 
         // Required Query Param
-        if (optional.addParents is string) {
-            optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
-        }
+        optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+
         // Optional Query Params
         if (optional.addParents is string) {
             optionalMap[ADD_PARENTS] = optional.addParents.toString();
