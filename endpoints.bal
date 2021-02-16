@@ -94,7 +94,7 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
 
 }
 
-function updateFile(http:Client httpClient, string fileId, UpdateFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
+function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateOptional(fileId, optional);
