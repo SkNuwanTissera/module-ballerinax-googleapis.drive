@@ -113,12 +113,12 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
-function simpleUpload(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
+function createMetaDataFile(http:Client httpClient, CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithUploadOptional(optional);
     log:print("##########" +path.toString());
-    json|error resp = updateRequestWithPayload(httpClient, path, payload);
+    json|error resp = uploadRequestWithPayload(httpClient, path, payload);
     return convertJSONtoFile(resp);
 
 
