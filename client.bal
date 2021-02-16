@@ -56,8 +56,8 @@ public client class Client {
         return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function simpleFileUpload(UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
-        return simpleUpload(self.httpClient, optional, fileData);
+    remote function createMetaDataFile(CreatFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+        return createMetaDataFile(self.httpClient, optional, fileData);
     }
 } 
 
