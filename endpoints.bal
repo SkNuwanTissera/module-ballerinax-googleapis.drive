@@ -98,7 +98,6 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateOptional(fileId, optional);
-    log:print("##########" +path.toString());
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
     if resp is json { //use a separate function for this
         log:print("##########" +resp.toString());
@@ -114,10 +113,14 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
-function simpleUpload((http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) {
+function simpleUpload((http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithUploadOptional(fileId, optional);
+    log:print("##########" +path.toString());
+    json|error resp = updateRequestWithPayload(httpClient, path, payload);
+    return convertJSONtoFile(resp);
+
 
 }
 

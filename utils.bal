@@ -99,6 +99,36 @@ returns @tainted json | error {
     }
 }
 
+function uploadRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
+returns @tainted json | error {
+
+    http:Request httpRequest = new;
+    httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.folder");
+
+    if (jsonPayload != ()) {
+        log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
+        httpRequest.setJsonPayload(<@untainted>jsonPayload);
+    }
+    var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
+    if (httpResponse is http:Response) {
+        log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
+}
+
 isolated function getDriveError(json|error errorResponse) returns error {
   if (errorResponse is json) {
         return error(errorResponse.toString());
@@ -354,6 +384,19 @@ function convertFiletoJSON(File|error file) returns json|error{
     }
 }
 
+function convertJSONtoFile(json|error jsonObj) returns File|error{
+    if jsonObj is json { //use a separate function for this
+        log:print("##########" +resp.toString());
+        File|error file = jsonObj.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_JSON_TO_FILE_CONVERT, file);
+        }
+    } else {
+        eturn error(ERR_JSON_TO_FILE_CONVERT, jsonObj);
+    }
+}
 
 
 
