@@ -86,7 +86,6 @@ const string IGNORE_DEFAULT_VISIBILITY = "ignoreDefaultVisibility";
 const string KEEP_REVISION_FOREVER = "keepRevisionForever";
 const string OCR_LANGUAGE = "ocrLanguage";
 // File - UPDATE
-const string UPLOAD_TYPE = "uploadType";
 const string ADD_PARENTS = "addParents";
 const string REMOVE_PARENTS = "removeParents";
 const string USE_CONTENT_AS_INDEXABLE_TEXT = "useContentAsIndexableText";
