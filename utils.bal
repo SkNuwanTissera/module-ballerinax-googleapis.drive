@@ -386,7 +386,7 @@ function convertFiletoJSON(File|error file) returns json|error{
 
 function convertJSONtoFile(json|error jsonObj) returns File|error{
     if jsonObj is json { //use a separate function for this
-        log:print("##########" +resp.toString());
+        log:print("##########" +jsonObj.toString());
         File|error file = jsonObj.cloneWithType(File);
         if (file is File) {
             return file;
@@ -394,7 +394,7 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
             return error(ERR_JSON_TO_FILE_CONVERT, file);
         }
     } else {
-        eturn error(ERR_JSON_TO_FILE_CONVERT, jsonObj);
+        return error(ERR_JSON_TO_FILE_CONVERT, jsonObj);
     }
 }
 
@@ -405,10 +405,9 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
 
 # Prepare URL with optional parameters.
 # 
-# + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithUploadOptional(string fileId , GetFileOptional? optional = ()) returns string {
+function prepareUrlwithUploadOptional(UploadFileOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
@@ -417,12 +416,12 @@ function prepareUrlwithUploadOptional(string fileId , GetFileOptional? optional 
         optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
         //Optional Params
         if (optional.ignoreDefaultVisibility is boolean) {
-            optionalMap[] = optional.ignoreDefaultVisibility.toString();
+            optionalMap[IGNORE_DEFAULT_VISIBILITY] = optional.ignoreDefaultVisibility.toString();
         }
         if (optional.includePermissionsForView is string) {
             optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
         }
-        if (optional.keepRevisionForever is string) {
+        if (optional.keepRevisionForever is boolean) {
             optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
         }
         if (optional.ocrLanguage is string) {
