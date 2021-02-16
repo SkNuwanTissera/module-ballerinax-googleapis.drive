@@ -114,4 +114,10 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
+function simpleUpload((http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) {
+
+    json payload = check fileData.cloneWithType(json);
+    string path = prepareUrlwithUploadOptional(fileId, optional);
+
+}
 
