@@ -137,13 +137,18 @@ DeleteFileOptional delete_optional = {
 //     }
 // }
 
-UpdateFileOptional optionals3 = {
-    uploadType : "media"
+UpdateFileMetadataOptional optionals3 = {
+    //uploadType : "media"
 };
+
+File payload3 = {
+    name : "hellothari"
+};
+
 
 @test:Config {}
 function testUpdateFiles() {
     // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
-    File|error res = driveClient->updateFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3);
-    _ = printFileasString(res);
+    File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
+    error? err = printFileasString(res);
 }

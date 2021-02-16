@@ -73,13 +73,15 @@ returns @tainted json | error {
 
 function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
-    
+
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
+        log:print("Hi from sendRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
-    var httpResponse = httpClient->put(<@untainted>path, httpRequest);
+    var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
+        log:print("Hi from sendRequestWithPayload - " +jsonPayload.toString());
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
@@ -87,7 +89,7 @@ returns @tainted json | error {
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
-            log:print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
+            
             return jsonResponse;
         } else {
             return getDriveError(jsonResponse);
@@ -278,16 +280,13 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
 # + fileId - File id
 # + optional - Update Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithUpdateOptional(string fileId , UpdateFileOptional? optional = ()) returns string {
+function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
 
-    if (optional is UpdateFileOptional) {
-
-        // Required Query Param
-        optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+    if (optional is UpdateFileMetadataOptional) {
 
         // Optional Query Params
         if (optional.addParents is string) {
@@ -333,14 +332,24 @@ function convertFiletoString(File file) returns string{
     return stringObj;
 }
 
-function printFileasString(File|error file) returns string{
-    string stringObj = EMPTY_STRING;
+function printFileasString(File|error file) returns error?{
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
         if (jsonObject is json) {
-            stringObj = jsonObject.toString();
-            log:print(<string> stringObj);
-        }  // handle error scenario
+            log:print(<string> jsonObject);
+        }  else {
+            return getDriveError(jsonObject);
+        }
     }
-    return stringObj;
+}
+
+function convertFiletoJSON(File|error file) returns json|error{
+    if (file is File){
+        json|error jsonObject = file.cloneWithType(json);
+        if (jsonObject is map<json>) {
+            return jsonObject;
+        }  else {
+            return getDriveError(jsonObject);
+        }
+    }
 }
