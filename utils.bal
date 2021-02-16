@@ -51,7 +51,7 @@ returns @tainted json | error {
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
-    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+    var httpResponse = httpClient->put(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
@@ -256,39 +256,42 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileOptional? option
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
     if (optional is UpdateFileOptional) {
-        if (optional.uploadType is string) { // Required Query Param
 
+        // Required Query Param
+        if (optional.addParents is string) {
             optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
-            
-            // Optional Query Params
-            if (optional.addParents is string) {
-                optionalMap[ADD_PARENTS] = optional.addParents.toString();
-            }
-            if (optional.includePermissionsForView is string) {
-                optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
-            }
-            if (optional.keepRevisionForever is boolean) {
-                optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
-            }
-            if (optional.ocrLanguage is string) {
-                optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
-            }
-            if (optional.removeParents is string) {
-                optionalMap[REMOVE_PARENTS] = optional.removeParents.toString();
-            }
-            if (optional.supportsAllDrives is boolean) {
-                optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
-            }
-            if (optional.useContentAsIndexableText is boolean) {
-                optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
-            }
-            
         }
-        optionalMap.forEach(function(string val) {
-            value.push(val);
-        });
-        path = prepareQueryUrl([path], optionalMap.keys(), value);
+        // Optional Query Params
+        if (optional.addParents is string) {
+            optionalMap[ADD_PARENTS] = optional.addParents.toString();
+        }
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+        }
+        if (optional.keepRevisionForever is boolean) {
+            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
+        }
+        if (optional.ocrLanguage is string) {
+            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
+        }
+        if (optional.removeParents is string) {
+            optionalMap[REMOVE_PARENTS] = optional.removeParents.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.useContentAsIndexableText is boolean) {
+            optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
+        }
+            
     }
+
+    optionalMap.forEach(function(string val) {
+        value.push(val);
+    });
+
+    path = prepareQueryUrl([path], optionalMap.keys(), value);
+
     return path;
 }
 
@@ -298,6 +301,16 @@ function convertFiletoString(File file) returns string{
     json|error jsonObject = file.cloneWithType(json);
     if (jsonObject is json) {
         stringObj = jsonObject.toString();
-    }  
+    }  // handle error scenario
+    return stringObj;
+}
+
+function printFileasString(File file) returns string{
+    string stringObj = EMPTY_STRING;
+    json|error jsonObject = file.cloneWithType(json);
+    if (jsonObject is json) {
+        stringObj = jsonObject.toString();
+        log:print(<string> stringObj);
+    }  // handle error scenario
     return stringObj;
 }
