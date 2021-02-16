@@ -353,3 +353,48 @@ function convertFiletoJSON(File|error file) returns json|error{
         }
     }
 }
+
+
+
+
+
+
+
+# Prepare URL with optional parameters.
+# 
+# + fileId - File id
+# + optional - Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlwithUploadOptional(string fileId , GetFileOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES]);
+    if (optional is UploadFileOptional) {
+        //Required Param
+        optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+        //Optional Params
+        if (optional.ignoreDefaultVisibility is boolean) {
+            optionalMap[] = optional.ignoreDefaultVisibility.toString();
+        }
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+        }
+        if (optional.keepRevisionForever is string) {
+            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
+        }
+        if (optional.ocrLanguage is string) {
+            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.useContentAsIndexableText is boolean) {
+            optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
