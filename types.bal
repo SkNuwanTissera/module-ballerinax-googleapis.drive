@@ -266,3 +266,11 @@ public type PermissionDetails record {
     boolean inherited;
 };
 
+pulic type UploadFileOptional record {
+    boolean? ignoreDefaultVisibility = ();
+    string? includePermissionsForView = (); 
+    boolean? keepRevisionForever = (); 
+    string? ocrLanguage = ();  
+    boolean? supportsAllDrives = (); 
+    boolean? useContentAsIndexableText = ();
+};
