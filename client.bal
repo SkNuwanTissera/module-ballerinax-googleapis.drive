@@ -52,9 +52,15 @@ public client class Client {
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function updateFile(string fileId, UpdateFileOptional optional, File? fileResource = ()) returns @tainted File|error{
-        return updateFile(self.httpClient, fileId, optional, fileResource);
+    remote function updateFileMetadataById(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+        return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
+
+    remote function simpleFileUpload(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+        return updateFileById(self.httpClient, fileId, optional, fileResource);
+    }
+
+
 } 
 
 public type DriveConfiguration record {
