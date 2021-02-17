@@ -350,24 +350,16 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
     return path;
 }
 
-
-function convertFiletoString(File file) returns string{
-    string stringObj = EMPTY_STRING;
-    json|error jsonObject = file.cloneWithType(json);
-    if (jsonObject is json) {
-        stringObj = jsonObject.toString();
-    }  // handle error scenario
-    return stringObj;
-}
-
-function printFileasString(File|error file) returns error?{
+function printFileasString(File|error file){
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
         if (jsonObject is json) {
             log:print(jsonObject.toString());
         }  else {
-            return getDriveError(jsonObject);
+            log:print(jsonObject.toString());
         }
+    } else {
+        log:print(file.message());
     }
 }
 
