@@ -13,7 +13,7 @@ function getFileById(http:Client httpClient, string fileId, GetFileOptional? opt
 
     string path = prepareUrlWithFileOptional(fileId, optional);
     json | error resp = sendRequest(httpClient, path);
-    log:print(<string> resp);
+
     if resp is json {
         File|error file = resp.cloneWithType(File);
         if (file is File) {
