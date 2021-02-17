@@ -19,29 +19,27 @@ Client driveClient = new (config);
 
 @test:Config {}
 function testdriveGetAbout() {
-    var res1 = driveClient->getAbout("*");
+    //var res1 = driveClient->getAbout("*");
     // var res2 = driveClient->getAbout("kind");
     // var res3 = driveClient->getAbout("user");
     // var res4 = driveClient->getAbout("storageQuota");
     // refer https://developers.google.com/drive/api/v3/reference/about#resource
-    // log:print(res1.toString());
+    //log:print(res1.toString());
 }
 
 @test:Config {}
 function testgetFileById() {
-    // File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
-    // if (res1 is File){
-    //     log:print("File Kind :: "+ res1.kind + " Name :: "+ res1.name);
+    // File | error file1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
+    // if (file1 is File){
+    //     log:print(convertFiletoString(file1));
     // }
 }
 
 @test:Config {}
 function testgetFileByPath() {
 
-    // File | error res1 = driveClient->getFileByPath("https://drive.google.com/file/d/1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ/view?usp=sharing");
-    // if (res1 is File){
-    //     log:print("@@@@@@@@@@@@@@@@@File Kind :: "+ res1.kind + " Name :: "+ res1.name);
-    // }
+    File | error res1 = driveClient->getFileByPath("https://drive.google.com/file/d/1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ/view?usp=sharing");
+    _ = printFileasString(res1);
 }
 
 GetFileOptional optional = {
@@ -195,10 +193,6 @@ UploadFileOptional optionals5 = {
 
 @test:Config {}
 function testUploadFile() {
-    File|error res = driveClient->uploadFile(optionals5, fileContent);
-    error? err = printFileasString(res);
+    // File|error res = driveClient->uploadFile(optionals5, fileContent);
+    // error? err = printFileasString(res);
 }
-
-################
-# Upload a file
-# ##############
