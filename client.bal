@@ -35,7 +35,7 @@ public client class Client {
     remote function getFiles() returns @tainted stream<File>|error {
         return getAllFiles(self.httpClient);
     }
-    
+
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
