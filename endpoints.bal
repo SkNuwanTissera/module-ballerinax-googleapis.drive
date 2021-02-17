@@ -54,7 +54,7 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
 function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
     
     string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
-    json | error resp = sendRequestWithPayload(httpClient, path, fileResource);
+    json | error resp = sendRequestWithPayload(httpClient, path, fileData);
     log:print(resp.toString());
     if resp is json {
         File|error file = resp.cloneWithType(File);

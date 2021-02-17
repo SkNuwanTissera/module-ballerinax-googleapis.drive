@@ -266,7 +266,7 @@ public type PermissionDetails record {
     boolean inherited;
 };
 
-pulic type UploadFileOptional record {
+public type UploadFileOptional record {
     boolean? ignoreDefaultVisibility = ();
     string? includePermissionsForView = (); 
     boolean? keepRevisionForever = (); 
