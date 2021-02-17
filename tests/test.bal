@@ -1,7 +1,7 @@
 import ballerina/config;
 import ballerina/test;
 // import ballerina/log;
-// import ballerina/io;
+import ballerina/io;
 
 DriveConfiguration config = {
     oauth2Config: {
@@ -19,27 +19,32 @@ Client driveClient = new (config);
 
 @test:Config {}
 function testdriveGetAbout() {
+
     //var res1 = driveClient->getAbout("*");
     // var res2 = driveClient->getAbout("kind");
     // var res3 = driveClient->getAbout("user");
     // var res4 = driveClient->getAbout("storageQuota");
     // refer https://developers.google.com/drive/api/v3/reference/about#resource
     //log:print(res1.toString());
+
 }
 
 @test:Config {}
 function testgetFileById() {
-    // File | error file1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
-    // if (file1 is File){
-    //     log:print(convertFiletoString(file1));
-    // }
+
+    // string id = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+    // File | error file1 = driveClient->getFileById(id);
+    // _ = printFileasString(file1);
+
 }
 
 @test:Config {}
 function testgetFileByPath() {
 
-    File | error res1 = driveClient->getFileByPath("https://drive.google.com/file/d/1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ/view?usp=sharing");
-    _ = printFileasString(res1);
+    // string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
+    // File | error res1 = driveClient->getFileByPath(url);
+    // _ = printFileasString(res1);
+
 }
 
 GetFileOptional optional = {
@@ -51,50 +56,36 @@ GetFileOptional optional = {
 
 @test:Config {}
 function testgetFileByIdwithOptionalParameters() {
+
     // File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
-    // if (res1 is File){
-    //     log:print("File Kind :: "+ res1.kind + " Name :: "+ res1.name);
-    // }
+    // _ = printFileasString(res1);
+
 }
 
 @test:Config {}
 function testGetIDbyPath(){
-    string url = "https://drive.google.com/file/d/1j8sQMqEKx7yWCmtYtNK5iYCOE8A3joxj/view?usp=sharing";
-    // string url = "https://drive.google.com/drive/folders/1U9xlZs0JbdxFgIDPRLJY1VmBQHzbrcju?usp=sharingaring";
-    // string url = "https://docs.google.com/spreadsheets/d/1eGnZLdQjuzoKDlQNMKXrhi0Dp3hQ0hMMCT5lcGkUlPI/edit#gid=0";
+
+    string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
+    // issue in doc urls ..check below
+    // https://docs.google.com/document/d/1WElgMovRkdtZTXuPrySHed7LY4jcrULIhAgJHUmVcLQ/edit?usp=sharing
+
     // File|error res =  driveClient->getFileByPath(url);
+    // _ = printFileasString(res);
 
 }
-
-json requestBody = {
-    name : "testballerinaconnecter.jpg",
-    originalFilename : "testballerinaconnecter.jpg",
-    description : "testballerinaconnecter"
-};
-
-// @test:Config {}
-// function testCreateNewFile(){
-
-//     File | error res = driveClient->createFile({"name": "cat.jpg"});
-//     if (res is File){
-//         log:print("File Kind :: "+ res.kind + " Name :: "+ res.name);
-//     }
-// }
 
 DeleteFileOptional delete_optional = {
 
     supportsAllDrives : false
 };
 
-// @test:Config {}
-// function testDeleteFileById(){
+@test:Config {}
+function testDeleteFileById(){
 
-//     json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
-//     if (res is json){
-//         log:print(res.toString());
-//     }
+    // json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
+    // _ = printFileasString(res);
 
-// }
+}
 
 // @test:Config {}
 // function testDeleteFileByPath(){
@@ -156,21 +147,21 @@ DeleteFileOptional delete_optional = {
 # Create Metadata file
 # ######################
 
-// CreateFileOptional optionals4 = {
-//     ignoreDefaultVisibility : false
-// };
+CreateFileOptional optionals4 = {
+    ignoreDefaultVisibility : false
+};
 
-// File payload4 = {
-//     mimeType : "application/vnd.google-apps.document",
-//     name : "hello123",
-//     parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
-// };
+File payload4 = {
+    mimeType : "application/vnd.google-apps.document",
+    name : "hello123",
+    parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
+};
 
-// @test:Config {}
-// function testCreateFile() {
-//     File|error res = driveClient->createMetaDataFile(optionals4, payload4);
-//     error? err = printFileasString(res);
-// }
+@test:Config {}
+function testCreateFile() {
+    // File|error res = driveClient->createMetaDataFile(optionals4, payload4);
+    // error? err = printFileasString(res);
+}
 
 ################
 # Upload a file
@@ -187,12 +178,18 @@ File fileContent = {
 };
 
 UploadFileOptional optionals5 = {
-    uploadType : MULTIPART,
+    uploadType : SIMPLE,
     ignoreDefaultVisibility : false
 };
 
 @test:Config {}
 function testUploadFile() {
+    // error? createFileResults = file:create("bar.txt");
     // File|error res = driveClient->uploadFile(optionals5, fileContent);
     // error? err = printFileasString(res);
 }
+
+
+################
+# Upload a file
+# ##############

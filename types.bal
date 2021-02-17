@@ -17,7 +17,7 @@ public type DriveInfo record {
 
 public type File record {
     string kind?;
-    string id?; 
+    string id?;  
     string name?;
     string mimeType?;
     string description?;
