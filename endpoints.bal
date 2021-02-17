@@ -127,9 +127,10 @@ function createNewFile(http:Client httpClient, UploadFileOptional? optional = ()
 
 function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) returns @tainted stream<File>|error{
 
-    string path = prepareUrl([DRIVE_PATH, FILES]);
-    log:print(path.toString());
+    string path = prepareUrlwithFileListOptional(optional);
+
     json | error resp = sendRequest(httpClient, path);
+
     File[] files = [];
     if resp is json {
         FilesResponse|error res = resp.cloneWithType(FilesResponse);
