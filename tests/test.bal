@@ -18,15 +18,19 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
+########################
+# Get Drive Information
+# ######################
+
 @test:Config {}
 function testdriveGetAbout() {
 
-    //var res1 = driveClient->getAbout("*");
-    // var res2 = driveClient->getAbout("kind");
-    // var res3 = driveClient->getAbout("user");
-    // var res4 = driveClient->getAbout("storageQuota");
-    // refer https://developers.google.com/drive/api/v3/reference/about#resource
-    //log:print(res1.toString());
+    var res1 = driveClient->getAbout("*");
+    var res2 = driveClient->getAbout("kind");
+    var res3 = driveClient->getAbout("user");
+    var res4 = driveClient->getAbout("storageQuota");
+    refer https://developers.google.com/drive/api/v3/reference/about#resource
+    log:print(res1.toString());
 
 }
 
@@ -115,6 +119,10 @@ function testCopyFile(){
         }
     }
 }
+
+######################
+# Create Update file
+# ####################
 
 UpdateFileMetadataOptional optionals3 = {
     //uploadType : "media"
