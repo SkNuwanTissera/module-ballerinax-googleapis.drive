@@ -1,8 +1,8 @@
 import ballerina/config;
 import ballerina/test;
-import ballerina/log;
+// import ballerina/log;
 // import ballerina/io;
-import ballerina/file;
+// import ballerina/file;
 
 DriveConfiguration config = {
     oauth2Config: {
@@ -88,60 +88,49 @@ function testDeleteFileById(){
 
 }
 
-// @test:Config {}
-// function testDeleteFileByPath(){
-//     string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
-//     json | error res = driveClient->deleteFileByPath(path1, delete_optional);
-//     if (res is json){
-//         log:print(res.toString());
-//     }
+@test:Config {}
+function testDeleteFileByPath(){
+    string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
+    json | error res = driveClient->deleteFileByPath(path1, delete_optional);
+    if (res is json){
+        log:print(res.toString());
+    }
 
-// }
+}
 
-// CopyFileOptional optionals2 = {"includePermissionsForView" : "published"};
+CopyFileOptional optionals2 = {"includePermissionsForView" : "published"};
 
-// File payload2 = {
-//     name : "Sk1235"
-// };
+File payload2 = {
+    name : "Sk1235"
+};
 
-// @test:Config {}
-// function testCopyFile(){
-//     File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
-//     // File|error res = driveClient->copyFile("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
-//     if (res is File){
-//         json|error file = res.cloneWithType(json);
-//         if (file is json) {
-//             log:print(file.toString());
-//         }
-//     }
-// }
+@test:Config {}
+function testCopyFile(){
+    File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
+    // File|error res = driveClient->copyFile("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
+    if (res is File){
+        json|error file = res.cloneWithType(json);
+        if (file is json) {
+            log:print(file.toString());
+        }
+    }
+}
 
+UpdateFileMetadataOptional optionals3 = {
+    //uploadType : "media"
+};
 
-// @test:Config {}
-// function testgetFiles() {
-//     stream<File>|error res = driveClient->getFiles();
-//     if (res is stream<File>){
-//         error? e = res.forEach(function (File file1) {
-//             log:print(convertFiletoString(file1));
-//         });
-//     }
-// }
-
-// UpdateFileMetadataOptional optionals3 = {
-//     //uploadType : "media"
-// };
-
-// File payload3 = {
-//     name : "hellothari"
-// };
+File payload3 = {
+    name : "hellothari"
+};
 
 
-// @test:Config {}
-// function testUpdateFiles() {
-//     // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
-//     File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
-//     error? err = printFileasString(res);
-// }
+@test:Config {}
+function testUpdateFiles() {
+    // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
+    File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
+    error? err = printFileasString(res);
+}
 
 
 #########################
@@ -160,8 +149,8 @@ File payload4 = {
 
 @test:Config {}
 function testCreateFile() {
-    // File|error res = driveClient->createMetaDataFile(optionals4, payload4);
-    // error? err = printFileasString(res);
+    File|error res = driveClient->createMetaDataFile(optionals4, payload4);
+    error? err = printFileasString(res);
 }
 
 ################
@@ -197,16 +186,12 @@ function testUploadFile() {
     
 }
 
-@test:Config {}
-function testUploadLocalFile() {
-
-    File|error res = driveClient->uploadFile(optionals5, fileContent);
-    error? err = printFileasString(res);
-    
-}
+###################
+# Search for files
+# #################
 
 ListFilesOptional optional6 = {
-    pageSize : 2
+    pageSize : 3
 };
 
 @test:Config {}
