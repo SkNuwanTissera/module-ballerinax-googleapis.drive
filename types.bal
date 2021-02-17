@@ -281,3 +281,20 @@ enum UploadTypes {
     MULTIPART = "multipart",
     RESUMABLE = "resumable"
 }
+
+public type ListFilesOptional record {
+    string? corpora = (); 
+    string? driveId = ();
+    string? fields = (); 
+    boolean? includeItemsFromAllDrives = (); 
+    string? includePermissionsForView = ();  
+    string? orderBy = (); 
+    int? pageSize = (); 
+    string? pageToken = ();
+    string? q = ();
+    string? spaces = ();
+    boolean? supportsAllDrives = ();
+};
+
+
+
