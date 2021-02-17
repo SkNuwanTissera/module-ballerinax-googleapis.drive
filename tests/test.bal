@@ -34,21 +34,29 @@ function testdriveGetAbout() {
 
 }
 
-@test:Config {}
-function testgetFileById() {
+###################
+# Get File By Id
+# ################
 
-    // string id = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
-    // File | error file1 = driveClient->getFileById(id);
-    // _ = printFileasString(file1);
+@test:Config {}
+function testGetFileById() {
+
+    string id = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+    File | error file1 = driveClient->getFileById(id);
+    _ = printFileasString(file1);
 
 }
+
+#####################
+# Get File By Path
+# ###################
 
 @test:Config {}
 function testgetFileByPath() {
 
-    // string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
-    // File | error res1 = driveClient->getFileByPath(url);
-    // _ = printFileasString(res1);
+    string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
+    File | error res1 = driveClient->getFileByPath(url);
+    _ = printFileasString(res1);
 
 }
 
@@ -59,13 +67,21 @@ GetFileOptional optional = {
     supportsAllDrives : false
 };
 
+################################
+# Get File By ID with optionals
+# #############################
+
 @test:Config {}
 function testgetFileByIdwithOptionalParameters() {
 
-    // File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
-    // _ = printFileasString(res1);
+    File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
+    _ = printFileasString(res1);
 
 }
+
+#####################
+# Get File ID by Path
+# ###################
 
 @test:Config {}
 function testGetIDbyPath(){
@@ -74,8 +90,8 @@ function testGetIDbyPath(){
     // issue in doc urls ..check below
     // https://docs.google.com/document/d/1WElgMovRkdtZTXuPrySHed7LY4jcrULIhAgJHUmVcLQ/edit?usp=sharing
 
-    // File|error res =  driveClient->getFileByPath(url);
-    // _ = printFileasString(res);
+    File|error res =  driveClient->getFileByPath(url);
+    _ = printFileasString(res);
 
 }
 
@@ -84,13 +100,21 @@ DeleteFileOptional delete_optional = {
     supportsAllDrives : false
 };
 
+#######################
+# Delete File by ID
+# #####################
+
 @test:Config {}
 function testDeleteFileById(){
 
-    // json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
-    // _ = printFileasString(res);
+    json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
+    _ = printFileasString(res);
 
 }
+
+#######################
+# Delete File by Path
+# #####################
 
 @test:Config {}
 function testDeleteFileByPath(){
@@ -101,6 +125,11 @@ function testDeleteFileByPath(){
     }
 
 }
+
+
+############
+# Copy File
+# ##########
 
 CopyFileOptional optionals2 = {"includePermissionsForView" : "published"};
 
