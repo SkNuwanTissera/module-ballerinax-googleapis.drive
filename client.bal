@@ -32,10 +32,6 @@ public client class Client {
         return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
     }
 
-    remote function getFiles() returns @tainted stream<File>|error {
-        return getAllFiles(self.httpClient);
-    }
-
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
@@ -58,6 +54,10 @@ public client class Client {
 
     remote function uploadFile(UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
         return createNewFile(self.httpClient, optional, fileData);
+    }
+
+    remote function getFiles(ListFilesOptional? optional = ()) returns @tainted stream<File>|error {
+        return getFiles(self.httpClient, optional);
     }
 } 
 
