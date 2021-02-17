@@ -98,7 +98,7 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
-    string path = prepareUrlwithUploadOptional(optional);
+    string path = prepareUrlwithMetadataFileOptional(optional);
     log:print("##########" +path.toString());
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
     return convertJSONtoFile(resp);
@@ -108,9 +108,11 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
 
 function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
     
-    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
-    json | error resp = sendRequestWithPayload(httpClient, path, fileData);
-    log:print(resp.toString());
+    json payload = check fileData.cloneWithType(json);
+    string path = prepareUrlwithUploadOptional(optional);
+    log:print(path.toString());
+    json|error resp = sendRequestWithPayload(httpClient, path, payload);
+    
     if resp is json {
         File|error file = resp.cloneWithType(File);
         if (file is File) {
