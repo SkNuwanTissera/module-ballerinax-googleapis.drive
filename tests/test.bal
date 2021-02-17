@@ -187,11 +187,11 @@ UploadFileOptional optionals5 = {
 function testUploadFile() {
 
     //create a file and upload
-    error? createFileResults = file:create("bar.txt");
-    boolean fileExists = check file:test("bar.txt", file:EXISTS);
+    // error? createFileResults = file:create("bar.txt");
+    // boolean fileExists = check file:test("bar.txt", file:EXISTS);
 
 
-    log:print("bar.txt file exists: "+ fileExists.toString());
+    // log:print("bar.txt file exists: "+ fileExists.toString());
     File|error res = driveClient->uploadFile(optionals5, fileContent);
     error? err = printFileasString(res);
     
@@ -200,22 +200,23 @@ function testUploadFile() {
 @test:Config {}
 function testUploadLocalFile() {
 
-
-
-    log:print("bar.txt file exists: "+ fileExists.toString());
     File|error res = driveClient->uploadFile(optionals5, fileContent);
     error? err = printFileasString(res);
     
 }
 
-
+ListFilesOptional optional6 = {
+    pageSize : 2
+};
 
 @test:Config {}
-function testgetFiles() {
-    stream<File>|error res = driveClient->getFiles();
+function testGetFiles() {
+
+    stream<File>|error res = driveClient->getFiles(optional6);
     if (res is stream<File>){
         error? e = res.forEach(function (File file1) {
-            log:print(convertFiletoString(file1));
+            _ = printFileasString(file1);
         });
     }
+
 }
