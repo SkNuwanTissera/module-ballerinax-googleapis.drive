@@ -154,7 +154,9 @@ DeleteFileOptional delete_optional = {
 // }
 
 
-#####
+#########################
+# Create Metadata file
+# ######################
 
 // CreateFileOptional optionals4 = {
 //     ignoreDefaultVisibility : false
@@ -171,3 +173,32 @@ DeleteFileOptional delete_optional = {
 //     File|error res = driveClient->createMetaDataFile(optionals4, payload4);
 //     error? err = printFileasString(res);
 // }
+
+################
+# Upload a file
+# ##############
+
+// In simple upload, Send the file data in the request body
+// In multipart upload, Request body has 2 parts (Metadata & Media)
+// In resumable upload,There are two ways to upload. 
+
+File fileContent = {
+    mimeType : "application/vnd.google-apps.document",
+    name : "hello123",
+    parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
+};
+
+UploadFileOptional optionals5 = {
+    uploadType : MULTIPART,
+    ignoreDefaultVisibility : false
+};
+
+@test:Config {}
+function testUploadFile() {
+    File|error res = driveClient->uploadFile(optionals5, fileContent);
+    error? err = printFileasString(res);
+}
+
+################
+# Upload a file
+# ##############
