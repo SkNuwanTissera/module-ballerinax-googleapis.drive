@@ -90,6 +90,13 @@ const string OCR_LANGUAGE = "ocrLanguage";
 const string ADD_PARENTS = "addParents";
 const string REMOVE_PARENTS = "removeParents";
 const string USE_CONTENT_AS_INDEXABLE_TEXT = "useContentAsIndexableText";
+// File - LIST
+const string CORPORA = "corpora";
+const string DRIVE_ID = "driveId";
+const string ORDER_BY = "orderBy";
+const string PAGE_SIZE = "pageSize";
+const string SPACES = "spaces";
+const string INCLUDE_ITEMS_FROM_ALL_DRIVES = "includeItemsFromAllDrives";
 
 //Headers
 const string CONTENT_TYPE = "Content-Type";
