@@ -470,3 +470,56 @@ function prepareUrlwithUploadOptional(UploadFileOptional? optional = ()) returns
     }
     return path;
 }
+
+# Prepare URL with optional parameters.
+# 
+# + optional - Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES]);
+    if (optional is ListFilesOptional) {
+
+        //Optional Params
+        if (optional.corpora is string){
+           optionalMap[UPLOAD_TYPE] = optional.corpora.toString();
+        }
+        if (optional.driveId is string) {
+            optionalMap[DRIVE_ID] = optional.driveId.toString();
+        }
+        if (optional.fields is string) {
+            optionalMap[FIELDS] = optional.fields.toString();
+        }
+        if (optional.includeItemsFromAllDrives is boolean) {
+            optionalMap[INCLUDE_ITEMS_FROM_ALL_DRIVES] = optional.includeItemsFromAllDrives.toString();
+        }
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+        }
+        if (optional.orderBy is string) {
+            optionalMap[ORDER_BY] = optional.orderBy.toString();
+        }
+        if (optional.pageSize is int) {
+            optionalMap[PAGE_SIZE] = optional.pageSize.toString();
+        }
+        if (optional.pageToken is string) {
+            optionalMap[PAGE_TOKEN] = optional.pageToken.toString();
+        }
+        if (optional.q is string) {
+            optionalMap[Q] = optional.q.toString();
+        }
+        if (optional.spaces is string) {
+            optionalMap[SPACES] = optional.spaces.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
