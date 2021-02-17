@@ -124,3 +124,27 @@ function createNewFile(http:Client httpClient, UploadFileOptional? optional = ()
         return resp;
     } 
 }
+
+function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) returns @tainted stream<File>|error{
+
+    string path = prepareUrl([DRIVE_PATH, FILES]);
+    log:print(path.toString());
+    json | error resp = sendRequest(httpClient, path);
+    File[] files = [];
+    if resp is json {
+        FilesResponse|error res = resp.cloneWithType(FilesResponse);
+        if (res is FilesResponse) {
+            int i = files.length();
+            foreach File item in res.files {
+                files[i] = item;
+                i = i + 1;
+            }        
+            stream<File> filesStream = (<@untainted>files).toStream();
+            return filesStream;
+        } else {
+            return error(ERR_FILE_RESPONSE, res);
+        }
+    } else {
+        return resp;
+    }
+}
