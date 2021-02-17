@@ -267,6 +267,7 @@ public type PermissionDetails record {
 };
 
 public type UploadFileOptional record {
+    string? uploadType = (); 
     boolean? ignoreDefaultVisibility = ();
     string? includePermissionsForView = (); 
     boolean? keepRevisionForever = (); 
@@ -274,3 +275,9 @@ public type UploadFileOptional record {
     boolean? supportsAllDrives = (); 
     boolean? useContentAsIndexableText = ();
 };
+
+enum UploadTypes {
+    SIMPLE = "media",
+    MULTIPART = "multipart",
+    RESUMABLE = "resumable"
+}
