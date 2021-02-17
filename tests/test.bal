@@ -1,7 +1,8 @@
 import ballerina/config;
 import ballerina/test;
-// import ballerina/log;
-import ballerina/io;
+import ballerina/log;
+// import ballerina/io;
+import ballerina/file;
 
 DriveConfiguration config = {
     oauth2Config: {
@@ -184,12 +185,37 @@ UploadFileOptional optionals5 = {
 
 @test:Config {}
 function testUploadFile() {
-    // error? createFileResults = file:create("bar.txt");
-    // File|error res = driveClient->uploadFile(optionals5, fileContent);
-    // error? err = printFileasString(res);
+
+    //create a file and upload
+    error? createFileResults = file:create("bar.txt");
+    boolean fileExists = check file:test("bar.txt", file:EXISTS);
+
+
+    log:print("bar.txt file exists: "+ fileExists.toString());
+    File|error res = driveClient->uploadFile(optionals5, fileContent);
+    error? err = printFileasString(res);
+    
+}
+
+@test:Config {}
+function testUploadLocalFile() {
+
+
+
+    log:print("bar.txt file exists: "+ fileExists.toString());
+    File|error res = driveClient->uploadFile(optionals5, fileContent);
+    error? err = printFileasString(res);
+    
 }
 
 
-################
-# Upload a file
-# ##############
+
+@test:Config {}
+function testgetFiles() {
+    stream<File>|error res = driveClient->getFiles();
+    if (res is stream<File>){
+        error? e = res.forEach(function (File file1) {
+            log:print(convertFiletoString(file1));
+        });
+    }
+}
