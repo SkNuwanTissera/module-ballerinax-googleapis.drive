@@ -50,24 +50,6 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
-// TO-DO : Needs Upload type support, Map input json body to file (ClonewithType)
-function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
-    
-    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
-    json | error resp = sendRequestWithPayload(httpClient, path, fileData);
-    log:print(resp.toString());
-    if resp is json {
-        File|error file = resp.cloneWithType(File);
-        if (file is File) {
-            return file;
-        } else {
-            return error(ERR_FILE_RESPONSE, file);
-        }
-    } else {
-        return resp;
-    } 
-}
-
 function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
 
     string path = prepareUrlWithDeleteOptional(fileId, optional);
@@ -123,3 +105,20 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
     
 }
 
+
+function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+    
+    string path = prepareQueryUrl([UPLOAD, DRIVE_PATH, FILES], [UPLOAD_TYPE] , [TYPE_MEDIA]);
+    json | error resp = sendRequestWithPayload(httpClient, path, fileData);
+    log:print(resp.toString());
+    if resp is json {
+        File|error file = resp.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return resp;
+    } 
+}
