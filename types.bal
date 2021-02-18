@@ -1,6 +1,6 @@
 public type DriveInfo record {
-    string kind = "";
-    // User user = [];
+    string kind?;
+    User user?;
     // StorageQuota storageQuota = {};
     // ImportFormats importFormats = {};
     // ExportFormats exportFormats = {};
