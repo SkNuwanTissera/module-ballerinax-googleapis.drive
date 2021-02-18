@@ -1,6 +1,6 @@
 import ballerina/config;
 import ballerina/test;
-// import ballerina/log;
+import ballerina/log;
 // import ballerina/io;
 // import ballerina/file;
 
@@ -29,7 +29,6 @@ function testdriveGetAbout() {
     var res2 = driveClient->getAbout("kind");
     var res3 = driveClient->getAbout("user");
     var res4 = driveClient->getAbout("storageQuota");
-    refer https://developers.google.com/drive/api/v3/reference/about#resource
     log:print(res1.toString());
 
 }
@@ -60,16 +59,16 @@ function testgetFileByPath() {
 
 }
 
+################################
+# Get File By ID with optionals
+# #############################
+
 GetFileOptional optional = {
     acknowledgeAbuse: false,
     fields: "*",
     includePermissionsForView : "published",
     supportsAllDrives : false
 };
-
-################################
-# Get File By ID with optionals
-# #############################
 
 @test:Config {}
 function testgetFileByIdwithOptionalParameters() {
