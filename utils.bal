@@ -350,7 +350,7 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
     return path;
 }
 
-function printFileasString(File|error file){
+function printFileasString(File|error file) {
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
         if (jsonObject is json) {
@@ -363,7 +363,7 @@ function printFileasString(File|error file){
     }
 }
 
-function convertFiletoJSON(File|error file) returns json|error{
+function convertFiletoJSON(File|error file) returns json|error {
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
         if (jsonObject is map<json>) {
