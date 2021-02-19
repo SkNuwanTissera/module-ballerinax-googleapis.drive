@@ -373,6 +373,9 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
     return path;
 }
 
+# Prepare Validate Status Code.
+# 
+# + file - File object
 function printFileasString(File|error file) {
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
@@ -558,6 +561,11 @@ function prepareUrlWithUpdateExistingOptional(string fileId , UpdateFileMetadata
     return path;
 }
 
+# Upload files
+# 
+# + path - Formatted URI 
+# + filePath - File path subjected to upload
+# + return - Json response or Error
 function uploadFiles(http:Client httpClient, string path, string filePath)
 returns @tainted json | error {
 
