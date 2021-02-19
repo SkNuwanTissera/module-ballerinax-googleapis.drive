@@ -1,7 +1,6 @@
 import ballerina/log;
 import ballerina/http;
 import ballerina/io;
-// import ballerina/file;
 
 function getDriveInfo(http:Client httpClient, string? fields) returns @tainted json|error{
     string path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + _ALL;
@@ -102,6 +101,7 @@ function updateExistingFileById(http:Client httpClient, string fileId, UpdateFil
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateExistingOptional(fileId, optional);
+    log:print("@@@@@@@@@@" +path.toString());
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
     if resp is json { //use a separate function for this
         log:print("##########" +resp.toString());
@@ -128,27 +128,55 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
 }
 
 
-function uploadFile(http:Client httpClient, string filePath, UploadFileOptional? optional = ()) returns @tainted File|error{
+function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
     
     //json payload = check fileData.cloneWithType(json);
-    string path = prepareUrlwithUploadOptional(optional);
+    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
 
-    byte[] bytes = check io:fileReadBytes(filePath);
-    log:print(bytes.toString());
+    byte[] fileContentByteArray = check io:fileReadBytes(filePath);
+
     // json payload = { 
     //     "Metadata" : {
-    //         "Content-Type" : "application/json;charset=UTF-8"
+    //         "Content-Type" : "application/json;charset=UTF-8",
+    //         "mimeType" : "application/vnd.google-apps.photo"
     //     },
     //     "Media" : {
     //         "data" : bytes
     //     }
     // };
 
+    // var media = {
+    //     // "Content-Type" : "application/vnd.google-apps.photo",
+    //     // "mimeType": "image/jpeg",
+    //     "body": fileContentByteArray
+    // };
 
-    json payload = bytes;
+    // var fileMetadata = {
+    //     // "Content-Type" : "application/vnd.google-apps.photo",
+    //     "name": "photo.jpg"
+    // };
+
+    // json payload = {
+    //     'resource: fileMetadata,
+    //     media: media,
+    //     fields: "id"
+    // };
+
+
+    //json payload = fileContentByteArray;
     
-    json|error resp = sendRequestWithPayload(httpClient, path, payload);
+    json|error resp = uploadFiles(httpClient, path, filePath);
+    if (resp is json){
+        //update metadata
+        string fileId = resp.id.toString();
+        log:print(resp.id.toString());
+        string path1 = prepareUrl([DRIVE_PATH, FILES, fileId]);
+        // File|error res = updateExistingFileById(httpClient, fileId, optional, fileMetadata);
+        json payload = check fileMetadata.cloneWithType(json);
+        json|error resp1 = updateRequestWithPayload(httpClient, path1, payload);
+    }
+    
     
     if resp is json {
         File|error file = resp.cloneWithType(File);
