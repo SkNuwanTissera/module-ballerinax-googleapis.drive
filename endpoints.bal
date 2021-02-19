@@ -82,8 +82,8 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateOptional(fileId, optional);
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
-    if resp is json { //use a separate function for this
-        log:print("##########" +resp.toString());
+    if resp is json { 
+        log:print("[updateFileById]" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
@@ -102,8 +102,8 @@ function updateExistingFileById(http:Client httpClient, string fileId, UpdateFil
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateExistingOptional(fileId, optional);
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
-    if resp is json { //use a separate function for this
-        log:print("##########" +resp.toString());
+    if resp is json { 
+        log:print("[updateExistingFileById]" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
