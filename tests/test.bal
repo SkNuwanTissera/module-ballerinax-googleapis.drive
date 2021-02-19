@@ -32,8 +32,8 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
-string fileId = "";
-string parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
+string? fileId = "";
+string? parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
 
 ########################
 # Get Drive Information
@@ -59,7 +59,7 @@ function testdriveGetAbout() {
 }
 function testGetFileById() {
 
-    File | error testGetFile = driveClient->getFileById(fileId);
+    File | error testGetFile = driveClient->getFileById(fileId?);
     _ = printFileasString(testGetFile);
 
 }
@@ -170,6 +170,8 @@ function testCreateFile() {
     error? err = printFileasString(res);
 }
 
+
+
 ##############################
 # Create Folder with Metadata
 # ############################
@@ -184,10 +186,15 @@ File payload_create_folder = {
 };
 
 @test:Config {}
-function testCreateFile() {
+function testCreateFolder() {
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
+    if(res is File){
+        parentFolder = res?.id;
+    }
     error? err = printFileasString(res);
 }
+
+
 
 ###################
 # Search for files
