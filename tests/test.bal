@@ -44,19 +44,6 @@ function testGetFileById() {
 
 }
 
-#####################
-# Get File By Path
-# ###################
-
-// @test:Config {}
-// function testgetFileByPath() {
-
-//     string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
-//     File | error res1 = driveClient->getFileByPath(url);
-//     _ = printFileasString(res1);
-
-// }
-
 ################################
 # Get File By ID with optionals
 # #############################
@@ -76,22 +63,6 @@ function testgetFileByIdwithOptionalParameters() {
 
 }
 
-#####################
-# Get File ID by Path
-# ###################
-
-@test:Config {}
-function testGetFilebyPath(){
-
-    // string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
-    // issue in doc urls ..check below
-    // string url = https://docs.google.com/document/d/1WElgMovRkdtZTXuPrySHed7LY4jcrULIhAgJHUmVcLQ/edit?usp=sharing;
-
-    // File|error res =  driveClient->getFileByPath(url);
-    // _ = printFileasString(res);
-
-}
-
 DeleteFileOptional delete_optional = {
 
     supportsAllDrives : false
@@ -108,20 +79,6 @@ function testDeleteFileById(){
     _ = printJSONasString(res);
 
 }
-
-#######################
-# Delete File by Path
-# #####################
-
-// @test:Config {}
-// function testDeleteFileByPath(){
-//     string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
-//     json | error res = driveClient->deleteFileByPath(path1, delete_optional);
-//     if (res is json){
-//         log:print(res.toString());
-//     }
-
-// }
 
 
 ############
@@ -206,7 +163,6 @@ function testGetFiles() {
     }
 
 }
-
 
 ######################
 # Update Existing File
