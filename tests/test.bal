@@ -46,7 +46,7 @@ function testdriveGetAbout() {
     var res2 = driveClient->getAbout("kind");
     var res3 = driveClient->getAbout("user");
     var res4 = driveClient->getAbout("storageQuota");
-    //log:print(res1.toString());
+    log:print(res1.toString());
 
 }
 
@@ -160,8 +160,8 @@ CreateFileOptional optionals_create_file = {
 
 File payload_create_file = {
     mimeType : "application/vnd.google-apps.document",
-    name : "nuwan123",
-    parents : [parentFolder]
+    name : "nuwan123"
+    //parents : [parentFolder]
 };
 
 @test:Config {
@@ -169,6 +169,7 @@ File payload_create_file = {
 }
 function testCreateFile() {
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
+    fileId = <@untainted> getIdFromFileResponse(res);
     error? err = printFileasString(res);
 }
 
@@ -191,13 +192,6 @@ File payload_create_folder = {
 function testCreateFolder() {
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
     parentFolder = <@untainted> getIdFromFileResponse(res);
-    // if(res is File){
-    //     json|error created_response = res.cloneWithType(json); 
-    //     if (created_response is json){
-    //         log:print(created_response.id.toString());   
-    //         parentFolder = <@untainted> created_response.id.toString();
-    //     }
-    // }
     error? err = printFileasString(res);
 }
 
@@ -229,7 +223,7 @@ function testGetFiles() {
 
 
 UpdateFileMetadataOptional optionals = {
-    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
+    addParents : parentFolder
 };
 
 File payload = {
@@ -250,7 +244,7 @@ function testUpdateExistingFiles() {
 # ############
 
 UpdateFileMetadataOptional optionals_ = {
-    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5" //Parent folderID
+    addParents : parentFolder //Parent folderID
 };
 
 File payload_ = {
@@ -260,7 +254,9 @@ File payload_ = {
 //string filePath = "./tests/bar.txt";
 string filePath = "./tests/bar.jpeg";
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testNewUpload() {
 
     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);

@@ -47,7 +47,7 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[deleteRequest]"+jsonResponse.toString());
+            //log:print("[deleteRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -73,7 +73,7 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[sendRequestWithPayload]"+jsonResponse.toString());
+            //log:print("[sendRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -97,7 +97,7 @@ returns @tainted json | error {
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
-        log:print("[updateRequestWithPayload]"+jsonResponse.toString());
+        //log:print("[updateRequestWithPayload]"+jsonResponse.toString());
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
             if (validateStatusCodeRes is error) {
@@ -126,7 +126,7 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[uploadRequestWithPayload] "+jsonResponse.toString());
+            //log:print("[uploadRequestWithPayload] "+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
