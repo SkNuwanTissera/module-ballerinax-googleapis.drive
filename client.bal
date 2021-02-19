@@ -15,7 +15,8 @@ public client class Client {
             auth: {
                 authHandler: bearerHandler
             },
-            secureSocket: socketConfig
+            secureSocket: socketConfig,
+            http1Settings: {chunking: http:CHUNKING_NEVER}
         });
 
     }
@@ -28,17 +29,17 @@ public client class Client {
         return getFileById(self.httpClient , fileId, optional);
     }
 
-    remote function getFileByPath(string filePath, GetFileOptional? optional = ()) returns @tainted File|error {
-        return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
-    }
+    // remote function getFileByPath(string filePath, GetFileOptional? optional = ()) returns @tainted File|error {
+    //     return getFileById(self.httpClient , check getIdFromUrl(filePath), optional);
+    // }
 
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
 
-    remote function deleteFileByPath(string filePath, DeleteFileOptional? optional = ()) returns @tainted json|error{
-        return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
-    }
+    // remote function deleteFileByPath(string filePath, DeleteFileOptional? optional = ()) returns @tainted json|error{
+    //     return deleteFileById(self.httpClient, check getIdFromUrl(filePath), optional);
+    // }
 
     remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
         return copyFile(self.httpClient, fileId, optional, fileResource);
@@ -56,8 +57,8 @@ public client class Client {
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 
-    remote function uploadFile(string filePath, UploadFileOptional? optional = ()) returns @tainted File|error{
-        return uploadFile(self.httpClient, filePath, optional);
+    remote function uploadFile(string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+        return uploadFile(self.httpClient, filePath, optional, fileMetadata);
     }
 
     remote function getFiles(ListFilesOptional? optional = ()) returns @tainted stream<File>|error {
