@@ -2,7 +2,8 @@ import ballerina/http;
 import ballerina/encoding;
 import ballerina/log;
 import ballerina/stringutils;
-// import ballerina/io;
+import ballerina/io;
+import ballerina/file;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->get(<@untainted>path);
@@ -48,7 +49,8 @@ function sendRequestWithPayload(http:Client httpClient, string path, json jsonPa
 returns @tainted json | error {
 
     http:Request httpRequest = new;
-    //httpRequest.setHeader(CONTENT_TYPE,"multipart/related");
+    // httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.photo");
+    // httpRequest.setHeader(CONTENT_LENGTH,"2048");
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
@@ -61,7 +63,6 @@ returns @tainted json | error {
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
-            log:print("Hi from sendRequestWithPayload - " +jsonResponse.toString());
             return jsonResponse;
         } else {
             return getDriveError(jsonResponse);
@@ -76,12 +77,10 @@ returns @tainted json | error {
 
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
-        log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
     var httpResponse = httpClient->patch(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
-        log:print("Hi from updateRequestWithPayload - " +jsonPayload.toString());
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
@@ -195,7 +194,9 @@ returns string {
 # 
 # + url - url copied from google drive.
 # + return - ID as string or Error
-function getIdFromUrl(string url) returns string | error {
+function getIdFromUrl(string url) returns string | error { 
+    
+    // use regex pattern 
 
     string id = EMPTY_STRING;
     int startIndex = 0;
@@ -363,6 +364,16 @@ function printFileasString(File|error file) {
     }
 }
 
+function printJSONasString(json|error jsonObject) {
+
+    if (jsonObject is json) {
+        log:print(jsonObject.toString());
+    }  else {
+        log:print(jsonObject.message());
+    }
+    
+}
+
 function convertFiletoJSON(File|error file) returns json|error {
     if (file is File){
         json|error jsonObject = file.cloneWithType(json);
@@ -376,7 +387,6 @@ function convertFiletoJSON(File|error file) returns json|error {
 
 function convertJSONtoFile(json|error jsonObj) returns File|error{
     if jsonObj is json { //use a separate function for this
-        log:print("##########" +jsonObj.toString());
         File|error file = jsonObj.cloneWithType(File);
         if (file is File) {
             return file;
@@ -387,10 +397,6 @@ function convertJSONtoFile(json|error jsonObj) returns File|error{
         return error(ERR_JSON_TO_FILE_CONVERT, jsonObj);
     }
 }
-
-
-
-
 
 
 # Prepare URL with optional parameters.
@@ -521,5 +527,64 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
         });
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
+    return path;
+}
+
+function readFileAsByteArray(string filePath) returns @tainted error?{
+
+    //create a file and upload
+    error? createFileResults = file:create(filePath);
+    if (createFileResults is error) {
+        io:println(createFileResults.message());
+    }
+
+    //convert byte[] from file.
+    stream<io:Block, io:Error?> blockStream = check io:fileReadBlocksAsStream(filePath, 2048);
+}
+
+# Prepare URL with optional parameters on Update Request
+# 
+# + fileId - File id
+# + optional - Update Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlWithUpdateExistingOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
+
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES, fileId]);
+
+    if (optional is UpdateFileMetadataOptional) {
+
+        // Optional Query Params
+        if (optional.addParents is string) {
+            optionalMap[ADD_PARENTS] = optional.addParents.toString();
+        }
+        if (optional.includePermissionsForView is string) {
+            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
+        }
+        if (optional.keepRevisionForever is boolean) {
+            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
+        }
+        if (optional.ocrLanguage is string) {
+            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
+        }
+        if (optional.removeParents is string) {
+            optionalMap[REMOVE_PARENTS] = optional.removeParents.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.useContentAsIndexableText is boolean) {
+            optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
+        }
+            
+    }
+
+    optionalMap.forEach(function(string val) {
+        value.push(val);
+    });
+
+    path = prepareQueryUrl([path], optionalMap.keys(), value);
+
     return path;
 }
