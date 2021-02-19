@@ -48,14 +48,14 @@ function testGetFileById() {
 # Get File By Path
 # ###################
 
-@test:Config {}
-function testgetFileByPath() {
+// @test:Config {}
+// function testgetFileByPath() {
 
-    string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
-    File | error res1 = driveClient->getFileByPath(url);
-    _ = printFileasString(res1);
+//     string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
+//     File | error res1 = driveClient->getFileByPath(url);
+//     _ = printFileasString(res1);
 
-}
+// }
 
 ################################
 # Get File By ID with optionals
@@ -81,14 +81,14 @@ function testgetFileByIdwithOptionalParameters() {
 # ###################
 
 @test:Config {}
-function testGetIDbyPath(){
+function testGetFilebyPath(){
 
-    string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
+    // string url = "https://drive.google.com/file/d/1Tu7cW3XyAYPqh9lDkDq-Pmtj11yYwI7y/view?usp=sharing";
     // issue in doc urls ..check below
-    // https://docs.google.com/document/d/1WElgMovRkdtZTXuPrySHed7LY4jcrULIhAgJHUmVcLQ/edit?usp=sharing
+    // string url = https://docs.google.com/document/d/1WElgMovRkdtZTXuPrySHed7LY4jcrULIhAgJHUmVcLQ/edit?usp=sharing;
 
-    File|error res =  driveClient->getFileByPath(url);
-    _ = printFileasString(res);
+    // File|error res =  driveClient->getFileByPath(url);
+    // _ = printFileasString(res);
 
 }
 
@@ -113,15 +113,15 @@ function testDeleteFileById(){
 # Delete File by Path
 # #####################
 
-@test:Config {}
-function testDeleteFileByPath(){
-    string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
-    json | error res = driveClient->deleteFileByPath(path1, delete_optional);
-    if (res is json){
-        log:print(res.toString());
-    }
+// @test:Config {}
+// function testDeleteFileByPath(){
+//     string path1 = "https://drive.google.com/file/d/1AFDfPqcCg-YHIuxwUqFOYp-PVR3wmByh/view?usp=sharing";
+//     json | error res = driveClient->deleteFileByPath(path1, delete_optional);
+//     if (res is json){
+//         log:print(res.toString());
+//     }
 
-}
+// }
 
 
 ############
@@ -137,7 +137,6 @@ File payload2 = {
 @test:Config {}
 function testCopyFile(){
     File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
-    // File|error res = driveClient->copyFile("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4");
     if (res is File){
         json|error file = res.cloneWithType(json);
         if (file is json) {
@@ -192,12 +191,6 @@ function testCreateFile() {
 # Upload a file
 # ##############
 
-File fileContent = {
-    mimeType : "application/vnd.google-apps.document",
-    name : "hello123",
-    parents : ["1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"]
-};
-
 UploadFileOptional optionals5 = {
     uploadType : SIMPLE,
     ignoreDefaultVisibility : false
@@ -207,11 +200,11 @@ UploadFileOptional optionals5 = {
 @test:Config {}
 function testUploadFile() {
 
-    // string filePath = "./tests/bar.txt";
+    //string filePath = "./tests/bar.txt";
     string filePath = "./tests/spreadsheetID.jpeg";
 
-    File|error res = driveClient->uploadFile(filePath, optionals5);
-    error? err = printFileasString(res);
+    // File|error res = driveClient->uploadFile(filePath, optionals5);
+    // error? err = printFileasString(res);
     
 }
 
@@ -253,5 +246,27 @@ File payload9 = {
 function testUpdateExistingFiles() {
 
     File|error res = driveClient->updateExistingFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals9, payload9);
+    error? err = printFileasString(res);
+}
+
+######################
+# New Upload File
+# ####################
+
+UpdateFileMetadataOptional optionalsssss = {
+    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
+};
+
+File payload99 = {
+    name : "hellothari555.txt"
+};
+
+string filePath = "./tests/bar.txt";
+// string filePath = "./tests/spreadsheetID.jpeg";
+
+@test:Config {}
+function testNewUpload() {
+
+    File|error res = driveClient->uploadFile(filePath, optionalsssss, payload99);
     error? err = printFileasString(res);
 }
