@@ -49,8 +49,6 @@ function sendRequestWithPayload(http:Client httpClient, string path, json jsonPa
 returns @tainted json | error {
 
     http:Request httpRequest = new;
-    // httpRequest.setHeader(CONTENT_TYPE,"application/vnd.google-apps.photo");
-    // httpRequest.setHeader(CONTENT_LENGTH,"2048");
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
@@ -83,6 +81,7 @@ returns @tainted json | error {
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        log:print("$$$$$"+jsonResponse.toString());
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
             if (validateStatusCodeRes is error) {
@@ -103,20 +102,18 @@ returns @tainted json | error {
 
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
-        log:print("Hi from uploadRequestWithPayload - " +jsonPayload.toString());
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
     }
     var httpResponse = httpClient->post(<@untainted>path, httpRequest);
     if (httpResponse is http:Response) {
-        log:print("Hi from uploadRequestWithPayload - " +httpResponse.toString());
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            log:print("$$$$$"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
-            
             return jsonResponse;
         } else {
             return getDriveError(jsonResponse);
@@ -214,6 +211,7 @@ function getIdFromUrl(string url) returns string | error {
         id = url.substring(INT_VALUE_39,INT_VALUE_83);
     } 
     return id;
+
 }
 
 # Prepare URL with optional parameters.
@@ -587,4 +585,31 @@ function prepareUrlWithUpdateExistingOptional(string fileId , UpdateFileMetadata
     path = prepareQueryUrl([path], optionalMap.keys(), value);
 
     return path;
+}
+
+function uploadFiles(http:Client httpClient, string path, string filePath)
+returns @tainted json | error {
+
+    http:Request httpRequest = new;
+    byte[] fileContentByteArray = check io:fileReadBytes(filePath);
+    httpRequest.setHeader("Content-Length",fileContentByteArray.length().toString());
+    httpRequest.setBinaryPayload(<@untainted> fileContentByteArray);
+
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+
+    if (httpResponse is http:Response) {
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
 }
