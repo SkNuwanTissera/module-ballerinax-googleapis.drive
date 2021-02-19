@@ -19,7 +19,6 @@ import ballerina/encoding;
 import ballerina/log;
 import ballerina/stringutils;
 import ballerina/io;
-import ballerina/file;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->get(<@untainted>path);
