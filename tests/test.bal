@@ -17,6 +17,7 @@ DriveConfiguration config = {
 Client driveClient = new (config);
 
 string fileId = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+string parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
 
 ########################
 # Get Drive Information
@@ -37,7 +38,9 @@ function testdriveGetAbout() {
 # Get File By Id
 # ################
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testGetFileById() {
 
     File | error testGetFile = driveClient->getFileById(fileId);
@@ -55,11 +58,12 @@ GetFileOptional optional = {
     supportsAllDrives : false
 };
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testgetFileByIdwithOptionalParameters() {
 
-    string fid = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
-    File | error res1 = driveClient->getFileById(fid, optional);
+    File | error res1 = driveClient->getFileById(fileId, optional);
     _ = printFileasString(res1);
 
 }
@@ -73,10 +77,12 @@ DeleteFileOptional delete_optional = {
 # Delete File by ID
 # #####################
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testDeleteFileById(){
 
-    json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
+    json | error res = driveClient->deleteFileById(fileId, delete_optional);
     _ = printJSONasString(res);
 
 }
@@ -85,15 +91,17 @@ function testDeleteFileById(){
 # Copy File
 # ##########
 
-CopyFileOptional optionals2 = {"includePermissionsForView" : "published"};
+CopyFileOptional optionals_copy_file = {"includePermissionsForView" : "published"};
 
-File payload2 = {
-    name : "testpdf.pdf" //New name
+File payload_copy_file = {
+    name : "testfile.pdf" //New name
 };
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testCopyFile(){
-    File|error res = driveClient->copyFile("1JeL5t7O9HrpRnZEa24h-Fbbloy3s4Q-3" ,optionals2 ,payload2 );
+    File|error res = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
     if (res is File){
         json|error file = res.cloneWithType(json);
         if (file is json) {
@@ -107,19 +115,21 @@ function testCopyFile(){
 # ##########################
 # POST Request
 
-UpdateFileMetadataOptional optionals3 = {
-    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
+UpdateFileMetadataOptional optionals_file_metadata = {
+    addParents : parentFolder
 };
 
-File payload3 = {
-    name : "hellothari555"
+File payload__file_metadata = {
+    name : "test"
 };
 
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testUpdateFiles() {
 
-    File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
+    File|error res = driveClient->updateFileMetadataById(fileId, optionals_file_metadata, payload__file_metadata);
     error? err = printFileasString(res);
 }
 
@@ -128,11 +138,11 @@ function testUpdateFiles() {
 # Create Metadata file
 # ######################
 
-CreateFileOptional optionals4 = {
+CreateFileOptional optionals_create_file = {
     ignoreDefaultVisibility : false
 };
 
-File payload4 = {
+File payload_create_file = {
     mimeType : "application/vnd.google-apps.document",
     name : "nuwan123",
     parents : ["1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"]
@@ -140,7 +150,7 @@ File payload4 = {
 
 @test:Config {}
 function testCreateFile() {
-    File|error res = driveClient->createMetaDataFile(optionals4, payload4);
+    File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
     error? err = printFileasString(res);
 }
 
@@ -148,17 +158,19 @@ function testCreateFile() {
 # Search for files
 # #################
 
-ListFilesOptional optional6 = {
+ListFilesOptional optional_search = {
     pageSize : 3
 };
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testGetFiles() {
 
-    stream<File>|error res = driveClient->getFiles(optional6);
+    stream<File>|error res = driveClient->getFiles(optional_search);
     if (res is stream<File>){
-        error? e = res.forEach(function (File file1) {
-            _ = printFileasString(file1);
+        error? e = res.forEach(function (File file) {
+            _ = printFileasString(file);
         });
     }
 
@@ -169,18 +181,20 @@ function testGetFiles() {
 # ####################
 # PATCH Upload Request
 
-UpdateFileMetadataOptional optionals9 = {
+UpdateFileMetadataOptional optionals = {
     addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
 };
 
-File payload9 = {
-    name : "hellothari555"
+File payload = {
+    name : "test123"
 };
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFile"]
+}
 function testUpdateExistingFiles() {
 
-    File|error res = driveClient->updateExistingFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals9, payload9);
+    File|error res = driveClient->updateExistingFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals, payload);
     error? err = printFileasString(res);
 }
 
@@ -188,11 +202,11 @@ function testUpdateExistingFiles() {
 # Upload File
 # ############
 
-UpdateFileMetadataOptional optionalsssss = {
+UpdateFileMetadataOptional optionals_ = {
     addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5" //change folder
 };
 
-File payload99 = {
+File payload_ = {
     name : "test123.mp4"
 };
 
@@ -203,6 +217,6 @@ string filePath = "./tests/test.mp4";
 @test:Config {}
 function testNewUpload() {
 
-    File|error res = driveClient->uploadFile(filePath, optionalsssss, payload99);
+    File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
     error? err = printFileasString(res);
 }
