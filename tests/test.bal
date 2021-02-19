@@ -187,27 +187,6 @@ function testCreateFile() {
     error? err = printFileasString(res);
 }
 
-################
-# Upload a file
-# ##############
-
-UploadFileOptional optionals5 = {
-    uploadType : SIMPLE,
-    ignoreDefaultVisibility : false
-};
-
-
-@test:Config {}
-function testUploadFile() {
-
-    //string filePath = "./tests/bar.txt";
-    string filePath = "./tests/spreadsheetID.jpeg";
-
-    // File|error res = driveClient->uploadFile(filePath, optionals5);
-    // error? err = printFileasString(res);
-    
-}
-
 ###################
 # Search for files
 # #################
@@ -258,11 +237,11 @@ UpdateFileMetadataOptional optionalsssss = {
 };
 
 File payload99 = {
-    name : "hellothari555.txt"
+    name : "test123.jpeg"
 };
 
-string filePath = "./tests/bar.txt";
-// string filePath = "./tests/spreadsheetID.jpeg";
+//string filePath = "./tests/bar.txt";
+string filePath = "./tests/bar.jpeg";
 
 @test:Config {}
 function testNewUpload() {

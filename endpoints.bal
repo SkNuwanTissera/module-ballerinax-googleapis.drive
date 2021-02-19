@@ -101,7 +101,6 @@ function updateExistingFileById(http:Client httpClient, string fileId, UpdateFil
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateExistingOptional(fileId, optional);
-    log:print("@@@@@@@@@@" +path.toString());
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
     if resp is json { //use a separate function for this
         log:print("##########" +resp.toString());
@@ -121,73 +120,42 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
 
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithMetadataFileOptional(optional);
-    log:print("##########" +path.toString());
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
     return convertJSONtoFile(resp);
-    
+
 }
 
 
 function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
     
-    //json payload = check fileData.cloneWithType(json);
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
 
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
-
-    // json payload = { 
-    //     "Metadata" : {
-    //         "Content-Type" : "application/json;charset=UTF-8",
-    //         "mimeType" : "application/vnd.google-apps.photo"
-    //     },
-    //     "Media" : {
-    //         "data" : bytes
-    //     }
-    // };
-
-    // var media = {
-    //     // "Content-Type" : "application/vnd.google-apps.photo",
-    //     // "mimeType": "image/jpeg",
-    //     "body": fileContentByteArray
-    // };
-
-    // var fileMetadata = {
-    //     // "Content-Type" : "application/vnd.google-apps.photo",
-    //     "name": "photo.jpg"
-    // };
-
-    // json payload = {
-    //     'resource: fileMetadata,
-    //     media: media,
-    //     fields: "id"
-    // };
-
-
-    //json payload = fileContentByteArray;
     
     json|error resp = uploadFiles(httpClient, path, filePath);
     if (resp is json){
         //update metadata
         string fileId = resp.id.toString();
         log:print(resp.id.toString());
-        string path1 = prepareUrl([DRIVE_PATH, FILES, fileId]);
-        // File|error res = updateExistingFileById(httpClient, fileId, optional, fileMetadata);
+        string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
         json payload = check fileMetadata.cloneWithType(json);
-        json|error resp1 = updateRequestWithPayload(httpClient, path1, payload);
-    }
-    
-    
-    if resp is json {
-        File|error file = resp.cloneWithType(File);
-        if (file is File) {
-            return file;
+        json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
+
+        if changeResponse is json {
+            File|error file = changeResponse.cloneWithType(File);
+            if (file is File) {
+                return file;
+            } else {
+                return error(ERR_FILE_RESPONSE, file);
+            }
         } else {
-            return error(ERR_FILE_RESPONSE, file);
-        }
+            return changeResponse;
+        } 
     } else {
         return resp;
-    } 
+    }
+
 }
 
 function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) returns @tainted stream<File>|error{
