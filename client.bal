@@ -48,12 +48,16 @@ public client class Client {
         return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
 
+    remote function updateExistingFile(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+        return updateExistingFileById(self.httpClient, fileId, optional, fileResource);
+    }
+
     remote function createMetaDataFile(CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 
-    remote function uploadFile(UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
-        return createNewFile(self.httpClient, optional, fileData);
+    remote function uploadFile(string filePath, UploadFileOptional? optional = ()) returns @tainted File|error{
+        return uploadFile(self.httpClient, filePath, optional);
     }
 
     remote function getFiles(ListFilesOptional? optional = ()) returns @tainted stream<File>|error {
