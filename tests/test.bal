@@ -1,8 +1,6 @@
 import ballerina/config;
 import ballerina/test;
 import ballerina/log;
-// import ballerina/io;
-// import ballerina/file;
 
 DriveConfiguration config = {
     oauth2Config: {
@@ -107,7 +105,7 @@ DeleteFileOptional delete_optional = {
 function testDeleteFileById(){
 
     json | error res = driveClient->deleteFileById("1mxq25NTkjxvL8PDRSTf_gvZ1KwdW0nVZ", delete_optional);
-    _ = printFileasString(res);
+    _ = printJSONasString(res);
 
 }
 
@@ -148,22 +146,23 @@ function testCopyFile(){
     }
 }
 
-######################
-# Create Update file
-# ####################
+############################
+# Update Metadata in a file
+# ##########################
+# POST Request
 
 UpdateFileMetadataOptional optionals3 = {
-    //uploadType : "media"
+    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
 };
 
 File payload3 = {
-    name : "hellothari"
+    name : "hellothari555"
 };
 
 
 @test:Config {}
 function testUpdateFiles() {
-    // https://drive.google.com/file/d/1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie/view?usp=sharing
+
     File|error res = driveClient->updateFileMetadataById("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals3, payload3);
     error? err = printFileasString(res);
 }
@@ -179,8 +178,8 @@ CreateFileOptional optionals4 = {
 
 File payload4 = {
     mimeType : "application/vnd.google-apps.document",
-    name : "hello123",
-    parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
+    name : "nuwan123",
+    parents : ["1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"]
 };
 
 @test:Config {}
@@ -193,14 +192,10 @@ function testCreateFile() {
 # Upload a file
 # ##############
 
-// In simple upload, Send the file data in the request body
-// In multipart upload, Request body has 2 parts (Metadata & Media)
-// In resumable upload,There are two ways to upload. 
-
 File fileContent = {
     mimeType : "application/vnd.google-apps.document",
     name : "hello123",
-    parents : ["1kdk4AiOzq5xqdJ6hHjdMDDXZ67Pff1h2"]
+    parents : ["1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"]
 };
 
 UploadFileOptional optionals5 = {
@@ -208,16 +203,14 @@ UploadFileOptional optionals5 = {
     ignoreDefaultVisibility : false
 };
 
+
 @test:Config {}
 function testUploadFile() {
 
-    //create a file and upload
-    // error? createFileResults = file:create("bar.txt");
-    // boolean fileExists = check file:test("bar.txt", file:EXISTS);
+    // string filePath = "./tests/bar.txt";
+    string filePath = "./tests/spreadsheetID.jpeg";
 
-
-    // log:print("bar.txt file exists: "+ fileExists.toString());
-    File|error res = driveClient->uploadFile(optionals5, fileContent);
+    File|error res = driveClient->uploadFile(filePath, optionals5);
     error? err = printFileasString(res);
     
 }
@@ -240,4 +233,25 @@ function testGetFiles() {
         });
     }
 
+}
+
+
+######################
+# Update Existing File
+# ####################
+# PATCH Upload Request
+
+UpdateFileMetadataOptional optionals9 = {
+    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
+};
+
+File payload9 = {
+    name : "hellothari555"
+};
+
+@test:Config {}
+function testUpdateExistingFiles() {
+
+    File|error res = driveClient->updateExistingFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals9, payload9);
+    error? err = printFileasString(res);
 }
