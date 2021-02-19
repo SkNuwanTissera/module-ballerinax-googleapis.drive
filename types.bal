@@ -1,18 +1,6 @@
 public type DriveInfo record {
     string kind?;
     User user?;
-    // StorageQuota storageQuota = {};
-    // ImportFormats importFormats = {};
-    // ExportFormats exportFormats = {};
-    // MaxImportSizes maxImportSizes = {};
-    // long maxUploadSize = 0;
-    // boolean appInstalled = false;
-    // FolderColorPalette folderColorPalette = [];
-    // TeamDriveThemes teamDriveThemes = [];
-    // DriveThemes driveThemes = [];
-    // boolean canCreateTeamDrives = false;
-    // boolean canCreateDrives = false;
-
 };
 
 public type File record {
@@ -123,9 +111,9 @@ public type ImageMediaMetadata record {
 };
 
 public type Location record {
-    int latitude; //double in API spec
-    int longitude; //double in API spec
-    int altitude; //double in API spec
+    float latitude; 
+    float longitude; 
+    float altitude;
 };
 
 public type ContentHints record {
