@@ -28,7 +28,7 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print[("[sendRequest]"+jsonResponse.toString())
+            log:print("[sendRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -48,7 +48,7 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print[("[deleteRequest]"+jsonResponse.toString());
+            log:print("[deleteRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -74,7 +74,7 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print[("[sendRequestWithPayload]"+jsonResponse.toString());
+            log:print("[sendRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -202,7 +202,7 @@ returns string {
                 url = url + AMPERSAND + name + EQUAL + encoded;
             }
         } else {
-            log:printError("Unable to encode value: " + value, err = encoded);
+            log:printError(UNABLE_TO_ENCODE + value, err = encoded);
             break;
         }
         i = i + 1;
@@ -564,7 +564,7 @@ returns @tainted json | error {
 
     http:Request httpRequest = new;
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
-    httpRequest.setHeader("Content-Length",fileContentByteArray.length().toString());
+    httpRequest.setHeader(CONTENT_LENGTH ,fileContentByteArray.length().toString());
     httpRequest.setBinaryPayload(<@untainted> fileContentByteArray);
 
     var httpResponse = httpClient->post(<@untainted>path, httpRequest);
