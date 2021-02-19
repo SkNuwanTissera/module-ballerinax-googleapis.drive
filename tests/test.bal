@@ -194,7 +194,7 @@ File payload = {
 }
 function testUpdateExistingFiles() {
 
-    File|error res = driveClient->updateExistingFile("1eMlLwzHggwVqKfbjWrTABDuV3ATtaBie", optionals, payload);
+    File|error res = driveClient->updateExistingFile(fileId, optionals, payload);
     error? err = printFileasString(res);
 }
 
@@ -207,12 +207,12 @@ UpdateFileMetadataOptional optionals_ = {
 };
 
 File payload_ = {
-    name : "test123.mp4"
+    name : "test123.jpeg"
 };
 
 //string filePath = "./tests/bar.txt";
-//string filePath = "./tests/bar.jpeg";
-string filePath = "./tests/test.mp4";
+string filePath = "./tests/bar.jpeg";
+//string filePath = "./tests/test.mp4";
 
 @test:Config {}
 function testNewUpload() {
