@@ -77,7 +77,7 @@ GetFileOptional optional = {
 @test:Config {
     dependsOn: ["testCreateFile"]
 }
-function testgetFileByIdwithOptionalParameters() {
+function testGetFileByIdwithOptionalParameters() {
 
     File | error res1 = driveClient->getFileById(fileId, optional);
     _ = printFileasString(res1);

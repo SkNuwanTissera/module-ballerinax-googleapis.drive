@@ -384,8 +384,6 @@ function printFileasString(File|error file) {
         }  else {
             log:print(jsonObject.toString());
         }
-    } else {
-        log:print(file.message());
     }
 }
 
