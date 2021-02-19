@@ -27,7 +27,7 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[sendRequest]"+jsonResponse.toString());
+            //log:print("[sendRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -591,4 +591,16 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+}
+
+function getIdFromFileResponse(File|error file) returns string {
+    string fileOrFolderId = EMPTY_STRING;
+    if(file is File){
+        json|error created_response = file.cloneWithType(json); 
+        if (created_response is json){
+            log:print(created_response.id.toString());   
+            return <@untainted> created_response.id.toString();
+        }
+    }
+    return fileOrFolderId;
 }

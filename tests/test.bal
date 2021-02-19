@@ -32,8 +32,8 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
-string fileId = "1tgYX6a9MKqglw4tq3-_JTc1CFqrLp0mv";
-string parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
+string fileId = EMPTY_STRING;
+string parentFolder = EMPTY_STRING;
 
 ########################
 # Get Drive Information
@@ -46,7 +46,7 @@ function testdriveGetAbout() {
     var res2 = driveClient->getAbout("kind");
     var res3 = driveClient->getAbout("user");
     var res4 = driveClient->getAbout("storageQuota");
-    log:print(res1.toString());
+    //log:print(res1.toString());
 
 }
 
@@ -161,10 +161,12 @@ CreateFileOptional optionals_create_file = {
 File payload_create_file = {
     mimeType : "application/vnd.google-apps.document",
     name : "nuwan123",
-    parents : ["1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"]
+    parents : [parentFolder]
 };
 
-@test:Config {}
+@test:Config {
+    dependsOn: ["testCreateFolder"]
+}
 function testCreateFile() {
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
     error? err = printFileasString(res);
@@ -181,17 +183,23 @@ CreateFileOptional optionals_create_folder = {
 };
 
 File payload_create_folder = {
-    mimeType : "application/vnd.google-apps.document",
+    mimeType : "application/vnd.google-apps.folder",
     name : "folderInTheRoot"
 };
 
 @test:Config {}
 function testCreateFolder() {
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
+    parentFolder = <@untainted> getIdFromFileResponse(res);
+    // if(res is File){
+    //     json|error created_response = res.cloneWithType(json); 
+    //     if (created_response is json){
+    //         log:print(created_response.id.toString());   
+    //         parentFolder = <@untainted> created_response.id.toString();
+    //     }
+    // }
     error? err = printFileasString(res);
 }
-
-
 
 ###################
 # Search for files
@@ -242,7 +250,7 @@ function testUpdateExistingFiles() {
 # ############
 
 UpdateFileMetadataOptional optionals_ = {
-    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5" //change folder
+    addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5" //Parent folderID
 };
 
 File payload_ = {
@@ -251,7 +259,6 @@ File payload_ = {
 
 //string filePath = "./tests/bar.txt";
 string filePath = "./tests/bar.jpeg";
-//string filePath = "./tests/test.mp4";
 
 @test:Config {}
 function testNewUpload() {
