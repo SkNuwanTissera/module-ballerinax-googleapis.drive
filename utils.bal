@@ -439,46 +439,6 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithUploadOptional(UploadFileOptional? optional = ()) returns string {
-    string[] value = [];
-    map<string> optionalMap = {};
-    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
-    if (optional is UploadFileOptional) {
-        //Required Param
-        if (optional.uploadType is string){
-           optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
-        }
-        //Optional Params
-        if (optional.ignoreDefaultVisibility is boolean) {
-            optionalMap[IGNORE_DEFAULT_VISIBILITY] = optional.ignoreDefaultVisibility.toString();
-        }
-        if (optional.includePermissionsForView is string) {
-            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
-        }
-        if (optional.keepRevisionForever is boolean) {
-            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
-        }
-        if (optional.ocrLanguage is string) {
-            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
-        }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
-        }
-        if (optional.useContentAsIndexableText is boolean) {
-            optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
-        }
-        optionalMap.forEach(function(string val) {
-            value.push(val);
-        });
-        path = prepareQueryUrl([path], optionalMap.keys(), value);
-    }
-    return path;
-}
-
-# Prepare URL with optional parameters.
-# 
-# + optional - Record that contains optional parameters
-# + return - The prepared URL with encoded query
 function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
     string[] value = [];
     map<string> optionalMap = {};
