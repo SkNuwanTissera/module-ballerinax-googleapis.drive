@@ -166,7 +166,7 @@ public type CopyFileOptional record {
 };
 
 public type CreateFileOptional record {
-    never uploadType?; // use enum/finitetype UpdateType uploadType;
+    never uploadType?; 
     boolean? ignoreDefaultVisibility = ();
     string? includePermissionsForView = (); 
     boolean? keepRevisionForever = (); 
@@ -176,7 +176,6 @@ public type CreateFileOptional record {
 };
 
 public type UpdateFileMetadataOptional record {
-   never uploadType?; // use enum/finitetype UpdateType uploadType;
    string? addParents = (); 
    string? includePermissionsForView = (); 
    boolean? keepRevisionForever = (); 
@@ -196,8 +195,6 @@ public type User record {
 };
 
 public type Capabilities record {
-    // consider 
-    // boolean...s
     boolean	canAddChildren;
     boolean canAddFolderFromAnotherDrive;
     boolean canAddMyDriveParent;
