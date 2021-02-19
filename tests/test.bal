@@ -32,7 +32,7 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
-string fileId = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+string fileId = "";
 string parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
 
 ########################
@@ -167,6 +167,25 @@ File payload_create_file = {
 @test:Config {}
 function testCreateFile() {
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
+    error? err = printFileasString(res);
+}
+
+##############################
+# Create Folder with Metadata
+# ############################
+
+CreateFileOptional optionals_create_folder = {
+    ignoreDefaultVisibility : false
+};
+
+File payload_create_folder = {
+    mimeType : "application/vnd.google-apps.document",
+    name : "folderInTheRoot"
+};
+
+@test:Config {}
+function testCreateFile() {
+    File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
     error? err = printFileasString(res);
 }
 
