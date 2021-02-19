@@ -28,6 +28,7 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            log:print[("[sendRequest]"+jsonResponse.toString())
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -42,13 +43,12 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 
 function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
     var httpResponse = httpClient->delete(<@untainted>path);
-    log:print("#######%$#%#$"+path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("$$$$$"+jsonResponse.toString());
+            log:print[("[deleteRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -74,6 +74,7 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            log:print[("[sendRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -97,7 +98,7 @@ returns @tainted json | error {
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
-        log:print("$$$$$"+jsonResponse.toString());
+        log:print("[updateRequestWithPayload]"+jsonResponse.toString());
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
             if (validateStatusCodeRes is error) {
@@ -126,7 +127,7 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("$$$$$"+jsonResponse.toString());
+            log:print("[uploadRequestWithPayload] "+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -147,11 +148,18 @@ isolated function getDriveError(json|error errorResponse) returns error {
   }
 }
 
+
+# Prepare Validate Status Code.
+# 
+# + response - JSON response fromthe request
+# + statusCode - The Status code
+# + return - Error Message
 isolated function validateStatusCode(json response, int statusCode) returns error? {
     if (statusCode != http:STATUS_OK) {
         return getDriveError(response);
     }
 }
+
 
 # Prepare URL.
 # 
@@ -169,6 +177,7 @@ isolated function prepareUrl(string[] paths) returns string {
     }
     return <@untainted>url;
 }
+
 
 # Prepare URL with encoded query.
 # 
@@ -201,6 +210,7 @@ returns string {
     return url;
 }
 
+
 # Get ID from URL
 # URL can for a file, folder, blob(Text, images, videos, and PDFs), 
 # or workspace document (Spreadsheets, Presentation, Document, etc..)
@@ -209,7 +219,6 @@ returns string {
 # + return - ID as string or Error
 function getIdFromUrl(string url) returns string | error { 
     
-    // use regex pattern 
 
     string id = EMPTY_STRING;
     int startIndex = 0;
@@ -400,7 +409,7 @@ function convertFiletoJSON(File|error file) returns json|error {
 }
 
 function convertJSONtoFile(json|error jsonObj) returns File|error{
-    if jsonObj is json { //use a separate function for this
+    if jsonObj is json { 
         File|error file = jsonObj.cloneWithType(File);
         if (file is File) {
             return file;
@@ -422,8 +431,7 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
     if (optional is CreateFileOptional) {
-        //Required Param
-        //optionalMap[UPLOAD_TYPE] = optional.uploadType.toString();
+
         //Optional Params
         if (optional.ignoreDefaultVisibility is boolean) {
             optionalMap[IGNORE_DEFAULT_VISIBILITY] = optional.ignoreDefaultVisibility.toString();
@@ -502,18 +510,6 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
-}
-
-function readFileAsByteArray(string filePath) returns @tainted error?{
-
-    //create a file and upload
-    error? createFileResults = file:create(filePath);
-    if (createFileResults is error) {
-        io:println(createFileResults.message());
-    }
-
-    //convert byte[] from file.
-    stream<io:Block, io:Error?> blockStream = check io:fileReadBlocksAsStream(filePath, 2048);
 }
 
 # Prepare URL with optional parameters on Update Request
