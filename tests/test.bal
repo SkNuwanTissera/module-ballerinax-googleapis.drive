@@ -32,8 +32,8 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
-string? fileId = "";
-string? parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
+string fileId = "1tgYX6a9MKqglw4tq3-_JTc1CFqrLp0mv";
+string parentFolder = "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5";
 
 ########################
 # Get Drive Information
@@ -59,7 +59,7 @@ function testdriveGetAbout() {
 }
 function testGetFileById() {
 
-    File | error testGetFile = driveClient->getFileById(fileId?);
+    File | error testGetFile = driveClient->getFileById(fileId);
     _ = printFileasString(testGetFile);
 
 }
@@ -188,9 +188,6 @@ File payload_create_folder = {
 @test:Config {}
 function testCreateFolder() {
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
-    if(res is File){
-        parentFolder = res?.id;
-    }
     error? err = printFileasString(res);
 }
 
@@ -221,7 +218,7 @@ function testGetFiles() {
 ######################
 # Update Existing File
 # ####################
-# PATCH Upload Request
+
 
 UpdateFileMetadataOptional optionals = {
     addParents : "1D1orlhRlo8PaovrJt5nf5IihOp-Y7cY5"
