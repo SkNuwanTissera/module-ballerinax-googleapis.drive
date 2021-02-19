@@ -1,5 +1,7 @@
 import ballerina/log;
 import ballerina/http;
+import ballerina/io;
+// import ballerina/file;
 
 function getDriveInfo(http:Client httpClient, string? fields) returns @tainted json|error{
     string path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + _ALL;
@@ -95,6 +97,26 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
+
+function updateExistingFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
+
+    json payload = check fileResource.cloneWithType(json);
+    string path = prepareUrlWithUpdateExistingOptional(fileId, optional);
+    json|error resp = updateRequestWithPayload(httpClient, path, payload);
+    if resp is json { //use a separate function for this
+        log:print("##########" +resp.toString());
+        File|error file = resp.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return resp;
+    }
+
+}
+
 function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
@@ -106,11 +128,26 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
 }
 
 
-function createNewFile(http:Client httpClient, UploadFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+function uploadFile(http:Client httpClient, string filePath, UploadFileOptional? optional = ()) returns @tainted File|error{
     
-    json payload = check fileData.cloneWithType(json);
+    //json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithUploadOptional(optional);
     log:print(path.toString());
+
+    byte[] bytes = check io:fileReadBytes(filePath);
+    log:print(bytes.toString());
+    // json payload = { 
+    //     "Metadata" : {
+    //         "Content-Type" : "application/json;charset=UTF-8"
+    //     },
+    //     "Media" : {
+    //         "data" : bytes
+    //     }
+    // };
+
+
+    json payload = bytes;
+    
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
     
     if resp is json {
