@@ -16,6 +16,8 @@ DriveConfiguration config = {
 
 Client driveClient = new (config);
 
+string fileId = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+
 ########################
 # Get Drive Information
 # ######################
@@ -38,9 +40,8 @@ function testdriveGetAbout() {
 @test:Config {}
 function testGetFileById() {
 
-    string id = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
-    File | error file1 = driveClient->getFileById(id);
-    _ = printFileasString(file1);
+    File | error testGetFile = driveClient->getFileById(fileId);
+    _ = printFileasString(testGetFile);
 
 }
 
@@ -192,11 +193,12 @@ UpdateFileMetadataOptional optionalsssss = {
 };
 
 File payload99 = {
-    name : "test123.jpeg"
+    name : "test123.mp4"
 };
 
 //string filePath = "./tests/bar.txt";
-string filePath = "./tests/bar.jpeg";
+//string filePath = "./tests/bar.jpeg";
+string filePath = "./tests/test.mp4";
 
 @test:Config {}
 function testNewUpload() {
