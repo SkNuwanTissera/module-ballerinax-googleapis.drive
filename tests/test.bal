@@ -51,14 +51,14 @@ function testGetFileById() {
 GetFileOptional optional = {
     acknowledgeAbuse: false,
     fields: "*",
-    includePermissionsForView : "published",
     supportsAllDrives : false
 };
 
 @test:Config {}
 function testgetFileByIdwithOptionalParameters() {
 
-    File | error res1 = driveClient->getFileById("14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4", optional);
+    string fid = "14THDSaX5oNy2D5n6PIecKIK2R1MXxezpCB8bc6yhlx4";
+    File | error res1 = driveClient->getFileById(fid, optional);
     _ = printFileasString(res1);
 
 }
@@ -80,7 +80,6 @@ function testDeleteFileById(){
 
 }
 
-
 ############
 # Copy File
 # ##########
@@ -88,7 +87,7 @@ function testDeleteFileById(){
 CopyFileOptional optionals2 = {"includePermissionsForView" : "published"};
 
 File payload2 = {
-    name : "Sk1235"
+    name : "testpdf.pdf" //New name
 };
 
 @test:Config {}
