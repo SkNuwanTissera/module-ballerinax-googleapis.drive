@@ -512,53 +512,6 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
     return path;
 }
 
-# Prepare URL with optional parameters on Update Request
-# 
-# + fileId - File id
-# + optional - Update Record that contains optional parameters
-# + return - The prepared URL with encoded query
-function prepareUrlWithUpdateExistingOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
-
-    string[] value = [];
-    map<string> optionalMap = {};
-    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES, fileId]);
-
-    if (optional is UpdateFileMetadataOptional) {
-
-        // Optional Query Params
-        if (optional.addParents is string) {
-            optionalMap[ADD_PARENTS] = optional.addParents.toString();
-        }
-        if (optional.includePermissionsForView is string) {
-            optionalMap[INCLUDE_PERMISSIONS_FOR_VIEW] = optional.includePermissionsForView.toString();
-        }
-        if (optional.keepRevisionForever is boolean) {
-            optionalMap[KEEP_REVISION_FOREVER] = optional.keepRevisionForever.toString();
-        }
-        if (optional.ocrLanguage is string) {
-            optionalMap[OCR_LANGUAGE] = optional.ocrLanguage.toString();
-        }
-        if (optional.removeParents is string) {
-            optionalMap[REMOVE_PARENTS] = optional.removeParents.toString();
-        }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
-        }
-        if (optional.useContentAsIndexableText is boolean) {
-            optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
-        }
-            
-    }
-
-    optionalMap.forEach(function(string val) {
-        value.push(val);
-    });
-
-    path = prepareQueryUrl([path], optionalMap.keys(), value);
-
-    return path;
-}
-
 # Upload files
 # 
 # + path - Formatted URI 
