@@ -17,7 +17,7 @@
 import ballerina/http;
 import ballerina/oauth2;
 
-public client class Client {
+public client class DriveClient {
 
     public http:Client httpClient;
 
