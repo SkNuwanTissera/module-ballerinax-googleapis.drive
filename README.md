@@ -68,6 +68,17 @@ Creating a drive:driveClient by giving the HTTP client config details.
 
 ```
 
+Get all files
+
+```ballerina
+
+    ListFilesOptional optional_search = {
+        pageSize : 3
+    };
+    drive:File|error file = driveClient->getFiles(optional_search);
+
+```
+
 
 #### How to Get a Link for a file or folder in Google drive
 1. Go to Gdrive https://drive.google.com/drive/u/0/my-drive
