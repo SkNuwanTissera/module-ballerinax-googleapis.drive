@@ -96,26 +96,6 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
-
-function updateExistingFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
-
-    json payload = check fileResource.cloneWithType(json);
-    string path = prepareUrlWithUpdateExistingOptional(fileId, optional);
-    json|error resp = updateRequestWithPayload(httpClient, path, payload);
-    if resp is json { 
-        log:print("[updateExistingFileById]" +resp.toString());
-        File|error file = resp.cloneWithType(File);
-        if (file is File) {
-            return file;
-        } else {
-            return error(ERR_FILE_RESPONSE, file);
-        }
-    } else {
-        return resp;
-    }
-
-}
-
 function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
