@@ -267,16 +267,6 @@ public type PermissionDetails record {
     boolean inherited;
 };
 
-public type UploadFileOptional record {
-    string? uploadType = (); 
-    boolean? ignoreDefaultVisibility = ();
-    string? includePermissionsForView = (); 
-    boolean? keepRevisionForever = (); 
-    string? ocrLanguage = ();  
-    boolean? supportsAllDrives = (); 
-    boolean? useContentAsIndexableText = ();
-};
-
 enum UploadTypes {
     SIMPLE = "media",
     MULTIPART = "multipart",
