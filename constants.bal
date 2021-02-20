@@ -64,6 +64,9 @@ const string PAGE_TOKEN = "pageToken";
 const string ERR_FILE_RESPONSE =  "Error occurred while constructing DriveResponse record.";
 const string ERR_JSON_TO_FILE_CONVERT =  "Error occurred while constructing File record.";
 const string UNABLE_TO_ENCODE = "Unable to encode value: ";
+const string ERR_FILE_TO_STRING_CONVERSION = "Unable to convert the file to string: ";
+const string ERR_FILE_TO_JSON_CONVERSION = "Unable to convert the file to JSON value: ";
+const string ERR_JSON_TO_STRING_CONVERSION = "Unable to convert from JSON to string";
 
 // Optional Query Parameters
 const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
