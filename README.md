@@ -68,7 +68,15 @@ Creating a drive:driveClient by giving the HTTP client config details.
 
 ```
 
-Get all files
+Get File By Id
+
+```ballerina
+
+    drive:File|error file = driveClient->getFileById(fileId);
+
+```
+
+Get files
 
 ```ballerina
 
