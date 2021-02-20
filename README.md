@@ -81,9 +81,9 @@ More details : https://developers.google.com/drive/api/v3/reference/files/get
 ```ballerina
 
     GetFileOptional optional = {
-    acknowledgeAbuse: false,
-    fields: "*",
-    supportsAllDrives : false
+        acknowledgeAbuse: false,
+        fields: "*",
+        supportsAllDrives : false
     };
 
     drive:File|error file = driveClient->getFileById(fileId, optional);
@@ -97,7 +97,7 @@ More details : https://developers.google.com/drive/api/v3/reference/files/list
     ListFilesOptional optional_search = {
         pageSize : 3
     };
-    drive:File|error file = driveClient->getFiles(optional_search);
+    drive:stream<File>|error res = driveClient->getFiles(optional_search);
 
 ```
 
@@ -113,6 +113,33 @@ More details : https://developers.google.com/drive/api/v3/reference/files/copy
 
     drive:File|error file = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
 
+```
+
+### Update Metadata in a file
+More details : https://developers.google.com/drive/api/v3/reference/files/update
+```ballerina
+    
+    UpdateFileMetadataOptional optionals_file_metadata = {
+        addParents : parentFolder
+    };
+
+    File payload__file_metadata = {
+        name : "test"
+    };
+
+    File|error res = driveClient->updateFileMetadataById(fileId, optionals_file_metadata, payload__file_metadata);
+
+```
+
+### Delete File by ID
+More details : https://developers.google.com/drive/api/v3/reference/files/delete
+```ballerina
+    DeleteFileOptional delete_optional = {
+
+        supportsAllDrives : false
+        
+    };
+    json | error res = driveClient->deleteFileById(fileId, delete_optional);
 ```
 
 #### How to Get a ID for a file or folder in Google drive
