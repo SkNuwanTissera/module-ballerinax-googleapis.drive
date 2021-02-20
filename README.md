@@ -68,17 +68,16 @@ Creating a drive:driveClient by giving the HTTP client config details.
 
 ```
 
-Get File By Id
-##### More details : https://developers.google.com/drive/api/v3/reference/files/get
-
+### Get File By Id
+More details : https://developers.google.com/drive/api/v3/reference/files/get
 ```ballerina
 
     drive:File|error file = driveClient->getFileById(fileId);
 
 ```
-Get File By Id with optionals
-##### More details : https://developers.google.com/drive/api/v3/reference/files/get
 
+### Get File By Id with optionals
+More details : https://developers.google.com/drive/api/v3/reference/files/get
 ```ballerina
 
     GetFileOptional optional = {
@@ -91,8 +90,8 @@ Get File By Id with optionals
 
 ```
 
-Get files
-
+### Get files
+More details : https://developers.google.com/drive/api/v3/reference/files/list
 ```ballerina
 
     ListFilesOptional optional_search = {
@@ -102,6 +101,19 @@ Get files
 
 ```
 
+### Copy file
+More details : https://developers.google.com/drive/api/v3/reference/files/copy
+```ballerina
+
+    CopyFileOptional optionals_copy_file = {"includePermissionsForView" : "published"};
+
+    File payload_copy_file = {
+        name : "testfile.pdf" //New name
+    };
+
+    drive:File|error file = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
+
+```
 
 #### How to Get a ID for a file or folder in Google drive
 1. Go to Gdrive https://drive.google.com/drive/u/0/my-drive
