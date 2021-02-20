@@ -52,7 +52,7 @@ Creating a drive:driveClient by giving the HTTP client config details.
     import ballerina/config;   
     import ballerinax/googleapis_drive as drive;
 
-    drive:DriveConfiguration config = {
+    drive:Configuration config = {
         oauth2Config: {
             accessToken: config:getAsString("ACCESS_TOKEN"),
             refreshConfig: {
@@ -64,7 +64,7 @@ Creating a drive:driveClient by giving the HTTP client config details.
         }
     };
 
-    drive:DriveClient driveClient = new (config);
+    drive:Client driveClient = new (config);
 
 ```
 

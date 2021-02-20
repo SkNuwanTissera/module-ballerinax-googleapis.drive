@@ -18,7 +18,7 @@ import ballerina/config;
 import ballerina/test;
 import ballerina/log;
 
-DriveConfiguration config = {
+Configuration config = {
     oauth2Config: {
         accessToken: config:getAsString("ACCESS_TOKEN"),
         refreshConfig: {
@@ -30,7 +30,7 @@ DriveConfiguration config = {
     }
 };
 
-DriveClient driveClient = new (config);
+Client driveClient = new (config);
 
 string fileId = EMPTY_STRING;
 string parentFolder = EMPTY_STRING;

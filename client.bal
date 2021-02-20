@@ -17,11 +17,11 @@
 import ballerina/http;
 import ballerina/oauth2;
 
-public client class DriveClient {
+public client class Client {
 
     public http:Client httpClient;
 
-    public function init(DriveConfiguration driveConfig) {
+    public function init(Configuration driveConfig) {
         oauth2:OutboundOAuth2Provider oauth2Provider = new (driveConfig.oauth2Config);
         http:BearerAuthHandler bearerHandler = new (oauth2Provider);
         http:ClientSecureSocket? socketConfig = driveConfig?.secureSocketConfig;
@@ -72,7 +72,7 @@ public client class DriveClient {
     }
 } 
 
-public type DriveConfiguration record {
+public type Configuration record {
     oauth2:DirectTokenConfig oauth2Config;
     http:ClientSecureSocket secureSocketConfig?;
 };
