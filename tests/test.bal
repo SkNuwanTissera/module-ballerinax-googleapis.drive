@@ -30,7 +30,7 @@ DriveConfiguration config = {
     }
 };
 
-Client driveClient = new (config);
+DriveClient driveClient = new (config);
 
 string fileId = EMPTY_STRING;
 string parentFolder = EMPTY_STRING;
