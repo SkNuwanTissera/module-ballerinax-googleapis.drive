@@ -196,7 +196,7 @@ function testCreateFolder() {
 }
 
 ###################
-# Search for files
+# Get files
 # #################
 
 ListFilesOptional optional_search = {
