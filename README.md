@@ -143,7 +143,7 @@ More details : https://developers.google.com/drive/api/v3/reference/files/delete
 ```
 
 ### Create Folder with Metadata
-More details : https://developers.google.com/drive/api/v3/reference/files/delete
+More details : https://developers.google.com/drive/api/v3/reference/files/update
 ```ballerina
     CreateFileOptional optionals_create_folder = {
         ignoreDefaultVisibility : false
@@ -153,6 +153,20 @@ More details : https://developers.google.com/drive/api/v3/reference/files/delete
         name : "folderInTheRoot"
     };
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
+```
+
+### Upload File
+More details : https://developers.google.com/drive/api/v3/reference/files/create
+```ballerina
+    UpdateFileMetadataOptional optionals_ = {
+        addParents : parentFolder //Parent folderID
+    };
+
+    File payload_ = {
+        name : "test123.jpeg"
+    };
+    string filePath = "./tests/resources/bar.jpeg";
+     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 ```
 
 #### How to Get a ID for a file or folder in Google drive
