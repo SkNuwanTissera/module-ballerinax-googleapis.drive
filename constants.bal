@@ -18,9 +18,6 @@
 const string BASE_URL = "https://sheets.googleapis.com";
 public const string REFRESH_URL = "https://www.googleapis.com/oauth2/v3/token";
 
-//Secure client configs
-const string SCHEME = "oauth";
-
 // URL encoding
 const string ENCODING_CHARSET = "utf-8";
 
@@ -60,7 +57,6 @@ const string FILES = "/files";
 const string COPY = "/copy";
 const string Q = "q";
 const string MIME_TYPE = "mimeType";
-const string APPLICATION = "'application/vnd.google-apps.spreadsheet'";
 const string AMPERSAND = "&";
 const string PAGE_TOKEN = "pageToken";
 
@@ -70,20 +66,16 @@ const string ERR_JSON_TO_FILE_CONVERT =  "Error occurred while constructing File
 const string UNABLE_TO_ENCODE = "Unable to encode value: ";
 
 // Optional Query Parameters
-// File - GET
 const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
 const string FIELDS = "fields";
 const string INCLUDE_PERMISSIONS_FOR_VIEW = "includePermissionsForView";
 const string SUPPORTS_ALL_DRIVES = "supportsAllDrives";
-// File - COPY
 const string IGNORE_DEFAULT_VISIBILITY = "ignoreDefaultVisibility";
 const string KEEP_REVISION_FOREVER = "keepRevisionForever";
 const string OCR_LANGUAGE = "ocrLanguage";
-// File - UPDATE
 const string ADD_PARENTS = "addParents";
 const string REMOVE_PARENTS = "removeParents";
 const string USE_CONTENT_AS_INDEXABLE_TEXT = "useContentAsIndexableText";
-// File - LIST
 const string CORPORA = "corpora";
 const string DRIVE_ID = "driveId";
 const string ORDER_BY = "orderBy";
