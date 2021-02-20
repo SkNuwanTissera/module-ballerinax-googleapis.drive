@@ -69,10 +69,25 @@ Creating a drive:driveClient by giving the HTTP client config details.
 ```
 
 Get File By Id
+##### More details : https://developers.google.com/drive/api/v3/reference/files/get
 
 ```ballerina
 
     drive:File|error file = driveClient->getFileById(fileId);
+
+```
+Get File By Id with optionals
+##### More details : https://developers.google.com/drive/api/v3/reference/files/get
+
+```ballerina
+
+    GetFileOptional optional = {
+    acknowledgeAbuse: false,
+    fields: "*",
+    supportsAllDrives : false
+    };
+
+    drive:File|error file = driveClient->getFileById(fileId, optional);
 
 ```
 
