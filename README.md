@@ -93,4 +93,4 @@ Get files
 2. Right click on a folder or file.
 3. Click 'Get link'. Then copy the link.
 4. You can find the ID in the link copied or You can get the id directly from the browser url after clicking on the file
-![alt text](/images/extractIDfromUrl.jpeg?raw=true)
+![alt text](/metadata/extractIDfromUrl.jpeg?raw=true)
