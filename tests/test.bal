@@ -217,28 +217,6 @@ function testGetFiles() {
 
 }
 
-######################
-# Update Existing File
-# ####################
-
-
-UpdateFileMetadataOptional optionals = {
-    addParents : parentFolder
-};
-
-File payload = {
-    name : "test123"
-};
-
-@test:Config {
-    dependsOn: ["testCreateFile"]
-}
-function testUpdateExistingFiles() {
-
-    File|error res = driveClient->updateExistingFile(fileId, optionals, payload);
-    error? err = printFileasString(res);
-}
-
 ##############
 # Upload File
 # ############
