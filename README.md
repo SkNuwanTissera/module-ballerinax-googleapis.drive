@@ -43,6 +43,31 @@ REFRESH_TOKEN = "<refresh_token>"
 REFRESH_URL = "<refresh_URL>"
 
 ```
+**Example Code**
+
+Creating a drive:driveClient by giving the HTTP client config details. 
+
+```ballerina
+
+    import ballerina/config;   
+    import ballerinax/googleapis_drive as drive;
+
+    drive:DriveConfiguration config = {
+        oauth2Config: {
+            accessToken: config:getAsString("ACCESS_TOKEN"),
+            refreshConfig: {
+                clientId: config:getAsString("CLIENT_ID"),
+                clientSecret: config:getAsString("CLIENT_SECRET"),
+                refreshUrl: config:getAsString("REFRESH_URL"),
+                refreshToken: config:getAsString("REFRESH_TOKEN")
+            }
+        }
+    };
+
+    drive:DriveClient driveClient = new (config);
+
+```
+
 
 #### How to Get a Link for a file or folder in Google drive
 1. Go to Gdrive https://drive.google.com/drive/u/0/my-drive
