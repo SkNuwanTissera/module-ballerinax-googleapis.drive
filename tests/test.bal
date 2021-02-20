@@ -251,8 +251,8 @@ File payload_ = {
     name : "test123.jpeg"
 };
 
-//string filePath = "./tests/bar.txt";
-string filePath = "./tests/bar.jpeg";
+//string filePath = "./tests/resources/bar.txt";
+string filePath = "./tests/resources/bar.jpeg";
 
 @test:Config {
     dependsOn: ["testCreateFile"]
