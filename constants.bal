@@ -15,7 +15,6 @@
 // under the License.
 
 //API URLs
-const string BASE_URL = "https://sheets.googleapis.com";
 public const string REFRESH_URL = "https://www.googleapis.com/oauth2/v3/token";
 
 // URL encoding
