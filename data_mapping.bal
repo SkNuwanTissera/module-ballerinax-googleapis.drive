@@ -30,7 +30,7 @@ function printFileasString(File|error file) returns error?{
             return error(ERR_FILE_TO_STRING_CONVERSION, jsonObject);
         }
     } else {
-        return error(ERR_FILE_TO_STRING_CONVERSION, jsonObject);
+        return error(ERR_FILE_TO_STRING_CONVERSION, file);
     }
 }
 
@@ -54,12 +54,12 @@ function convertFiletoJSON(File|error file) returns json|error {
             return getDriveError(jsonObject);
         }
     } else {
-        log:printError(ERR_FILE_TO_JSON_CONVERSION + jsonObject.toString(), err = jsonObject);
-        return error(ERR_FILE_TO_JSON_CONVERSION, jsonObject);
+        log:printError(ERR_FILE_TO_JSON_CONVERSION, err = file);
+        return error(ERR_FILE_TO_JSON_CONVERSION, file);
     }
 }
 
-function convertJSONtoFile(json|error jsonObj) returns File|error{
+function convertJSONtoFile(json|error jsonObj) returns File|error {
     if jsonObj is json { 
         File|error file = jsonObj.cloneWithType(File);
         if (file is File) {
