@@ -60,7 +60,7 @@ function testdriveGetAbout() {
 function testGetFileById() {
 
     File | error testGetFile = driveClient->getFileById(fileId);
-    _ = printFileasString(testGetFile);
+    error? err = printFileasString(testGetFile);
 
 }
 
@@ -80,7 +80,7 @@ GetFileOptional optional = {
 function testGetFileByIdwithOptionalParameters() {
 
     File | error res1 = driveClient->getFileById(fileId, optional);
-    _ = printFileasString(res1);
+    error? err = printFileasString(res1);
 
 }
 
@@ -99,7 +99,7 @@ DeleteFileOptional delete_optional = {
 function testDeleteFileById(){
 
     json | error res = driveClient->deleteFileById(fileId, delete_optional);
-    _ = printJSONasString(res);
+    error? err = printJSONasString(res);
 
 }
 
@@ -211,7 +211,7 @@ function testGetFiles() {
     stream<File>|error res = driveClient->getFiles(optional_search);
     if (res is stream<File>){
         error? e = res.forEach(function (File file) {
-            _ = printFileasString(file);
+            error? err = printFileasString(file);
         });
     }
 
