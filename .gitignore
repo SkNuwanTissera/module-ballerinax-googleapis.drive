@@ -3,3 +3,4 @@ ballerina.conf
 modules/
 ballerina-internal.log
 .mycommitmsg.txt
+Config.toml
