@@ -22,9 +22,11 @@ public client class Client {
     public http:Client httpClient;
 
     public function init(Configuration driveConfig) {
+        
         oauth2:OutboundOAuth2Provider oauth2Provider = new (driveConfig.oauth2Config);
         http:BearerAuthHandler bearerHandler = new (oauth2Provider);
         http:ClientSecureSocket? socketConfig = driveConfig?.secureSocketConfig;
+
         self.httpClient = new (DRIVE_URL, {
             auth: {
                 authHandler: bearerHandler
