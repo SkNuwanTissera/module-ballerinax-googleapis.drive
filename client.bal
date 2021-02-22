@@ -21,16 +21,16 @@ public client class Client {
 
     public http:Client httpClient;
 
+    Configuration driveConfiguration;
+
     public function init(Configuration driveConfig) {
         
-        oauth2:OutboundOAuth2Provider oauth2Provider = new (driveConfig.oauth2Config);
-        http:BearerAuthHandler bearerHandler = new (oauth2Provider);
+        self.driveConfiguration = driveConfig;
+
         http:ClientSecureSocket? socketConfig = driveConfig?.secureSocketConfig;
 
-        self.httpClient = checkpanic new (DRIVE_URL, {
-            auth: {
-                authHandler: bearerHandler
-            },
+        self.httpClient = checkpanic new (driveConfig.baseUrl, {
+            auth: driveConfig.clientConfig,
             secureSocket: socketConfig,
             http1Settings: {chunking: http:CHUNKING_NEVER}
         });
@@ -71,7 +71,8 @@ public client class Client {
 } 
 
 public type Configuration record {
-    oauth2:DirectTokenConfig oauth2Config;
+    string baseUrl;
+    oauth2:DirectTokenConfig clientConfig;
     http:ClientSecureSocket secureSocketConfig?;
 };
 
