@@ -27,7 +27,7 @@ public client class Client {
         http:BearerAuthHandler bearerHandler = new (oauth2Provider);
         http:ClientSecureSocket? socketConfig = driveConfig?.secureSocketConfig;
 
-        self.httpClient = new (DRIVE_URL, {
+        self.httpClient = checkpanic new (DRIVE_URL, {
             auth: {
                 authHandler: bearerHandler
             },
