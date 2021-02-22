@@ -14,18 +14,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/config;
 import ballerina/test;
 import ballerina/log;
 
+configurable string ACCESS_TOKEN = ?;
+configurable string CLIENT_ID = ?;
+configurable string CLIENT_SECRET = ?;
+configurable string REFRESH_URL = ?;
+configurable string REFRESH_TOKEN = ?;
+
 Configuration config = {
     oauth2Config: {
-        accessToken: config:getAsString("ACCESS_TOKEN"),
+        accessToken: ACCESS_TOKEN,
         refreshConfig: {
-            clientId: config:getAsString("CLIENT_ID"),
-            clientSecret: config:getAsString("CLIENT_SECRET"),
-            refreshUrl: config:getAsString("REFRESH_URL"),
-            refreshToken: config:getAsString("REFRESH_TOKEN")
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshUrl: REFRESH_URL,
+            refreshToken: REFRESH_TOKEN
         }
     }
 };

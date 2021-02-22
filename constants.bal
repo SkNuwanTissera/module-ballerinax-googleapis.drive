@@ -14,9 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//API URLs
-public const string REFRESH_URL = "https://www.googleapis.com/oauth2/v3/token";
-
 // URL encoding
 const string ENCODING_CHARSET = "utf-8";
 
