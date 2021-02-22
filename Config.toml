@@ -1,8 +1,0 @@
-[gdrive.configuration]
-# Google Drive Configurations
-ACCESS_TOKEN = "ya29.A0AfH6SMCXP-DiQARq-GRUNd_EwasH5a_EFbdNhLuto6tOH2VOEnTcSfH0Nh5vD5DrtLw82j6yzwnMRP_Xe7Vhd29lsa6Tsq-VthfHenD2cNKwbFmtOzSFV9iFG_7XUZjzwJkctRF9J0rJQF55gjy9ohFbjOGR"
-CLIENT_ID = "964095187517-d3e4i7km164qtvtmgg4h0jvnms2eaqus.apps.googleusercontent.com"
-CLIENT_SECRET = "6gtUcGL4MjqeYMkbZJo7Rqtr"
-REFRESH_TOKEN = "1//04aswk3n-ihWDCgYIARAAGAQSNwF-L9IrxV4cxdW4vLwzeptO0BfK5VsTCBXi5dmR0eaEFwQq_BLIVkVsJaiMFgAz_NaLMz0jIKI"
-REFRESH_URL = "https://www.googleapis.com/oauth2/v3/token"
-
