@@ -2,3 +2,4 @@ target
 ballerina.conf
 modules/
 ballerina-internal.log
+.mycommitmsg.txt
