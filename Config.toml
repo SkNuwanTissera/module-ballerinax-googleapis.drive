@@ -1,4 +1,4 @@
-[gDrive.configuration]
+[gdrive.configuration]
 # Google Drive Configurations
 ACCESS_TOKEN = "ya29.A0AfH6SMCXP-DiQARq-GRUNd_EwasH5a_EFbdNhLuto6tOH2VOEnTcSfH0Nh5vD5DrtLw82j6yzwnMRP_Xe7Vhd29lsa6Tsq-VthfHenD2cNKwbFmtOzSFV9iFG_7XUZjzwJkctRF9J0rJQF55gjy9ohFbjOGR"
 CLIENT_ID = "964095187517-d3e4i7km164qtvtmgg4h0jvnms2eaqus.apps.googleusercontent.com"
