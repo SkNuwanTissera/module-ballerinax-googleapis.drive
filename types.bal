@@ -287,5 +287,11 @@ public type ListFilesOptional record {
     boolean? supportsAllDrives = ();
 };
 
+public type WatchFileOptional record {
+    boolean? acknowledgeAbuse = ();
+    string? fields = ();
+    boolean? supportsAllDrives = ();
+}
+
 
 
