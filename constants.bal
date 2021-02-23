@@ -65,6 +65,7 @@ const string UNABLE_TO_ENCODE = "Unable to encode value: ";
 const string ERR_FILE_TO_STRING_CONVERSION = "Unable to convert the file to string: ";
 const string ERR_FILE_TO_JSON_CONVERSION = "Unable to convert the file to JSON value: ";
 const string ERR_JSON_TO_STRING_CONVERSION = "Unable to convert from JSON to string";
+const string ERR_WATCH_RESPONSE = "Unable to print watch response";
 
 // Optional Query Parameters
 const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
