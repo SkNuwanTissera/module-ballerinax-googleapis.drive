@@ -163,9 +163,11 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     }
 }
 
-function watchFiles(http:Client httpClient, string fileId) {
+function watchFiles(http:Client httpClient, string fileId, ListFilesOptional? optional = (), FileWatchRequest? fileWatchRequest = ()) {
 
     string path = prepareUrlwithWatchFileOptional(optional);
+
+    json|error resp = sendRequestWithPayload(httpClient, path, payload);
 
 
 }
