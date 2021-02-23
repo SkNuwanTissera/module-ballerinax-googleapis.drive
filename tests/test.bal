@@ -24,14 +24,15 @@ configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
 Configuration config = {
-    oauth2Config: {
+    baseUrl: DRIVE_URL,
+    clientConfig: {
         accessToken: ACCESS_TOKEN,
-        refreshConfig: {
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
-            refreshUrl: REFRESH_URL,
-            refreshToken: REFRESH_TOKEN
-        }
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshUrl: REFRESH_URL,
+        refreshToken: REFRESH_TOKEN
+    
+        
     }
 };
 
@@ -62,7 +63,7 @@ function testdriveGetAbout() {
 # ################
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: "testCreateFile()"
 }
 function testGetFileById() {
 
