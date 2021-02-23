@@ -302,6 +302,9 @@ public type FileWatchResource record {
     string token?;
     float expiration?;
     string 'type?;
+    string address?;
+    boolean payload?;
+    StringKeyValuePairs params?;
 };
 
 
