@@ -17,7 +17,6 @@
 import ballerina/http;
 import ballerina/encoding;
 import ballerina/log;
-import ballerina/stringutils;
 import ballerina/io;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
@@ -97,9 +96,9 @@ returns @tainted json | error {
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
-        log:print("[updateRequestWithPayload]"+jsonResponse.toString());
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            log:print("[updateRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
