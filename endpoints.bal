@@ -114,31 +114,28 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
     
     json resp = check uploadFiles(httpClient, path, filePath);
-    if (resp is json){
-        //update metadata
-        json|error respId = resp.id;
-        string fileId;
-        if(respId is json){
-            fileId = respId.toString();
-        }
-        string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
-        json payload = check fileMetadata.cloneWithType(json);
-        json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
-
-        if changeResponse is json {
-            File|error file = changeResponse.cloneWithType(File);
-            if (file is File) {
-                return file;
-            } else {
-                return error(ERR_FILE_RESPONSE, file);
-            }
-        } else {
-            return changeResponse;
-        } 
-    } else {
-        return error(ERR_FILE_RESPONSE);
+    
+    //update metadata
+    json|error respId = resp.id;
+    string fileId = EMPTY_STRING;
+    if(respId is json){
+        fileId = respId.toString();
     }
+    string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
+    json payload = check fileMetadata.cloneWithType(json);
+    json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
 
+    if changeResponse is json {
+        File|error file = changeResponse.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return changeResponse;
+    } 
+    
 }
 
 function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) returns @tainted stream<File>|error{
