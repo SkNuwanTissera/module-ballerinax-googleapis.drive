@@ -291,19 +291,17 @@ public type WatchFileOptional record {
     boolean? acknowledgeAbuse = ();
     string? fields = ();
     boolean? supportsAllDrives = ();
+    string? pageToken = (); //added external to API doc
 };
 
 public type FileWatchResource record {
-    string? kind = ();
-    string id;
-    string? resourceId = ();
-    string? resourceUri = ();
-    string? token = ();
-    float? expiration = ();
-    string 'type;
-    string address;
-    boolean? payload = ();
-    StringKeyValuePairs params?;
+    string kind?;
+    string id?;
+    string resourceId?;
+    string resourceUri?;
+    string token?;
+    float expiration?;
+    string 'type?;
 };
 
 
