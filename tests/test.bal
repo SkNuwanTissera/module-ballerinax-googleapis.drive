@@ -63,7 +63,7 @@ function testdriveGetAbout() {
 # ################
 
 @test:Config {
-    dependsOn: "testCreateFile()"
+    dependsOn: [testCreateFile]
 }
 function testGetFileById() {
 
@@ -83,7 +83,7 @@ GetFileOptional optional = {
 };
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testGetFileByIdwithOptionalParameters() {
 
@@ -102,7 +102,7 @@ DeleteFileOptional delete_optional = {
 # #####################
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testDeleteFileById(){
 
@@ -122,7 +122,7 @@ File payload_copy_file = {
 };
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testCopyFile(){
     File|error res = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
@@ -149,7 +149,7 @@ File payload__file_metadata = {
 
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testUpdateFiles() {
 
@@ -173,7 +173,7 @@ File payload_create_file = {
 };
 
 @test:Config {
-    dependsOn: ["testCreateFolder"]
+    dependsOn: [testCreateFolder]
 }
 function testCreateFile() {
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
@@ -212,7 +212,7 @@ ListFilesOptional optional_search = {
 };
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testGetFiles() {
 
@@ -241,7 +241,7 @@ File payload_ = {
 string filePath = "./tests/resources/bar.jpeg";
 
 @test:Config {
-    dependsOn: ["testCreateFile"]
+    dependsOn: [testCreateFile]
 }
 function testNewUpload() {
 
