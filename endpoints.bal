@@ -163,10 +163,16 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     }
 }
 
-function watchFiles(http:Client httpClient, string fileId, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
+function watchFiles(http:Client httpClient, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = (), string? fileId = ()) 
 returns @tainted FileWatchResource|error {
 
-    string path = prepareUrlwithWatchFileOptional(fileId, optional);
+    string path = EMPTY_STRING;
+    if (fileId is string) {
+        path = prepareUrlwithWatchFileOptional(optional,fileId);
+    } else {
+        path = prepareUrlwithWatchFileOptional(optional);
+    }
+    log:print("$$$$"+path);
 
     json payload = check fileWatchRequest.cloneWithType(json);
 
