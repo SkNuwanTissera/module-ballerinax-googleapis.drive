@@ -257,7 +257,7 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
 # + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optional = ()){
+function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optional = ()) returns string{
 
     string[] value = [];
     map<string> optionalMap = {};
