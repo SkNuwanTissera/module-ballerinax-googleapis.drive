@@ -397,6 +397,7 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
 # + return - The prepared URL with encoded query
 function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {
     
+    string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
     if (optional is CreateFileOptional) {
@@ -530,5 +531,5 @@ function getIdFromFileResponse(File|error file) returns string {
         }
     }
     return fileOrFolderId;
-    
+
 }
