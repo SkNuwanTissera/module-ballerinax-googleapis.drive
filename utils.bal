@@ -238,12 +238,40 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
     return path;
 }
 
+# Prepare URL with File Watch optional parameters.
+# 
+# + fileId - File id
+# + optional - Record that contains optional parameters
+# + return - The prepared URL with encoded query
+function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optional = ()){
+    string[] value = [];
+    map<string> optionalMap = {};
+    string path = prepareUrl([DRIVE_PATH, FILES, fileId, WATCH]);
+    if (optional is WatchFileOptional) {
+        if (optional.acknowledgeAbuse is boolean) {
+            optionalMap[ACKKNOWLEDGE_ABUSE] = optional.acknowledgeAbuse.toString();
+        }
+        if (optional.fields is string) {
+            optionalMap[FIELDS] = optional.fields.toString();
+        }
+        if (optional.supportsAllDrives is boolean) {
+            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        optionalMap.forEach(function(string val) {
+            value.push(val);
+        });
+        path = prepareQueryUrl([path], optionalMap.keys(), value);
+    }
+    return path;
+}
+
 # Prepare URL with optional parameters on Delete Request
 # 
 # + fileId - File id
 # + optional - Delete Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? optional = ()) returns string {
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
