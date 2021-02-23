@@ -26,7 +26,6 @@ configurable string REFRESH_TOKEN = ?;
 Configuration config = {
     baseUrl: DRIVE_URL,
     clientConfig: {
-        accessToken: ACCESS_TOKEN,
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshUrl: REFRESH_URL,
