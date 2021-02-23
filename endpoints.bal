@@ -163,11 +163,23 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     }
 }
 
-function watchFiles(http:Client httpClient, string fileId, ListFilesOptional? optional = (), FileWatchRequest? fileWatchRequest = ()) {
+function watchFiles(http:Client httpClient, string fileId, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
+returns @tainted FileWatchResource|error {
 
-    string path = prepareUrlwithWatchFileOptional(optional);
+    string path = prepareUrlwithWatchFileOptional(fileId, optional);
+
+    json payload = check fileWatchRequest.cloneWithType(json);
 
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
 
-
+    if resp is json {
+        FileWatchResource|error res = resp.cloneWithType(FileWatchResource);
+        if (res is FileWatchResource) {
+            return res;
+        } else {
+            return error(ERR_FILE_RESPONSE, res);
+        }
+    } else {
+        return resp;
+    }
 }
