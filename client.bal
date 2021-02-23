@@ -79,7 +79,12 @@ public client class Client {
 
     remote function watchFilesById(string filePath, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
     returns @tainted FileWatchResource|error{
-        return watchFiles(self.httpClient, filePath, optional, fileWatchRequest);
+        return watchFiles(self.httpClient, optional, fileWatchRequest, filePath);
+    }
+
+    remote function watchFiles(WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
+    returns @tainted FileWatchResource|error{
+        return watchFiles(self.httpClient, optional, fileWatchRequest);
     }
 } 
 
