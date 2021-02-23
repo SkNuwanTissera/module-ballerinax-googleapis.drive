@@ -20,6 +20,7 @@ import ballerina/log;
 import ballerina/io;
 
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
+
     var httpResponse = httpClient->get(<@untainted>path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
@@ -37,9 +38,11 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+
 }
 
 function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
+
     var httpResponse = httpClient->delete(<@untainted>path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
@@ -57,6 +60,7 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+
 }
 
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
@@ -83,6 +87,7 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+
 }
 
 function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
@@ -110,6 +115,7 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+
 }
 
 function uploadRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
@@ -153,9 +159,11 @@ isolated function getDriveError(json|error errorResponse) returns error {
 # + statusCode - The Status code
 # + return - Error Message
 isolated function validateStatusCode(json response, int statusCode) returns error? {
+
     if (statusCode != http:STATUS_OK) {
         return getDriveError(response);
     }
+
 }
 
 
@@ -164,6 +172,7 @@ isolated function validateStatusCode(json response, int statusCode) returns erro
 # + paths - An array of paths prefixes
 # + return - The prepared URL
 isolated function prepareUrl(string[] paths) returns string {
+
     string url = EMPTY_STRING;
     if (paths.length() > 0) {
         foreach var path in paths {
@@ -174,6 +183,7 @@ isolated function prepareUrl(string[] paths) returns string {
         }
     }
     return <@untainted>url;
+
 }
 
 
@@ -185,6 +195,7 @@ isolated function prepareUrl(string[] paths) returns string {
 # + return - The prepared URL with encoded query
 isolated function prepareQueryUrl(string[] paths, string[] queryParamNames, string[] queryParamValues) 
 returns string {
+
     string url = prepareUrl(paths);
     url = url + QUESTION_MARK;
     boolean first = true;
@@ -206,6 +217,7 @@ returns string {
         i = i + 1;
     }
     return url;
+
 }
 
 # Prepare URL with optional parameters.
@@ -214,6 +226,7 @@ returns string {
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
@@ -236,6 +249,7 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
+
 }
 
 # Prepare URL with File Watch optional parameters.
@@ -244,6 +258,7 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optional = ()){
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId, WATCH]);
@@ -263,6 +278,7 @@ function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optio
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
+
 }
 
 # Prepare URL with optional parameters on Delete Request
@@ -285,6 +301,7 @@ function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? option
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
+
 }
 
 
@@ -294,6 +311,7 @@ function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? option
 # + optional - Copy Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional = ()) returns string {
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId, COPY]);
@@ -322,6 +340,7 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
+
 }
 
 # Prepare URL with optional parameters on Update Request
@@ -369,6 +388,7 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
     path = prepareQueryUrl([path], optionalMap.keys(), value);
 
     return path;
+
 }
 
 # Prepare URL with optional parameters.
@@ -376,7 +396,7 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {
-    string[] value = [];
+    
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
     if (optional is CreateFileOptional) {
@@ -406,6 +426,7 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
+
 }
 
 # Prepare URL with optional parameters.
@@ -413,6 +434,7 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
+
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
@@ -461,7 +483,6 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
     return path;
 }
 
-
 # Upload files
 # 
 # + path - Formatted URI 
@@ -492,9 +513,11 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
+
 }
 
 function getIdFromFileResponse(File|error file) returns string {
+
     string fileOrFolderId = EMPTY_STRING;
     if(file is File){
         json|error created_response = file.cloneWithType(json); 
@@ -507,4 +530,5 @@ function getIdFromFileResponse(File|error file) returns string {
         }
     }
     return fileOrFolderId;
+    
 }
