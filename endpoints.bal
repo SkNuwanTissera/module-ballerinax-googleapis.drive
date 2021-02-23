@@ -113,11 +113,14 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
 
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
     
-    json|error resp = uploadFiles(httpClient, path, filePath);
+    json resp = check uploadFiles(httpClient, path, filePath);
     if (resp is json){
         //update metadata
-        string fileId = resp.id.toString();
-        log:print(resp.id.toString());
+        json|error respId = resp.id;
+        string fileId;
+        if(respId is json){
+            fileId = respId.toString();
+        }
         string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
         json payload = check fileMetadata.cloneWithType(json);
         json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
@@ -133,7 +136,7 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
             return changeResponse;
         } 
     } else {
-        return resp;
+        return error(ERR_FILE_RESPONSE);
     }
 
 }
