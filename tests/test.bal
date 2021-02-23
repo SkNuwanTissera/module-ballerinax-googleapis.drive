@@ -248,8 +248,31 @@ function testNewUpload() {
     error? err = printFileasString(res);
 }
 
-############################
-# Subcribe for file changes
-# #########################
+##############################################
+# Subcribe for changes - Single File Resource
+# ############################################
 
+@test:Config {}
+function testWatchFilesById() {
 
+    WatchFileOptional optionals = {};
+    FileWatchResource payload = {
+        id: "01234567-89ab-cdef-0123456789ab", // Your channel ID.
+        'type: "web_hook",
+        address: "https://mydomain.com/notifications"// Your receiving URL.
+    };
+
+    FileWatchResource|error res = driveClient->watchFilesById("1WO9KnMvxjcjHhWFS9kln6x6z9gvauhXs", optionals, payload);
+    if (res is FileWatchResource) {
+        json|error file = res.cloneWithType(json);
+        if (file is json) {
+            log:print(file.toString());
+        }
+    } else {
+        log:print(res.toString());
+    }
+}
+
+########################################
+# Subcribe for ALL changes in resources
+# ######################################
