@@ -209,35 +209,6 @@ returns string {
     return url;
 }
 
-
-# Get ID from URL
-# URL can for a file, folder, blob(Text, images, videos, and PDFs), 
-# or workspace document (Spreadsheets, Presentation, Document, etc..)
-# 
-# + url - url copied from google drive.
-# + return - ID as string or Error
-function getIdFromUrl(string url) returns string | error { 
-    
-
-    string id = EMPTY_STRING;
-    int startIndex = 0;
-    boolean isFile = stringutils:contains(url,_FILE);
-    boolean isFolder = stringutils:contains(url,_FOLDER);
-    boolean isWorkspaceDocument = stringutils:contains(url,_WORKSPACE_DOC);
-
-    if (isFile){ 
-        startIndex = stringutils:lastIndexOf(url,_FILE);
-        id = url.substring(startIndex+INT_VALUE_8, startIndex+INT_VALUE_41);       
-    } else if (isFolder){
-        startIndex = stringutils:lastIndexOf(url,_FOLDER);
-        id = url.substring(startIndex+INT_VALUE_8,startIndex+INT_VALUE_42);
-    } else if (isWorkspaceDocument) {
-        id = url.substring(INT_VALUE_39,INT_VALUE_83);
-    } 
-    return id;
-
-}
-
 # Prepare URL with optional parameters.
 # 
 # + fileId - File id
@@ -501,8 +472,11 @@ function getIdFromFileResponse(File|error file) returns string {
     if(file is File){
         json|error created_response = file.cloneWithType(json); 
         if (created_response is json){
-            log:print(created_response.id.toString());   
-            return <@untainted> created_response.id.toString();
+            json|error id = created_response.id;
+            if(id is json) {
+                log:print(id.toString());   
+                return <@untainted> id.toString();
+            }
         }
     }
     return fileOrFolderId;
