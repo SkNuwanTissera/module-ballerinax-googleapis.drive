@@ -162,3 +162,10 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
         return resp;
     }
 }
+
+function watchFiles(http:Client httpClient, string fileId) {
+
+    string path = prepareUrlwithWatchFileOptional(optional);
+
+
+}
