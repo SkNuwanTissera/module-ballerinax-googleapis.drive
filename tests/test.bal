@@ -257,9 +257,9 @@ function testWatchFilesById() {
 
     WatchFileOptional optionals = {};
     FileWatchResource payload = {
-        id: "01234567-89ab-cdef-0123456789ab", // Your channel ID.
+        id: "wewe-89ab-cdef-rere", // Your channel ID.
         'type: "web_hook",
-        address: "https://mydomain.com/notifications"// Your receiving URL.
+        address: "https://www.syntax.lk/"// Your receiving URL.
     };
 
     FileWatchResource|error res = driveClient->watchFilesById("1WO9KnMvxjcjHhWFS9kln6x6z9gvauhXs", optionals, payload);
@@ -276,3 +276,24 @@ function testWatchFilesById() {
 ########################################
 # Subcribe for ALL changes in resources
 # ######################################
+
+@test:Config {}
+function testWatchAllFiles() {
+
+    WatchFileOptional optionals = {pageToken: "34"};
+    FileWatchResource payload = {
+        id: "01234567-ewew-cdef-frrt", // Your channel ID.
+        'type: "web_hook",
+        address: "https://www.syntax.lk/notifications"// Your receiving URL.
+    };
+
+    FileWatchResource|error res = driveClient->watchFiles(optionals, payload);
+    if (res is FileWatchResource) {
+        json|error file = res.cloneWithType(json);
+        if (file is json) {
+            log:print(file.toString());
+        }
+    } else {
+        log:print(res.toString());
+    }
+}
