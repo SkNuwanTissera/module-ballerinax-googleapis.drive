@@ -37,36 +37,49 @@ public client class Client {
 
     }
 
-    remote function getAbout(string? fields) returns @tainted json|error {
+    remote function getAbout(string? fields) 
+    returns @tainted json|error {
         return getDriveInfo(self.httpClient , fields);
     }
 
-    remote function getFileById(string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
+    remote function getFileById(string fileId, GetFileOptional? optional = ()) 
+    returns @tainted File|error {
         return getFileById(self.httpClient , fileId, optional);
     }
 
-    remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
+    remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) 
+    returns @tainted json|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
 
-    remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+    remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) 
+    returns @tainted File|error{
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function updateFileMetadataById(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+    remote function updateFileMetadataById(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) 
+    returns @tainted File|error{
         return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function createMetaDataFile(CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error{
+    remote function createMetaDataFile(CreateFileOptional? optional = (), File? fileData = ()) 
+    returns @tainted File|error{
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 
-    remote function uploadFile(string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+    remote function uploadFile(string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) 
+    returns @tainted File|error{
         return uploadFile(self.httpClient, filePath, optional, fileMetadata);
     }
 
-    remote function getFiles(ListFilesOptional? optional = ()) returns @tainted stream<File>|error {
+    remote function getFiles(ListFilesOptional? optional = ()) 
+    returns @tainted stream<File>|error {
         return getFiles(self.httpClient, optional);
+    }
+
+    remote function watchFilesById(string filePath, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
+    returns @tainted FileWatchResource|error{
+        return watchFiles(self.httpClient, filePath, optional, fileWatchRequest);
     }
 } 
 
