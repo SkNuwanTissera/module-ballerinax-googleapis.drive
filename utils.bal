@@ -257,11 +257,18 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
 # + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optional = ()) returns string{
+function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), string? fileId = ()) returns string{
 
     string[] value = [];
     map<string> optionalMap = {};
-    string path = prepareUrl([DRIVE_PATH, FILES, fileId, WATCH]);
+
+    string path = EMPTY_STRING;
+    if(fileId is string) {
+        path = prepareUrl([DRIVE_PATH, FILES, fileId, WATCH]);
+    } else {
+        path = prepareUrl([DRIVE_PATH, CHANGES, WATCH]);
+    }
+
     if (optional is WatchFileOptional) {
         if (optional.acknowledgeAbuse is boolean) {
             optionalMap[ACKKNOWLEDGE_ABUSE] = optional.acknowledgeAbuse.toString();
@@ -271,6 +278,9 @@ function prepareUrlwithWatchFileOptional(string fileId, WatchFileOptional? optio
         }
         if (optional.supportsAllDrives is boolean) {
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
+        }
+        if (optional.pageToken is string) {
+            optionalMap[PAGE_TOKEN] = optional.pageToken.toString();
         }
         optionalMap.forEach(function(string val) {
             value.push(val);
