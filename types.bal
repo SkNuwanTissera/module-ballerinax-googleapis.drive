@@ -293,16 +293,17 @@ public type WatchFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
-public type FileWatchRequest record {
-    string kind;
+public type FileWatchResource record {
+    string? kind = ();
     string id;
-    string resourceId;
-    string resourceUri;
+    string? resourceId = ();
+    string? resourceUri = ();
     string? token = ();
     float? expiration = ();
-    string? 'type = ();
-    string? address = ();
-    string? payload = ();
+    string 'type;
+    string address;
+    boolean? payload = ();
+    StringKeyValuePairs params?;
 };
 
 
