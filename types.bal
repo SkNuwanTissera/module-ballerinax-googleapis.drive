@@ -291,7 +291,18 @@ public type WatchFileOptional record {
     boolean? acknowledgeAbuse = ();
     string? fields = ();
     boolean? supportsAllDrives = ();
-}
+};
 
+public type FileWatchRequest record {
+    string kind;
+    string id;
+    string resourceId;
+    string resourceUri;
+    string? token = ();
+    float? expiration = ();
+    string? 'type = ();
+    string? address = ();
+    string? payload = ();
+};
 
 
