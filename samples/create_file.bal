@@ -19,16 +19,15 @@ public function main() {
 
     drive:Client driveClient = new (config);
 
-    CreateFileOptional optionals = {
+    drive:CreateFileOptional optionals = {
         ignoreDefaultVisibility : false
     };
 
-    File payload = {
+    drive:File payload = {
         mimeType : "application/vnd.google-apps.folder",
         name : "folderInTheRoot"
     };
-
-
-    File|error res = driveClient->createMetaDataFile(optionals, payload);
+    
+    drive:File|error res = driveClient->createMetaDataFile(optionals, payload);
 
 }
