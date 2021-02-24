@@ -284,3 +284,20 @@ function testWatchAllFiles() {
     FileWatchResource|error res = driveClient->watchFiles(optionals, payload);
     error? err = printFileWatchResource(res);
 }
+
+##########################
+# Stop Watching Resources 
+# ########################
+
+@test:Config {}
+function testStopWatching() {
+
+    FileWatchResource payload = {
+        kind: "api#channel",
+        id: "01234567-ewew-cdef-frrt", // Your channel ID.
+        'type: "web_hook",
+        address: "https://www.syntax.lk/notifications"// Your receiving URL.
+    };
+    json|error res = driveClient->watchStop(payload);
+
+}
