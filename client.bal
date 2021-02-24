@@ -29,7 +29,7 @@ public client class Client {
 
         http:ClientSecureSocket? socketConfig = driveConfig?.secureSocketConfig;
 
-        self.httpClient = checkpanic new (driveConfig.baseUrl, {
+        self.httpClient = checkpanic new (BASE_URL, {
             auth: driveConfig.clientConfig,
             secureSocket: socketConfig,
             http1Settings: {chunking: http:CHUNKING_NEVER}
@@ -94,7 +94,6 @@ public client class Client {
 } 
 
 public type Configuration record {
-    string baseUrl;
     oauth2:DirectTokenConfig clientConfig;
     http:ClientSecureSocket secureSocketConfig?;
 };
