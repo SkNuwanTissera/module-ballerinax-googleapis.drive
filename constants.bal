@@ -14,6 +14,9 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//Base URL
+const string BASE_URL = "https://www.googleapis.com";
+
 // URL encoding
 const string ENCODING_CHARSET = "utf-8";
 
