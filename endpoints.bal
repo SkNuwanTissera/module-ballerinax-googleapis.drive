@@ -189,3 +189,18 @@ returns @tainted FileWatchResource|error {
         return resp;
     }
 }
+
+function stopWatch(http:Client httpClient, FileWatchResource? fileWatchRequest = ()) returns @tainted json|error {
+
+    string path = prepareUrl([DRIVE_PATH, CHANNELS, STOP]);
+    json payload = check fileWatchRequest.cloneWithType(json);
+    json|error resp = sendRequestWithPayload(httpClient, path, payload);
+    log:print("$$$$"+path);
+    log:print("!!!!"+payload.toString());
+    if (resp is json){
+       log:print("^^^^"+resp.toString()); 
+    }
+
+    return resp;
+
+}
