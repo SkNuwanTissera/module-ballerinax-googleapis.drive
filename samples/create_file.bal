@@ -1,5 +1,5 @@
 import ballerina/log;
-// import ballerinax/googleapis_drive as drive;
+import ballerinax/googleapis_drive as drive;
 
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
@@ -8,7 +8,7 @@ configurable string REFRESH_TOKEN = ?;
 
 public function main() {
 
-    Configuration config = {
+    drive:Configuration config = {
         clientConfig: {
             clientId: CLIENT_ID,
             clientSecret: CLIENT_SECRET,
@@ -17,7 +17,7 @@ public function main() {
         }
     };
 
-    Client driveClient = new (config);
+    drive:Client driveClient = new (config);
 
     CreateFileOptional optionals = {
         ignoreDefaultVisibility : false
@@ -28,9 +28,7 @@ public function main() {
         name : "folderInTheRoot"
     };
 
-    @test:Config {}
-    function testCreateFolder() {
-        File|error res = driveClient->createMetaDataFile(optionals, payload);
-    }
+
+    File|error res = driveClient->createMetaDataFile(optionals, payload);
 
 }
