@@ -86,6 +86,11 @@ public client class Client {
     returns @tainted FileWatchResource|error{
         return watchFiles(self.httpClient, optional, fileWatchRequest);
     }
+
+    remote function watchStop(FileWatchResource? fileWatchRequest = ()) 
+    returns @tainted json|error{
+        return stopWatch(self.httpClient, fileWatchRequest);
+    }
 } 
 
 public type Configuration record {
