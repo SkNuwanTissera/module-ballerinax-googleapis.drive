@@ -225,7 +225,7 @@ returns string {
 # + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
+isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -243,9 +243,9 @@ function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = 
         if (optional.supportsAllDrives is boolean) {
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
         }
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
