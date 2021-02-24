@@ -11,7 +11,7 @@ The Google Drive connector allows you to access Google Drive operations through 
 
 |                             |            Versions             |
 |:---------------------------:|:-------------------------------:|
-| Ballerina Language          |     Swan Lake Preview8          |
+| Ballerina Language          |     Swan Lake Alpha2            |
 | Google Drive API            |             V3                  |
 
 ## Sample
