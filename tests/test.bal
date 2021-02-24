@@ -24,14 +24,11 @@ configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
 Configuration config = {
-    baseUrl: DRIVE_URL,
     clientConfig: {
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshUrl: REFRESH_URL,
         refreshToken: REFRESH_TOKEN
-    
-        
     }
 };
 
