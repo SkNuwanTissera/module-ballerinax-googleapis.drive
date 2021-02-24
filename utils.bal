@@ -257,7 +257,7 @@ isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? op
 # + fileId - File id
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), string? fileId = ()) returns string{
+isolated function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), string? fileId = ()) returns string{
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -282,9 +282,9 @@ function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), strin
         if (optional.pageToken is string) {
             optionalMap[PAGE_TOKEN] = optional.pageToken.toString();
         }
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
@@ -296,7 +296,7 @@ function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), strin
 # + fileId - File id
 # + optional - Delete Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? optional = ()) returns string {
+isolated function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -305,9 +305,9 @@ function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? option
         if (optional.supportsAllDrives is boolean) {
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
         }
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
@@ -320,7 +320,7 @@ function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? option
 # + fileId - File id
 # + optional - Copy Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional = ()) returns string {
+isolated function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -344,9 +344,9 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
         if (optional.supportsAllDrives is boolean) {
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
         }
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
@@ -358,7 +358,7 @@ function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional =
 # + fileId - File id
 # + optional - Update Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
+isolated function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -391,9 +391,9 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
             
     }
 
-    optionalMap.forEach(function(string val) {
+    foreach var val in optionalMap {
         value.push(val);
-    });
+    }
 
     path = prepareQueryUrl([path], optionalMap.keys(), value);
 
@@ -405,7 +405,7 @@ function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {
+isolated function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {
     
     string[] value = [];
     map<string> optionalMap = {};
@@ -431,9 +431,9 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
         if (optional.useContentAsIndexableText is boolean) {
             optionalMap[USE_CONTENT_AS_INDEXABLE_TEXT] = optional.useContentAsIndexableText.toString();
         }
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
@@ -444,7 +444,7 @@ function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) r
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
+isolated function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
 
     string[] value = [];
     map<string> optionalMap = {};
@@ -486,9 +486,9 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
             optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
         }
 
-        optionalMap.forEach(function(string val) {
+        foreach var val in optionalMap {
             value.push(val);
-        });
+        }
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
@@ -499,8 +499,7 @@ function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) return
 # + path - Formatted URI 
 # + filePath - File path subjected to upload
 # + return - Json response or Error
-function uploadFiles(http:Client httpClient, string path, string filePath)
-returns @tainted json | error {
+function uploadFiles(http:Client httpClient, string path, string filePath) returns @tainted json | error {
 
     http:Request httpRequest = new;
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
