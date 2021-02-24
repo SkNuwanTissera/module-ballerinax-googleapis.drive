@@ -1,17 +1,12 @@
 import ballerina/log;
 // import ballerinax/googleapis_drive as drive;
 
-configurable string clientId = ?;
-configurable string clientSecret = ?;
-configurable string refreshToken = ?;
-configurable string refreshUrl = ?;
+configurable string CLIENT_ID = ?;
+configurable string CLIENT_SECRET = ?;
+configurable string REFRESH_URL = ?;
+configurable string REFRESH_TOKEN = ?;
 
 public function main() {
-    
-    configurable string CLIENT_ID = ?;
-    configurable string CLIENT_SECRET = ?;
-    configurable string REFRESH_URL = ?;
-    configurable string REFRESH_TOKEN = ?;
 
     Configuration config = {
         clientConfig: {
@@ -36,8 +31,6 @@ public function main() {
     @test:Config {}
     function testCreateFolder() {
         File|error res = driveClient->createMetaDataFile(optionals, payload);
-        parentFolder = <@untainted> getIdFromFileResponse(res);
-        error? err = printFileasString(res);
     }
 
 }
