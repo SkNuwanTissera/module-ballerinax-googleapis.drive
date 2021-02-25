@@ -48,7 +48,7 @@ public client class Client {
     }
 
     remote function deleteFileById(string fileId, DeleteFileOptional? optional = ()) 
-    returns @tainted json|error{
+    returns @tainted boolean|error{
         return deleteFileById(self.httpClient, fileId, optional);
     }
 
