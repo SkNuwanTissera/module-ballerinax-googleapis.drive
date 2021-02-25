@@ -29,4 +29,12 @@ public function main() {
 
     drive:File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
 
+    //Print file ID
+    if(res is drive:File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
+
 }
