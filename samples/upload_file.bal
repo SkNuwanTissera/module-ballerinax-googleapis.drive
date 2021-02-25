@@ -8,6 +8,10 @@ configurable string REFRESH_TOKEN = ?;
 
 configurable string filePath = ?;
 
+###################################################
+# Upload file using Byte Array
+# #################################################
+
 public function main() {
 
     drive:Configuration config = {
