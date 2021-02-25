@@ -37,6 +37,12 @@ public function main() {
     //Do not supply a request body with this method.
     //If successful, this method returns an empty response body.
 
-    json|error res = driveClient->deleteFileById(fileId, delete_optional);
+    boolean|error res = driveClient->deleteFileById(fileId, delete_optional);
+
+    if(res is boolean){
+        log:print("File Deleted");
+    } else {
+        log:printError(res.message());
+    }
 
 }
