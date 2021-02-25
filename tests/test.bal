@@ -328,7 +328,7 @@ function testNewUploadByteArray() {
 
     byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
 
-
+    // Issue : ballerina: too many arguments.
     File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
     //Print file ID
     if(res is File){
