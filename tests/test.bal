@@ -235,9 +235,10 @@ File payload_ = {
 
 //string filePath = "./tests/resources/bar.txt";
 string filePath = "./tests/resources/bar.jpeg";
+// string filePath = "https://ballerinasknut.s3.amazonaws.com/jon-koop-khYVyHiNZo0-unsplash.jpg";
 
 @test:Config {
-    dependsOn: [testCreateFile]
+    dependsOn: [testCreateFolder]
 }
 function testNewUpload() {
 
