@@ -30,4 +30,12 @@ public function main() {
     
     drive:File|error res = driveClient->createMetaDataFile(optionals, payload);
 
+    //Print folder ID
+    if(res is drive:File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
+
 }
