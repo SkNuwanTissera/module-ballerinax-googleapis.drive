@@ -1,6 +1,5 @@
 import ballerina/log;
 import ballerina/http;
-import ballerina/io;
 
 function getDriveInfo(http:Client httpClient, string? fields) returns @tainted json|error{
     string path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + _ALL;
@@ -201,4 +200,34 @@ function stopWatch(http:Client httpClient, FileWatchResource? fileWatchRequest =
 
     return resp;
 
+}
+
+function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+    
+    string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
+    log:print(path.toString());
+    
+    json resp = check uploadFileWithByteArray(httpClient, path, byteArray);
+    
+    //update metadata
+    json|error respId = resp.id;
+    string fileId = EMPTY_STRING;
+    if(respId is json){
+        fileId = respId.toString();
+    }
+    string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
+    json payload = check fileMetadata.cloneWithType(json);
+    json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
+
+    if changeResponse is json {
+        File|error file = changeResponse.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return changeResponse;
+    } 
+    
 }
