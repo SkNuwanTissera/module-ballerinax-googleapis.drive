@@ -84,8 +84,14 @@ GetFileOptional optional = {
 }
 function testGetFileByIdwithOptionalParameters() {
 
-    File | error res1 = driveClient->getFileById(fileId, optional);
-    error? err = printFileasString(res1);
+    File | error res = driveClient->getFileById(fileId, optional);
+    // if(res is File){
+    //     test:assertNotEquals(res?.id, "", msg = "Expect File id");
+    //     log:print(res?.id.toString());
+    // } else {
+    //     log:printError(res.message());
+    // }
+    error? err = printFileasString(res);
 
 }
 
@@ -105,10 +111,12 @@ DeleteFileOptional delete_optional = {
 function testDeleteFileById(){
 
     boolean|error res = driveClient->deleteFileById(fileId, delete_optional);
-    if(res is boolean){
+    if (res is boolean) {
         log:print("File Deleted");
+        test:assertTrue(res, msg = "Expects true on success");
     } else {
         log:printError(res.message());
+        test:assertFail(res.message());
     }
 
 }
