@@ -244,6 +244,14 @@ string filePath = "./tests/resources/bar.jpeg";
 function testNewUpload() {
 
     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
+    //Print file ID
+    if(res is File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
+    //Print Whole Response
     error? err = printFileasString(res);
 }
 
