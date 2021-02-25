@@ -88,14 +88,15 @@ function testGetFileByIdwithOptionalParameters() {
 
 }
 
-DeleteFileOptional delete_optional = {
-
-    supportsAllDrives : false
-};
 
 #######################
 # Delete File by ID
 # #####################
+
+DeleteFileOptional delete_optional = {
+
+    supportsAllDrives : false
+};
 
 @test:Config {
     dependsOn: [testCreateFile]
