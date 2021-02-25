@@ -72,10 +72,16 @@ public client class Client {
         return uploadFile(self.httpClient, filePath, optional, fileMetadata);
     }
 
-    remote function getFiles(ListFilesOptional? optional = ()) 
-    returns @tainted stream<File>|error {
+    remote function getFiles(ListFilesOptional? optional = ()) returns @tainted stream<File>|error {
         return getFiles(self.httpClient, optional);
     }
+
+    remote function uploadFileUsingByteArray(byte[] byteArray, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) 
+    returns @tainted File|error{
+        return uploadFileUsingByteArray(self.httpClient, byteArray, optional, fileMetadata);
+    }
+
+    
 
     remote function watchFilesById(string filePath, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
     returns @tainted FileWatchResource|error{
