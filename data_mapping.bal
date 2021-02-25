@@ -30,6 +30,7 @@ function printFileasString(File|error file) returns error?{
             return error(ERR_FILE_TO_STRING_CONVERSION, jsonObject);
         }
     } else {
+        log:printError(ERR_FILE_TO_STRING_CONVERSION, err = file);
         return error(ERR_FILE_TO_STRING_CONVERSION, file);
     }
 }
