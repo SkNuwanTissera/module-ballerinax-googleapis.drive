@@ -7,6 +7,15 @@ configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 configurable string fileId = ?;
 
+###################################################################################
+# Copy file by ID
+###################################################################################
+# Creates a copy of a file and applies any requested updates with patch semantics. 
+# **Folders cannot be copied
+# ################################################################################
+# More details : https://developers.google.com/drive/api/v3/reference/files/copy
+# #################################################################################
+
 public function main() {
 
     drive:Configuration config = {
