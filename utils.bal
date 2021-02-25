@@ -526,6 +526,37 @@ function uploadFiles(http:Client httpClient, string path, string filePath) retur
 
 }
 
+# Upload files using a byte Array
+# 
+# + path - Formatted URI 
+# + byteArray - Byte Array subjected to upload
+# + return - Json response or Error
+function uploadFileUsingByteArray(http:Client httpClient, string path, byte[] byteArray) returns @tainted json | error {
+
+    http:Request httpRequest = new;
+    httpRequest.setHeader(CONTENT_LENGTH ,byteArray.length().toString());
+    httpRequest.setBinaryPayload(<@untainted> byteArray);
+
+    var httpResponse = httpClient->post(<@untainted>path, httpRequest);
+
+    if (httpResponse is http:Response) {
+        int statusCode = httpResponse.statusCode;
+        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
+        if (jsonResponse is json) {
+            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
+            if (validateStatusCodeRes is error) {
+                return validateStatusCodeRes;
+            }
+            return jsonResponse;
+        } else {
+            return getDriveError(jsonResponse);
+        }
+    } else {
+        return getDriveError(<json|error>httpResponse);
+    }
+
+}
+
 function getIdFromFileResponse(File|error file) returns string {
 
     string fileOrFolderId = EMPTY_STRING;
