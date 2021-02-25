@@ -23,4 +23,12 @@ public function main() {
 
     drive:File | error testGetFile = driveClient->getFileById(fileId);
 
+    //Print file ID
+    if(res is drive:File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
+
 }
