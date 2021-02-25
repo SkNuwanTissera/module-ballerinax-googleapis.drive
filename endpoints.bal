@@ -12,18 +12,15 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted j
 function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
 
     string path = prepareUrlWithFileOptional(fileId, optional);
-    json | error resp = sendRequest(httpClient, path);
-
-    if resp is json {
-        File|error file = resp.cloneWithType(File);
-        if (file is File) {
-            return file;
-        } else {
-            return error(ERR_FILE_RESPONSE, file);
-        }
+    json resp = check sendRequest(httpClient, path);
+    log:print("#$#$"+resp.toString());
+    File|error file = resp.cloneWithType(File);
+    if (file is File) {
+        return file;
     } else {
-        return resp;
-    } 
+        return error(ERR_FILE_RESPONSE, file);
+    }
+
 }
 
 function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error{
