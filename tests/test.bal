@@ -294,7 +294,7 @@ string filePath = "./tests/resources/bar.jpeg";
     dependsOn: [testCreateFolder]
 }
 function testNewUpload() {
-
+    // Issue : ballerina: too many arguments.
     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 
     //Assertions 
