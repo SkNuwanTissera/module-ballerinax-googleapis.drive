@@ -75,7 +75,7 @@ function testGetFileById() {
 
 GetFileOptional optional = {
     acknowledgeAbuse: false,
-    fields: "*",
+    // fields: "*", //Try this
     supportsAllDrives : false
 };
 
@@ -85,13 +85,12 @@ GetFileOptional optional = {
 function testGetFileByIdwithOptionalParameters() {
 
     File | error res = driveClient->getFileById(fileId, optional);
-    // if(res is File){
-    //     test:assertNotEquals(res?.id, "", msg = "Expect File id");
-    //     log:print(res?.id.toString());
-    // } else {
-    //     log:printError(res.message());
-    // }
-    error? err = printFileasString(res);
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        log:printError(res.message());
+    }
 
 }
 
