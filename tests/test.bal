@@ -17,6 +17,7 @@
 import ballerina/test;
 import ballerina/log;
 
+
 configurable string ACCESS_TOKEN = ?;
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
@@ -254,6 +255,41 @@ function testNewUpload() {
     //Print Whole Response
     error? err = printFileasString(res);
 }
+
+###############################
+# Upload File using Byte Array
+# #############################
+# 
+@test:Config {
+    dependsOn: [testCreateFolder]
+}
+function testNewUploadByteArray() {
+
+    UpdateFileMetadataOptional optionals_ = {
+    addParents : parentFolder //Parent folderID
+    };
+
+    File payload_ = {
+        name : "test123.jpeg"
+    };
+
+    byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
+
+
+    File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
+    //Print file ID
+    if(res is File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
+    //Print Whole Response
+    error? err = printFileasString(res);
+}
+
+
+
 
 ##############################################
 # Subcribe for changes - Single File Resource
