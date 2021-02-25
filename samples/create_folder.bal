@@ -6,6 +6,18 @@ configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
+###################################################################################
+# Create folder 
+###################################################################################
+# Creates a new folder
+# Specify the file Name inside the payload. Else it will be uploaded as Untitled 
+# folder.
+# Specify the mime type as application/vnd.google-apps.folder
+# More details : https://developers.google.com/drive/api/v3/mime-types
+# ################################################################################
+# More details : https://developers.google.com/drive/api/v3/reference/files/create
+# #################################################################################
+
 public function main() {
 
     drive:Configuration config = {
