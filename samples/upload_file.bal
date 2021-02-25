@@ -33,4 +33,12 @@ public function main() {
     };
     
     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
+
+    //Print file ID
+    if(res is drive:File){
+        string id = res?.id.toString();
+        log:print(id);
+    } else {
+        log:printError(res.message());
+    }
 }
