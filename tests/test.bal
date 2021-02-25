@@ -261,7 +261,14 @@ function testGetFiles() {
     stream<File>|error res = driveClient->getFiles(optional_search);
     if (res is stream<File>){
         error? e = res.forEach(function (File file) {
+
+            //Assertions
+            test:assertNotEquals(file?.id, "", msg = "Expect File id");
+            log:print(file?.id.toString());
+
+            //Print Whole file
             error? err = printFileasString(file);
+
         });
     }
 
