@@ -110,8 +110,6 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
     
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
-
-    byte[] fileContentByteArray = check io:fileReadBytes(filePath);
     
     json resp = check uploadFiles(httpClient, path, filePath);
     
