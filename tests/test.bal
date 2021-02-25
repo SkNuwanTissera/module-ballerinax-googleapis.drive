@@ -163,7 +163,18 @@ File payload__file_metadata = {
 function testUpdateFiles() {
 
     File|error res = driveClient->updateFileMetadataById(fileId, optionals_file_metadata, payload__file_metadata);
+
+    //Assertions
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        log:printError(res.message());
+    }
+
+    //Print Whole file
     error? err = printFileasString(res);
+    
 }
 
 
