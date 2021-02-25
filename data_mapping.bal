@@ -84,3 +84,21 @@ function printFileWatchResource(FileWatchResource|error response) returns error?
         log:printError(ERR_WATCH_RESPONSE, err = response);
     }
 }
+
+# Log File as String
+# 
+# + anyObject - Any object
+# + return - Error if exists 
+function printAnyRecordasString(any|error anyObject) returns error?{
+    if (anyObject is anydata){
+        json|error jsonObject = anyObject.cloneWithType(json);
+        if (jsonObject is json) {
+            log:print(jsonObject.toString());
+        }  else {
+            log:printError(ERR_FILE_TO_STRING_CONVERSION + jsonObject.toString(), err = jsonObject);
+            return error(ERR_FILE_TO_STRING_CONVERSION, jsonObject);
+        }
+    } else {
+        return error(ERR_FILE_TO_STRING_CONVERSION);
+    }
+}
