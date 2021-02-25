@@ -174,7 +174,7 @@ function testUpdateFiles() {
 
     //Print Whole file
     error? err = printFileasString(res);
-    
+
 }
 
 
@@ -197,7 +197,19 @@ File payload_create_file = {
 }
 function testCreateFile() {
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
+
+    //Assertions
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        log:printError(res.message());
+    }
+
+    //Set variable fileId
     fileId = <@untainted> getIdFromFileResponse(res);
+
+    //Print Whole file
     error? err = printFileasString(res);
 }
 
@@ -219,6 +231,16 @@ File payload_create_folder = {
 @test:Config {}
 function testCreateFolder() {
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
+
+    //Assertions
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        log:printError(res.message());
+    }
+
+    //Print Whole file
     parentFolder = <@untainted> getIdFromFileResponse(res);
     error? err = printFileasString(res);
 }
