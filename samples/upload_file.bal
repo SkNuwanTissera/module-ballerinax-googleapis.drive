@@ -6,6 +6,8 @@ configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
+configurable string filePath = ?;
+
 public function main() {
 
     drive:Configuration config = {
@@ -25,14 +27,12 @@ public function main() {
         name : "test123.jpeg"
     };
 
-    string filePath = "./tests/resources/bar.jpeg";
-
     drive:File payload = {
         mimeType : "application/vnd.google-apps.folder",
         name : "folderInTheRoot"
     };
     
-    File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
+    drive:File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 
     //Print file ID
     if(res is drive:File){
