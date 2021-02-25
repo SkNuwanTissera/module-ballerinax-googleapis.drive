@@ -71,6 +71,9 @@ const string ERR_FILE_TO_STRING_CONVERSION = "Unable to convert the file to stri
 const string ERR_FILE_TO_JSON_CONVERSION = "Unable to convert the file to JSON value: ";
 const string ERR_JSON_TO_STRING_CONVERSION = "Unable to convert from JSON to string";
 const string ERR_WATCH_RESPONSE = "Unable to print watch response";
+const string HTTP_ERROR_MSG = "Error occurred while getting the HTTP response : ";
+const string ERR_EXTRACTING_ERROR_MSG = "Error occured while extracting errors from payload.";
+const string JSON_ACCESSING_ERROR_MSG = "Error occurred while accessing the JSON payload of the response.";
 
 // Optional Query Parameters
 const string ACKKNOWLEDGE_ABUSE = "acknowledgeAbuse";
