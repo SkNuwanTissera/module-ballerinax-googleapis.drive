@@ -531,7 +531,7 @@ function uploadFiles(http:Client httpClient, string path, string filePath) retur
 # + path - Formatted URI 
 # + byteArray - Byte Array subjected to upload
 # + return - Json response or Error
-function uploadFileUsingByteArray(http:Client httpClient, string path, byte[] byteArray) returns @tainted json | error {
+function uploadFileWithByteArray(http:Client httpClient, string path, byte[] byteArray) returns @tainted json | error {
 
     http:Request httpRequest = new;
     httpRequest.setHeader(CONTENT_LENGTH ,byteArray.length().toString());
