@@ -82,7 +82,6 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
     string path = prepareUrlWithUpdateOptional(fileId, optional);
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
     if resp is json { 
-        log:print("[updateFileById]" +resp.toString());
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
@@ -169,7 +168,6 @@ returns @tainted FileWatchResource|error {
     } else {
         path = prepareUrlwithWatchFileOptional(optional);
     }
-    log:print("$$$$"+path);
 
     json payload = check fileWatchRequest.cloneWithType(json);
 
