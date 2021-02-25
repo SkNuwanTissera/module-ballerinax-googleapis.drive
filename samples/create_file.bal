@@ -24,10 +24,10 @@ public function main() {
     };
 
     drive:File payload = {
-        mimeType : "application/vnd.google-apps.folder",
-        name : "folderInTheRoot"
+        mimeType : "application/vnd.google-apps.file", 
+        name : "fileintheroot.txt"
     };
-    
+
     drive:File|error res = driveClient->createMetaDataFile(optionals, payload);
 
 }
