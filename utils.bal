@@ -27,7 +27,6 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[sendRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -49,7 +48,6 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted jso
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[deleteRequest]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -76,7 +74,6 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[sendRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -103,7 +100,6 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[updateRequestWithPayload]"+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
@@ -131,7 +127,6 @@ returns @tainted json | error {
         json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
         if (jsonResponse is json) {
             error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            log:print("[uploadRequestWithPayload] "+jsonResponse.toString());
             if (validateStatusCodeRes is error) {
                 return validateStatusCodeRes;
             }
