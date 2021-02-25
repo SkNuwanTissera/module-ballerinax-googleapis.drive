@@ -135,11 +135,11 @@ File payload_copy_file = {
 }
 function testCopyFile(){
     File|error res = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
-    if (res is File){
-        json|error file = res.cloneWithType(json);
-        if (file is json) {
-            log:print(file.toString());
-        }
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        log:printError(res.message());
     }
 }
 
