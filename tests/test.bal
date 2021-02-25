@@ -104,8 +104,12 @@ DeleteFileOptional delete_optional = {
 }
 function testDeleteFileById(){
 
-    json | error res = driveClient->deleteFileById(fileId, delete_optional);
-    error? err = printJSONasString(res);
+    boolean|error res = driveClient->deleteFileById(fileId, delete_optional);
+    if(res is boolean){
+        log:print("File Deleted");
+    } else {
+        log:printError(res.message());
+    }
 
 }
 
@@ -288,9 +292,6 @@ function testNewUploadByteArray() {
     error? err = printFileasString(res);
 }
 
-
-
-
 ##############################################
 # Subcribe for changes - Single File Resource
 # ############################################
@@ -341,6 +342,7 @@ function testStopWatching() {
         'type: "web_hook",
         address: "https://www.syntax.lk/notifications"// Your receiving URL.
     };
+
     json|error res = driveClient->watchStop(payload);
 
 }
