@@ -13,6 +13,7 @@ configurable string REFRESH_TOKEN = ?;
 # Specify the file Name inside the payload. Else it will be uploaded as Untitled 
 # file.
 # Specify the mime type also.
+# More details : https://developers.google.com/drive/api/v3/mime-types
 # ################################################################################
 # More details : https://developers.google.com/drive/api/v3/reference/files/create
 # #################################################################################
