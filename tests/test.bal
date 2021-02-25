@@ -45,12 +45,12 @@ string parentFolder = EMPTY_STRING;
 @test:Config {}
 function testdriveGetAbout() {
 
-    json|error res1 = driveClient->getAbout("*");
-    json|error res2 = driveClient->getAbout("kind");
-    json|error res3 = driveClient->getAbout("user");
-    json|error res4 = driveClient->getAbout("storageQuota");
-    if (res1 is json){
-        log:print(res1.toString());
+    // json|error res1 = driveClient->getAbout("*");
+    // json|error res2 = driveClient->getAbout("kind");
+    json|error res = driveClient->getAbout("user");
+    // json|error res4 = driveClient->getAbout("storageQuota");
+    if (res is json){
+        log:print(res.toString());
     }
 
 }
@@ -64,7 +64,7 @@ function testdriveGetAbout() {
 }
 function testGetFileById() {
 
-    File | error testGetFile = driveClient->getFileById(fileId);
+    File|error testGetFile = driveClient->getFileById(fileId);
     error? err = printFileasString(testGetFile);
 
 }
