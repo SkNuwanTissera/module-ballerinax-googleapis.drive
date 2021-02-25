@@ -50,10 +50,10 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
-function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptional? optional = ()) returns @tainted json|error{
+function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptional? optional = ()) returns @tainted boolean|error{
 
     string path = prepareUrlWithDeleteOptional(fileId, optional);
-    json | error resp = deleteRequest(httpClient, path);
+    boolean|error resp = deleteRequest(httpClient, path);
     return resp;
 
 }
