@@ -40,24 +40,11 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 
 }
 
-function deleteRequest(http:Client httpClient, string path) returns @tainted json | error {
+function deleteRequest(http:Client httpClient, string path) returns @tainted boolean | error {
 
     var httpResponse = httpClient->delete(<@untainted>path);
-    if (httpResponse is http:Response) {
-        int statusCode = httpResponse.statusCode;
-        json | http:ClientError jsonResponse = httpResponse.getJsonPayload();
-        if (jsonResponse is json) {
-            error? validateStatusCodeRes = validateStatusCode(jsonResponse, statusCode);
-            if (validateStatusCodeRes is error) {
-                return validateStatusCodeRes;
-            }
-            return jsonResponse;
-        } else {
-            return getDriveError(jsonResponse);
-        }
-    } else {
-        return getDriveError(<json|error>httpResponse);
-    }
+    json resp = check checkAndSetErrors(httpResponse);
+    return true;
 
 }
 
@@ -567,4 +554,33 @@ function getIdFromFileResponse(File|error file) returns string {
     }
     return fileOrFolderId;
 
+}
+
+# Check HTTP response and return JSON payload on success else an error.
+# 
+# + httpResponse - HTTP respone or HTTP payload or error
+# + return - JSON result on success else an error
+isolated function checkAndSetErrors(http:Response|http:PayloadType|error httpResponse) returns @tainted json|error {
+    if (httpResponse is http:Response) {
+        if (httpResponse.statusCode == http:STATUS_OK || httpResponse.statusCode == http:STATUS_CREATED) {
+            json|error jsonResponse = httpResponse.getJsonPayload();
+            if (jsonResponse is json) {
+                return jsonResponse;
+            } else {
+                return error(JSON_ACCESSING_ERROR_MSG, jsonResponse);
+            }
+        } else if (httpResponse.statusCode == http:STATUS_NO_CONTENT) {
+            return {};
+        } else {
+            json|error jsonResponse = httpResponse.getJsonPayload();
+            if (jsonResponse is json) {
+                json err = check jsonResponse.'error.message;
+                return error(HTTP_ERROR_MSG + err.toString());
+            } else {
+                return error(ERR_EXTRACTING_ERROR_MSG, jsonResponse);
+            }
+        }
+    } else {
+        return error(HTTP_ERROR_MSG + (<error>httpResponse).message());
+    }
 }
