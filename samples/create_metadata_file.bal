@@ -1,5 +1,5 @@
 import ballerina/log;
-import ballerinax/googleapis_drive as drive;
+import nuwantissera/googleapis_drive as drive;
 
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
