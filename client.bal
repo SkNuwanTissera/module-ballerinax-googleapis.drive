@@ -15,7 +15,6 @@
 // under the License.
 
 import ballerina/http;
-import ballerina/oauth2;
 
 public client class Client {
 
@@ -97,7 +96,7 @@ public client class Client {
 } 
 
 public type Configuration record {
-    oauth2:DirectTokenConfig clientConfig;
+    http:OAuth2DirectTokenConfig clientConfig;
     http:ClientSecureSocket secureSocketConfig?;
 };
 
