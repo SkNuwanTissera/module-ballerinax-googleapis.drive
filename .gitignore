@@ -4,3 +4,5 @@ modules/
 ballerina-internal.log
 .mycommitmsg.txt
 Config.toml
+.idea/
+
