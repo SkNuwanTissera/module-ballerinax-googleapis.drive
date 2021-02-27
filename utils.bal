@@ -19,6 +19,11 @@ import ballerina/encoding;
 import ballerina/log;
 import ballerina/io;
 
+# Send GET request.
+# 
+# + httpClient - Drive client
+# + path - GET URI path
+# + return - JSON or error if not suceeded
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
 
     var httpResponse = httpClient->get(<@untainted>path);
