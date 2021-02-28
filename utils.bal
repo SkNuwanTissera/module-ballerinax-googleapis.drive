@@ -45,6 +45,11 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 
 }
 
+# Send DELETE request.
+# 
+# + httpClient - Drive client
+# + path - DELETE URI path
+# + return - boolean or error if not suceeded, True if Deleted successfully.
 function deleteRequest(http:Client httpClient, string path) returns @tainted boolean | error {
 
     var httpResponse = httpClient->delete(<@untainted>path);
@@ -53,6 +58,11 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted boo
 
 }
 
+# Send POST request with  a Payload.
+# 
+# + httpClient - Drive client
+# + path - POST URI path
+# + return - json or error if not suceeded.
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
 
@@ -79,6 +89,11 @@ returns @tainted json | error {
 
 }
 
+# Send PATCH request with  a Payload.
+# 
+# + httpClient - Drive client
+# + path - PATCH URI path
+# + return - json or error if not suceeded.
 function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
 
