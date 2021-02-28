@@ -62,6 +62,7 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted boo
 # 
 # + httpClient - Drive client
 # + path - POST URI path
+# + jsonPayload - Payload of the request.
 # + return - json or error if not suceeded.
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
@@ -93,6 +94,7 @@ returns @tainted json | error {
 # 
 # + httpClient - Drive client
 # + path - PATCH URI path
+# + jsonPayload - Payload of the request
 # + return - json or error if not suceeded.
 function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
@@ -121,6 +123,12 @@ returns @tainted json | error {
 
 }
 
+# Send POST request with  a Payload.
+# 
+# + httpClient - Drive client
+# + path - POST URI path
+# + jsonPayload - Payload of the request
+# + return - json or error if not suceeded.
 function uploadRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
 
@@ -146,6 +154,10 @@ returns @tainted json | error {
     }
 }
 
+# Formation of error message
+# 
+# + errorResponse - Can be json or error type
+# + return - error if not exist.
 isolated function getDriveError(json|error errorResponse) returns error {
   if (errorResponse is json) {
         return error(errorResponse.toString());
