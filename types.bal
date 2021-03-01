@@ -242,6 +242,11 @@ public type ImageMediaMetadata record {
     string lens;
 };
 
+# Description
+#
+# + altitude - The altitude stored in the image.  
+# + latitude - The latitude stored in the image  
+# + longitude - The longitude stored in the image.  
 public type Location record {
     float latitude; 
     float longitude; 
