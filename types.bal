@@ -288,12 +288,15 @@ public type FilesResponse record {
     File[] files;
 };
 
-# Description
+# Optional Query Parameters in GET files.
 #
-# + acknowledgeAbuse - Parameter Description  
-# + includePermissionsForView - Parameter Description  
-# + fields - Parameter Description  
-# + supportsAllDrives - Parameter Description  
+# + acknowledgeAbuse - Whether the user is acknowledging the risk of downloading known malware or other abusive files. 
+#                      This is only applicable when alt=media. (Default: false)  
+# + includePermissionsForView - Specifies which additional view's permissions to include in the response. Only 'published' is supported. 
+# + fields - The paths of the fields you want included in the response. If not specified, the response includes a default set of fields 
+#           specific to this method. For development you can use the special value * to return all fields, but you'll achieve greater 
+#           performance by only selecting the fields you need  
+# + supportsAllDrives - Whether the requesting application supports both My Drives and shared drives. (Default: false)  
 public type GetFileOptional record {
     boolean? acknowledgeAbuse = ();
     string? fields = ();
