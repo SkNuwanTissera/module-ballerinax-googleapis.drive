@@ -366,12 +366,15 @@ public type CreateFileOptional record {
 
 # Description
 #
-# + ocrLanguage -   
-# + removeParents -   
-# + keepRevisionForever -   
-# + useContentAsIndexableText -   
-# + includePermissionsForView -   
-# + addParents -   
+# + ocrLanguage -   A language hint for OCR processing during image import (ISO 639-1 code).
+# + removeParents -  A comma-separated list of parent IDs to remove. 
+# + keepRevisionForever -   Whether to set the 'keepForever' field in the new head revision. 
+#                           This is only applicable to files with binary content in Google Drive. 
+#                           Only 200 revisions for the file can be kept forever. If the limit is reached,
+#                           try deleting pinned revisions. (Default: false)
+# + useContentAsIndexableText -   Whether to use the uploaded content as indexable text. (Default: false)
+# + includePermissionsForView -   Specifies which additional view's permissions to include in the response. Only 'published' is supported.
+# + addParents -   A comma-separated list of parent IDs to add.
 # + supportsAllDrives -   
 public type UpdateFileMetadataOptional record {
    string? addParents = (); 
