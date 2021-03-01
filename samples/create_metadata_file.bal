@@ -1,5 +1,5 @@
 import ballerina/log;
-import nuwantissera/googleapis_drive as drive;
+import ballerinax/googleapis_drive as drive;
 
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
@@ -36,6 +36,8 @@ public function main() {
         name : "nuwan123"
         //parents : [parentFolder]
     };
+
+    drive:Client driveClient = new (config);
 
     drive:File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
 
