@@ -74,10 +74,11 @@ public type DriveInfo record {
 # + permissionIds - List of permission IDs for users with access to this file.  
 # + quotaBytesUsed - The number of storage quota bytes used by the file. This includes the head revision as well as previous 
 #                    revisions with keepForever enabled.  
-# + lastModifyingUser - Parameter Description  
-# + md5Checksum - Parameter Description  
-# + fileExtension - Parameter Description  
-# + fullFileExtension - Parameter Description  
+# + lastModifyingUser - The last user to modify the file.  
+# + md5Checksum - The MD5 checksum for the content of the file. This is only applicable to files with binary content in Google Drive.  
+# + fileExtension - The final component of fullFileExtension. This is only available for files with binary content in Google Drive.  
+# + fullFileExtension - The full file extension extracted from the name field. May contain multiple concatenated extensions, such as "tar.gz".
+#                       This is only available for files with binary content in Google Drive.  
 # + webContentLink - Parameter Description  
 # + shortcutDetails - Parameter Description  
 # + hasThumbnail - Parameter Description  
