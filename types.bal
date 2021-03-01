@@ -271,6 +271,16 @@ public type Thumbnail record {
     string mimeType;
 };
 
+# Response from File search 
+#
+# + kind - Identifies what kind of resource this is. Value: the fixed string "drive#fileList".
+# + nextPageToken - The page token for the next page of files. This will be absent if the end of the files list has been reached.
+#                   If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results  
+# + files - The list of files. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched.  
+# + incompleteSearch - Whether the search process was incomplete. If true, then some search results may be missing, 
+#                      since all documents were not searched. This may occur when searching multiple drives with the "allDrives" corpora, 
+#                      but all corpora could not be searched. When this happens, it is suggested that clients narrow their query by choosing 
+#                      a different corpus such as "user" or "drive".  
 public type FilesResponse record {
     string kind;
     string nextPageToken?;
@@ -278,6 +288,12 @@ public type FilesResponse record {
     File[] files;
 };
 
+# Description
+#
+# + acknowledgeAbuse - Parameter Description  
+# + includePermissionsForView - Parameter Description  
+# + fields - Parameter Description  
+# + supportsAllDrives - Parameter Description  
 public type GetFileOptional record {
     boolean? acknowledgeAbuse = ();
     string? fields = ();
