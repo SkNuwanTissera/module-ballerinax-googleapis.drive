@@ -52,8 +52,11 @@ public type DriveInfo record {
 # + name - The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the 
 #          top level folders of shared drives, My Drive root folder, and Application Data folder the name is constant.  
 # + spaces - The list of spaces which contain the file. The currently supported values are 'drive', 'appDataFolder' and 'photos'.  
-# + imageMediaMetadata - Parameter Description  
-# + trashed - Parameter Description  
+# + imageMediaMetadata - Additional metadata about image media, if available.  
+# + trashed - Whether the file has been trashed, either explicitly or from a trashed parent folder. Only the owner may trash a file. 
+#             The trashed item is excluded from all files.list responses returned for any user who does not own the file. 
+#             However, all users with access to the file can see the trashed item metadata in an API response. 
+#             All users with access can copy, download, export, and share the file.  
 # + parents - Parameter Description  
 # + appProperties - Parameter Description  
 # + teamDriveId - Parameter Description  
