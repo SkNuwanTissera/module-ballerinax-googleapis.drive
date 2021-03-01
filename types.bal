@@ -51,7 +51,7 @@ public type DriveInfo record {
 # + size - The size of the file's content in bytes. This is applicable to binary files in Google Drive and Google Docs files.  
 # + name - The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the 
 #          top level folders of shared drives, My Drive root folder, and Application Data folder the name is constant.  
-# + spaces - Parameter Description  
+# + spaces - The list of spaces which contain the file. The currently supported values are 'drive', 'appDataFolder' and 'photos'.  
 # + imageMediaMetadata - Parameter Description  
 # + trashed - Parameter Description  
 # + parents - Parameter Description  
