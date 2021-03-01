@@ -35,12 +35,12 @@ public type DriveInfo record {
 # + starred - Whether the user has starred the file.  
 # + permissions - The full list of permissions for the file. This is only available if the requesting user can share the file. 
 # Not populated for items in shared drives. 
-# + contentHints - Parameter Description  
-# + isAppAuthorized - Parameter Description  
-# + createdTime - Parameter Description  
-# + id - Parameter Description  
-# + sharedWithMeTime - Parameter Description  
-# + writersCanShare - Parameter Description  
+# + contentHints - Additional information about the content of the file. These fields are never populated in responses  
+# + isAppAuthorized - Whether the file was created or opened by the requesting app.  
+# + createdTime - The time at which the file was created (RFC 3339 date-time).  
+# + id - The ID of the file/folder.  
+# + sharedWithMeTime - The time at which the file was shared with the user, if applicable (RFC 3339 date-time).  
+# + writersCanShare - Whether users with only writer permission can modify the file's permissions. Not populated for items in shared drives.  
 # + kind - Parameter Description  
 # + viewersCanCopyContent - Parameter Description  
 # + webViewLink - Parameter Description  
