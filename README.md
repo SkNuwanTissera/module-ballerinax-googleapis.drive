@@ -169,6 +169,21 @@ More details : https://developers.google.com/drive/api/v3/reference/files/create
      File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 ```
 
+### Upload File Using a Byte Array
+More details : https://developers.google.com/drive/api/v3/reference/files/create
+```ballerina
+    UpdateFileMetadataOptional optionals_ = {
+        addParents : parentFolder //Parent folderID
+    };
+
+    File payload_ = {
+        name : "test123.jpeg"
+    };
+    byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
+
+    File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
+```
+
 #### How to Get a ID for a file or folder in Google drive
 1. Go to Gdrive https://drive.google.com/drive/u/0/my-drive
 2. Right click on a folder or file.
