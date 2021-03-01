@@ -253,11 +253,19 @@ public type Location record {
     float altitude;
 };
 
+# Additional information about the content of the file. These fields are never populated in responses.
+#
+# + thumbnail - A thumbnail for the file. This will only be used if Google Drive cannot generate a standard thumbnail.  
+# + indexableText - Text to be indexed for the file to improve fullText queries. This is limited to 128KB in length and may contain HTML elements.  
 public type ContentHints record {
     Thumbnail thumbnail;
     string indexableText;
 };
 
+# A thumbnail for the file. This will only be used if Google Drive cannot generate a standard thumbnail.
+#
+# + image - The thumbnail data encoded with URL-safe Base64 (RFC 4648 section 5). 
+# + mimeType - The MIME type of the thumbnail.  
 public type Thumbnail record {
     byte image;
     string mimeType;
