@@ -204,16 +204,16 @@ public type VideoMediaMetadata record {
 # + aperture -   The aperture used to create the photo (f-number).
 # + flashUsed -  Whether a flash was used to create the photo. 
 # + subjectDistance -  The distance to the subject of the photo, in meters.
-# + width -   
-# + cameraModel -   
-# + location -   
-# + isoSpeed -   
-# + sensor -   
-# + time -   
-# + cameraMake -   
-# + exposureMode -   
-# + height -   
-# + focalLength -   
+# + width -  The width of the video in pixels.  
+# + cameraModel -  The model of the camera used to create the photo. 	
+# + location -  Geographic location information stored in the image.
+# + isoSpeed -  The ISO speed used to create the photo.  
+# + sensor -   The type of sensor used to create the photo
+# + time -  The date and time the photo was taken (EXIF DateTime). 
+# + cameraMake -   The make of the camera used to create the photo.
+# + exposureMode -   The length of the exposure, in seconds.
+# + height -   The height of the image in pixels.
+# + focalLength -    The focal length used to create the photo, in millimeters.
 public type ImageMediaMetadata record {
     int width;
     int height;
