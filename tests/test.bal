@@ -64,8 +64,15 @@ function testdriveGetAbout() {
 }
 function testGetFileById() {
 
-    File|error testGetFile = driveClient->getFileById(fileId);
-    error? err = printFileasString(testGetFile);
+    File|error res = driveClient->getFileById(fileId);
+    if(res is File){
+        test:assertNotEquals(res?.id, "", msg = "Expect File id");
+        log:print(res?.id.toString());
+    } else {
+        test:assertFail(res.message());
+        log:printError(res.message());
+    }
+    error? err = printFileasString(res);
 
 }
 
@@ -266,19 +273,18 @@ function testGetFiles() {
     if (res is stream<File>){
         error? e = res.forEach(function (File res) {
 
-            if(res is File){
-                test:assertNotEquals(res?.id, "", msg = "Expect File id");
-                log:print(res?.id.toString());
-            } else {
-                test:assertFail(res.message());
-                log:printError(res.message());
-            }
+            test:assertNotEquals(res?.id, "", msg = "Expect File id");
+            log:print(res?.id.toString());
 
             //Print Whole file
             error? err = printFileasString(res);
 
         });
+    } else {
+        est:assertFail(res.message());
+        log:printError(res.message());
     }
+
 
 }
 
