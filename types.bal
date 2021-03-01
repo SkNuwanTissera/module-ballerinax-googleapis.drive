@@ -420,14 +420,16 @@ public type User record {
 # + canAddChildren -  Whether the current user can add children to this folder. This is always false when the item is not a folder. 
 # + canListChildren -   Whether the current user can list the children of this folder. This is always false when the item is not a folder.
 # + canTrash -   Whether the current user can move this file to trash.  
-# + canRemoveMyDriveParent -   
-# + canCopy -   
+# + canRemoveMyDriveParent -  Whether the current user can remove a parent from the item without adding another parent in the same request. 
+#                             Not populated for shared drive files. 
+# + canCopy -   Whether the current user can copy this file. For an item in a shared drive, whether the current user can copy non-folder 
+#               descendants of this item, or this item itself if it is not a folder.
 # + canDownload -   Whether the current user can download this file.
 # + canDelete -  Whether the current user can delete this file. 
-# + canAddFolderFromAnotherDrive -   
-# + canComment -   
-# + canUntrash -   
-# + canMoveItemOutOfTeamDrive -   
+# + canAddFolderFromAnotherDrive -  Whether the current user can add a folder from another drive (different shared drive or My Drive) to this folder. 
+#                                   This is false when the item is not a folder. Only populated for items in shared drives. 
+# + canComment - Whether the current user can comment on this file.  
+# + canUntrash - Whether the current user can restore this file from trash.   
 # + canMoveChildrenWithinDrive -   
 # + canModifyContentRestriction -   
 # + canMoveTeamDriveItem -   
