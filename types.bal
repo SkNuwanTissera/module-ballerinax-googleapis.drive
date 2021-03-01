@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# Description
+# Drive Info Record Type
 #
 # + kind - Identifies what kind of resource this is. Value: the fixed string "drive#about".  
 # + user - The authenticated user.  
@@ -23,7 +23,7 @@ public type DriveInfo record {
     User user?;
 };
 
-# Description
+# File Record Type
 #
 # + modifiedTime - The last time the file was modified by anyone (RFC 3339 date-time).  
 # + copyRequiresWriterPermission - Whether the options to copy, print, or download this file, should be disabled for readers and commenters 
