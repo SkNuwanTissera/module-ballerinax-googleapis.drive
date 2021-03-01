@@ -191,6 +191,29 @@ public type VideoMediaMetadata record {
     float durationMillis;
 };
 
+# Description
+#
+# + meteringMode -  The metering mode used to create the photo. 
+# + exposureTime -  The length of the exposure, in seconds.
+# + whiteBalance -  The white balance mode used to create the photo
+# + rotation -  The number of clockwise 90 degree rotations applied from the image's original orientation. 
+# + maxApertureValue -  The smallest f-number of the lens at the focal length used to create the photo (APEX value).
+# + lens -  The lens used to create the photo.
+# + exposureBias -  The exposure bias of the photo (APEX value)
+# + colorSpace -   The color space of the photo
+# + aperture -   The aperture used to create the photo (f-number).
+# + flashUsed -  Whether a flash was used to create the photo. 
+# + subjectDistance -  The distance to the subject of the photo, in meters.
+# + width -   
+# + cameraModel -   
+# + location -   
+# + isoSpeed -   
+# + sensor -   
+# + time -   
+# + cameraMake -   
+# + exposureMode -   
+# + height -   
+# + focalLength -   
 public type ImageMediaMetadata record {
     int width;
     int height;
