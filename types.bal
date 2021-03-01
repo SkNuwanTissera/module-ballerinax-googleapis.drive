@@ -304,10 +304,22 @@ public type GetFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+# Optional Query Parameters in DELETE files
+# Permanently deletes a file owned by the user without moving it to the trash. 
+#
+# + supportsAllDrives - Whether the requesting application supports both My Drives and shared drives. (Default: false)  
 public type DeleteFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+# Description
+#
+# + ocrLanguage -   
+# + keepRevisionForever -   
+# + ignoreDefaultVisibility -   
+# + includePermissionsForView -   
+# + fields -   
+# + supportsAllDrives -   
 public type CopyFileOptional record {
     string? fields = ();
     boolean? ignoreDefaultVisibility = ();
@@ -317,6 +329,15 @@ public type CopyFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
+# Description
+#
+# + ocrLanguage -   
+# + keepRevisionForever -   
+# + useContentAsIndexableText -   
+# + ignoreDefaultVisibility -   
+# + uploadType -   
+# + includePermissionsForView -   
+# + supportsAllDrives -   
 public type CreateFileOptional record {
     never uploadType?; 
     boolean? ignoreDefaultVisibility = ();
@@ -327,6 +348,15 @@ public type CreateFileOptional record {
     boolean? useContentAsIndexableText = (); 
 };
 
+# Description
+#
+# + ocrLanguage -   
+# + removeParents -   
+# + keepRevisionForever -   
+# + useContentAsIndexableText -   
+# + includePermissionsForView -   
+# + addParents -   
+# + supportsAllDrives -   
 public type UpdateFileMetadataOptional record {
    string? addParents = (); 
    string? includePermissionsForView = (); 
@@ -337,6 +367,14 @@ public type UpdateFileMetadataOptional record {
    boolean? useContentAsIndexableText = (); 
 };
 
+# Description
+#
+# + permissionId -   
+# + emailAddress -   
+# + kind -   
+# + displayName -   
+# + me -   
+# + photoLink -   
 public type User record {
     string kind;
     string displayName;
