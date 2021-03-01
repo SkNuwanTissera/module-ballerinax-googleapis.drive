@@ -338,7 +338,7 @@ public type CopyFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
-# Description
+# Optional Query Parameters in Create files
 #
 # + ocrLanguage -  A language hint for OCR processing during image import (ISO 639-1 code).
 # + keepRevisionForever -   Whether to set the 'keepForever' field in the new head revision. 
