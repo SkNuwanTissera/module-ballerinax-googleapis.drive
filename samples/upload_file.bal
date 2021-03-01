@@ -1,15 +1,13 @@
 import ballerina/log;
-import nuwantissera/module_ballerinax_googleapis_drive as drive;
+import ballerinax/googleapis_drive as drive;
 
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
-configurable string filePath = ?;
-
 ###################################################
-# Upload file using Byte Array
+# Upload file 
 # #################################################
 
 public function main() {
@@ -24,7 +22,7 @@ public function main() {
     };
 
     drive:UpdateFileMetadataOptional optionals_ = {
-        addParents : parentFolder //Parent folderID
+        // addParents : parentFolder //Parent folderID
     };
 
     drive:File payload_ = {
@@ -35,6 +33,8 @@ public function main() {
         mimeType : "application/vnd.google-apps.folder",
         name : "folderInTheRoot"
     };
+
+    drive:Client driveClient = new (config);
     
     drive:File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 
