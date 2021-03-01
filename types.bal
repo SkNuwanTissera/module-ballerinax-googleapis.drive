@@ -158,7 +158,7 @@ public type StringKeyValuePairs record {|
     string...;
 |};
 
-# Description
+# Restrictions for accessing the content of the file. Only populated if such a restriction exists.
 #
 # + reason - Reason for why the content of the file is restricted. This is only mutable on requests that also set readOnly=true.  
 # + readOnly - Whether the content of the file is read-only. If a file is read-only, a new revision of the file may not be added,
@@ -174,7 +174,7 @@ public type ContentRestrictions record {
     string 'type?;
 };
 
-# Description
+# Shortcut file details. Only populated for shortcut files, which have the mimeType field set to application/vnd.google-apps.shortcut.
 #
 # + targetId - The ID of the file that this shortcut points to.  
 # + targetMimeType - The MIME type of the file that this shortcut points to. 
