@@ -19,6 +19,67 @@ public type DriveInfo record {
     User user?;
 };
 
+# Description
+#
+# + modifiedTime - The last time the file was modified by anyone (RFC 3339 date-time).  
+# + copyRequiresWriterPermission - Whether the options to copy, print, or download this file, should be disabled for readers and commenters 
+# + owners - The owners of the file. Currently, only certain legacy files may have more than one owner. Not populated for items in shared drives.  
+# + mimeType - The MIME type of the file.Google Drive will attempt to automatically detect an appropriate value 
+# from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
+# If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. 
+# The supported import formats are published in the About resource.  
+# + contentRestrictions - Parameter Description  
+# + 'version - Parameter Description  
+# + iconLink - Parameter Description  
+# + starred - Parameter Description  
+# + permissions - Parameter Description  
+# + contentHints - Parameter Description  
+# + isAppAuthorized - Parameter Description  
+# + createdTime - Parameter Description  
+# + id - Parameter Description  
+# + sharedWithMeTime - Parameter Description  
+# + writersCanShare - Parameter Description  
+# + kind - Parameter Description  
+# + viewersCanCopyContent - Parameter Description  
+# + webViewLink - Parameter Description  
+# + ownedByMe - Parameter Description  
+# + explicitlyTrashed - Parameter Description  
+# + trashedTime - Parameter Description  
+# + viewedByMe - Parameter Description  
+# + driveId - Parameter Description  
+# + size - Parameter Description  
+# + name - Parameter Description  
+# + spaces - Parameter Description  
+# + imageMediaMetadata - Parameter Description  
+# + trashed - Parameter Description  
+# + parents - Parameter Description  
+# + appProperties - Parameter Description  
+# + teamDriveId - Parameter Description  
+# + folderColorRgb - Parameter Description  
+# + headRevisionId - Parameter Description  
+# + modifiedByMeTime - Parameter Description  
+# + shared - Parameter Description  
+# + hasAugmentedPermissions - Parameter Description  
+# + description - Parameter Description  
+# + trashingUser - Parameter Description  
+# + thumbnailLink - Parameter Description  
+# + permissionIds - Parameter Description  
+# + quotaBytesUsed - Parameter Description  
+# + lastModifyingUser - Parameter Description  
+# + md5Checksum - Parameter Description  
+# + fileExtension - Parameter Description  
+# + fullFileExtension - Parameter Description  
+# + webContentLink - Parameter Description  
+# + shortcutDetails - Parameter Description  
+# + hasThumbnail - Parameter Description  
+# + capabilities - Parameter Description  
+# + viewedByMeTime - Parameter Description  
+# + videoMediaMetadata - Parameter Description  
+# + thumbnailVersion - Parameter Description  
+# + exportLinks - Parameter Description  
+# + sharingUser - Parameter Description  
+# + properties - Parameter Description  
+# + originalFilename - Parameter Description  
 public type File record {
     string kind?;
     string id?;  
