@@ -181,47 +181,6 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     }
 }
 
-function watchFiles(http:Client httpClient, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = (), string? fileId = ()) 
-returns @tainted FileWatchResource|error {
-
-    string path = EMPTY_STRING;
-    if (fileId is string) {
-        path = prepareUrlwithWatchFileOptional(optional,fileId);
-    } else {
-        path = prepareUrlwithWatchFileOptional(optional);
-    }
-
-    json payload = check fileWatchRequest.cloneWithType(json);
-
-    json|error resp = sendRequestWithPayload(httpClient, path, payload);
-
-    if resp is json {
-        FileWatchResource|error res = resp.cloneWithType(FileWatchResource);
-        if (res is FileWatchResource) {
-            return res;
-        } else {
-            return error(ERR_FILE_RESPONSE, res);
-        }
-    } else {
-        return resp;
-    }
-}
-
-function stopWatch(http:Client httpClient, FileWatchResource? fileWatchRequest = ()) returns @tainted json|error {
-
-    string path = prepareUrl([DRIVE_PATH, CHANNELS, STOP]);
-    json payload = check fileWatchRequest.cloneWithType(json);
-    json|error resp = sendRequestWithPayload(httpClient, path, payload);
-    log:print("$$$$"+path);
-    log:print("!!!!"+payload.toString());
-    if (resp is json){
-       log:print("^^^^"+resp.toString()); 
-    }
-
-    return resp;
-
-}
-
 function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
     
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
