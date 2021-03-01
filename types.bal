@@ -79,17 +79,19 @@ public type DriveInfo record {
 # + fileExtension - The final component of fullFileExtension. This is only available for files with binary content in Google Drive.  
 # + fullFileExtension - The full file extension extracted from the name field. May contain multiple concatenated extensions, such as "tar.gz".
 #                       This is only available for files with binary content in Google Drive.  
-# + webContentLink - Parameter Description  
-# + shortcutDetails - Parameter Description  
-# + hasThumbnail - Parameter Description  
-# + capabilities - Parameter Description  
-# + viewedByMeTime - Parameter Description  
-# + videoMediaMetadata - Parameter Description  
-# + thumbnailVersion - Parameter Description  
-# + exportLinks - Parameter Description  
-# + sharingUser - Parameter Description  
-# + properties - Parameter Description  
-# + originalFilename - Parameter Description  
+# + webContentLink - A link for downloading the content of the file in a browser. This is only available for files with binary content in Google Drive.  
+# + shortcutDetails - Shortcut file details. Only populated for shortcut files, which have the mimeType field set to application/vnd.google-apps.shortcut  
+# + hasThumbnail - Whether this file has a thumbnail. This does not indicate whether the requesting app has access to the thumbnail. To check access, 
+#                  look for the presence of the thumbnailLink field.  
+# + capabilities - Capabilities the current user has on this file. Each capability corresponds to a fine-grained action that a user may take.  
+# + viewedByMeTime - The last time the file was viewed by the user (RFC 3339 date-time).  
+# + videoMediaMetadata - Additional metadata about video media. This may not be available immediately upon upload.  
+# + thumbnailVersion - The thumbnail version for use in thumbnail cache invalidation.  
+# + exportLinks - Links for exporting Docs Editors files to specific formats.  
+# + sharingUser - The user who shared the file with the requesting user, if applicable.  
+# + properties - A collection of arbitrary key-value pairs which are visible to all apps.  
+# + originalFilename - The original filename of the uploaded content if available, or else the original value of the name field. 
+#                      This is only available for files with binary content in Google Drive  
 public type File record {
     string kind?;
     string id?;  
