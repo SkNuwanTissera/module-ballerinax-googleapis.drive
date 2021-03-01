@@ -35,18 +35,6 @@ function printFileasString(File|error file) returns error?{
     }
 }
 
-function printJSONasString(json|error jsonObject) returns error?{
-
-    if (jsonObject is json) {
-        log:print(jsonObject.toString());
-    }  else {
-        log:printError(ERR_JSON_TO_STRING_CONVERSION + jsonObject.toString(), err = jsonObject);
-        return error(ERR_JSON_TO_STRING_CONVERSION, jsonObject);
-    }
-    
-}
-
-
 # Log File as String
 # 
 # + anyObject - Any object
