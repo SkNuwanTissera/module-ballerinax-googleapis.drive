@@ -170,6 +170,11 @@ public type ContentRestrictions record {
     string 'type?;
 };
 
+# Description
+#
+# + targetId - The ID of the file that this shortcut points to.  
+# + targetMimeType - The MIME type of the file that this shortcut points to. 
+#                    The value of this field is a snapshot of the target's MIME type, captured when the shortcut is created.  
 public type ShortcutDetails record {
     string targetId;
     string targetMimeType;
