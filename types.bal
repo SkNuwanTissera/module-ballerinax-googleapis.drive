@@ -28,7 +28,7 @@ public type DriveInfo record {
 # from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
 # If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. 
 # The supported import formats are published in the About resource.  
-# + contentRestrictions - Parameter Description  
+# + contentRestrictions - Restrictions for accessing the content of the file. Only populated if such a restriction exists.  
 # + 'version - Parameter Description  
 # + iconLink - Parameter Description  
 # + starred - Parameter Description  
