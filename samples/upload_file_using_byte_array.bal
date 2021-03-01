@@ -1,12 +1,10 @@
 import ballerina/log;
-import nuwantissera/googleapis_drive as drive;
+import ballerinax/googleapis_drive as drive;
 
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
-
-configurable string filePath = ?;
 
 ###################################################
 # Upload file using Byte Array
@@ -26,7 +24,7 @@ public function main() {
     };
 
     drive:UpdateFileMetadataOptional optionals_ = {
-        addParents : parentFolder //Parent folderID
+        // addParents : parentFolder //Parent folderID
     };
 
     drive:File payload_ = {
@@ -39,7 +37,10 @@ public function main() {
     };
     drive:Client driveClient = new (config);
     
-    drive:File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
+    byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
+
+    // Issue : ballerina: too many arguments.
+    drive:File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
 
     //Print file ID
     if(res is drive:File){
