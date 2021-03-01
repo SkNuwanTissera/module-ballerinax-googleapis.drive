@@ -281,7 +281,7 @@ function testGetFiles() {
 
         });
     } else {
-        est:assertFail(res.message());
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -316,6 +316,7 @@ function testNewUpload() {
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -349,6 +350,7 @@ function testNewUploadByteArray() {
         string id = res?.id.toString();
         log:print(id);
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
     //Print Whole Response
