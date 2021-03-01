@@ -5,6 +5,7 @@ configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
+configurable string fileId = ?;
 
 ###################################################################################
 # Delete file by ID
@@ -15,8 +16,6 @@ configurable string REFRESH_TOKEN = ?;
 # ################################################################################
 # More details : https://developers.google.com/drive/api/v3/reference/files/delete
 # #################################################################################
-
-configurable string fileId = "1qlLs1eoaQDFwPSba-ddjsKdgzyUHwzZk";
 
 public function main() {
 
