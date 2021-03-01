@@ -96,7 +96,16 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithMetadataFileOptional(optional);
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
-    return convertJSONtoFile(resp);
+        if resp is json {
+        File|error file = resp.cloneWithType(File);
+        if (file is File) {
+            return file;
+        } else {
+            return error(ERR_FILE_RESPONSE, file);
+        }
+    } else {
+        return resp;
+    }
 
 }
 
