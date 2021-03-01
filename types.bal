@@ -57,9 +57,11 @@ public type DriveInfo record {
 #             The trashed item is excluded from all files.list responses returned for any user who does not own the file. 
 #             However, all users with access to the file can see the trashed item metadata in an API response. 
 #             All users with access can copy, download, export, and share the file.  
-# + parents - Parameter Description  
+# + parents -  The IDs of the parent folders which contain the file. If not specified as part of a create request, the file will be placed 
+#              directly in the user's My Drive folder. If not specified as part of a copy request, the file will inherit any discoverable 
+#              parents of the source file. Update requests must use the addParents and removeParents parameters to modify the parents list.
 # + appProperties - Parameter Description  
-# + teamDriveId - Parameter Description  
+# + teamDriveId -  
 # + folderColorRgb - Parameter Description  
 # + headRevisionId - Parameter Description  
 # + modifiedByMeTime - Parameter Description  
