@@ -32,8 +32,8 @@ access token and refresh token).
 
 **Add project configurations file**
 
-Add the project configuration file by creating a `ballerina.conf` file under the root path of the project structure.
-This file should have following configurations. Add the tokens obtained in the previous step to the `ballerina.conf` file.
+Add the project configuration file by creating a `Config.toml` file under the root path of the project structure.
+This file should have following configurations. Add the tokens obtained in the previous step to the `Config.toml` file.
 
 ```
 ACCESS_TOKEN = "<access_token>"
