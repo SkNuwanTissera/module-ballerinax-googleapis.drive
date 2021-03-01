@@ -6,15 +6,11 @@ configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
-###################################################################################
-# Create Metadata file 
-###################################################################################
-# Creates a new metadata file
-# Specify the file Name inside the payload. Else it will be uploaded as Untitled 
-# file.
-# Specify the mime type also.
-# More details : https://developers.google.com/drive/api/v3/mime-types
-# ################################################################################
+###################################################
+# 
+# #################################################
+# You can set byte array as the source and upload. 
+# #################################################
 
 public function main() {
 
@@ -27,20 +23,25 @@ public function main() {
         }
     };
 
-    drive:CreateFileOptional optionals_create_file = {
-        ignoreDefaultVisibility : false
+    drive:UpdateFileMetadataOptional optionals_ = {
+        // addParents : parentFolder //Parent folderID
     };
 
-    drive:File payload_create_file = {
-        mimeType : "application/vnd.google-apps.document",
-        name : "nuwan123"
-        //parents : [parentFolder]
+    drive:File payload_ = {
+        name : "test123.jpeg"
+    };
+
+    drive:File payload = {
+        mimeType : "application/vnd.google-apps.folder",
+        name : "folderInTheRoot"
     };
 
     drive:Client driveClient = new (config);
+    
+    byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
 
-    drive:File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
-
+    // Issue : ballerina: too many arguments.
+    drive:File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
     //Print file ID
     if(res is drive:File){
         string id = res?.id.toString();
@@ -48,5 +49,4 @@ public function main() {
     } else {
         log:printError(res.message());
     }
-
 }
