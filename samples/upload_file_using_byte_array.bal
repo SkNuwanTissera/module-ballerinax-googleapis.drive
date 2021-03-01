@@ -37,6 +37,7 @@ public function main() {
         mimeType : "application/vnd.google-apps.folder",
         name : "folderInTheRoot"
     };
+    drive:Client driveClient = new (config);
     
     drive:File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 
