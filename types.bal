@@ -430,17 +430,20 @@ public type User record {
 #                                   This is false when the item is not a folder. Only populated for items in shared drives. 
 # + canComment - Whether the current user can comment on this file.  
 # + canUntrash - Whether the current user can restore this file from trash.   
-# + canMoveChildrenWithinDrive -   
-# + canModifyContentRestriction -   
-# + canMoveTeamDriveItem -   
-# + canChangeCopyRequiresWriterPermission -   
-# + canMoveChildrenOutOfDrive -   
-# + canReadDrive -   
-# + canShare -   
-# + canDeleteChildren -   
-# + canMoveItemWithinDrive -   
-# + canMoveChildrenOutOfTeamDrive -   
-# + canMoveItemWithinTeamDrive -   
+# + canMoveChildrenWithinDrive -   Whether the current user can move children of this folder within this drive. 
+#                                  This is false when the item is not a folder. 
+#                                  Note that a request to move the child may still fail depending on the current user's access to the child and to the destination folder
+# + canModifyContentRestriction -   Whether the current user can modify restrictions on content of this file  
+# + canChangeCopyRequiresWriterPermission -   Whether the current user can change the copyRequiresWriterPermission restriction of this file.
+# + canMoveChildrenOutOfDrive -  Whether the current user can move children of this folder outside of the shared drive. 
+#                                This is false when the item is not a folder. Only populated for items in shared drives. 
+# + canReadDrive -  Whether the current user can read the shared drive to which this file belongs. Only populated for items in shared drives. 
+# + canShare -   Whether the current user can modify the sharing settings for this file.
+# + canDeleteChildren -   Whether the current user can delete children of this folder. This is false when the item is not a folder. 
+#                         Only populated for items in shared drives.
+# + canMoveItemWithinDrive -   Whether the current user can move this item within this drive. 
+#                              Note that a request to change the parent of the item may still fail depending on the new parent that is being 
+#                              added and the parent that is being removed  
 # + canModifyContent -   
 # + canRemoveChildren -   Whether the current user can remove children from this folder. This is always false when the item is not a folder. 
 #                         For a folder in a shared drive, use canDeleteChildren or canTrashChildren instead.
@@ -461,14 +464,10 @@ public type Capabilities record {
     boolean canListChildren;
     boolean canModifyContent;
     boolean canModifyContentRestriction;
-    boolean canMoveChildrenOutOfTeamDrive;
     boolean canMoveChildrenOutOfDrive;
     boolean canMoveChildrenWithinDrive;
-    boolean canMoveItemOutOfTeamDrive;
     boolean canMoveItemOutOfDrive;
-    boolean canMoveItemWithinTeamDrive;
     boolean canMoveItemWithinDrive;
-    boolean canMoveTeamDriveItem;
     boolean canReadRevisions;
     boolean canReadTeamDrive;
     boolean canReadDrive;
@@ -481,6 +480,26 @@ public type Capabilities record {
     boolean canUntrash;
 };
 
+# A permission for a file. 
+# A permission grants a user, group, domain or the world access to a file or a folder hierarchy.
+#
+# + role - The role granted by this permission.    
+# + kind -  Identifies what kind of resource this is. Value: the fixed string "drive#permission". 
+# + displayName -  The "pretty" name of the value of the permission.
+# + emailAddress - The email address of the user or group to which this permission refers.  
+# + view -    	Indicates the view for this permission. 
+#               Only populated for permissions that belong to a view. published is the only supported value.
+# + deleted -   Whether the account associated with this permission has been deleted. This field only pertains to user and group permissions.
+# + permissionDetails -  Details of whether the permissions on this shared drive item are inherited or directly on this item. 
+#                        This is an output-only field which is present only for shared drive items.
+# + expirationTime -   The time at which this permission will expire (RFC 3339 date-time). 
+# + domain - The domain to which this permission refers.  
+# + id -   The ID of this permission. This is a unique identifier for the grantee, and is published in User resources as permissionId. 
+#          IDs should be treated as opaque values.
+# + photoLink -   A link to the user's profile photo, if available.
+# + type -  The type of the grantee.  
+# + allowFileDiscovery -  Whether the permission allows the file to be discovered through search. 
+#                         This is only applicable for permissions of type domain or anyone.
 public type Permissions record {
     string kind;
     string id;
@@ -493,19 +512,18 @@ public type Permissions record {
     string displayName;
     string photoLink;
     string expirationTime;
-    TeamDrivePermissionDetails[] teamDrivePermissionDetails?;
     PermissionDetails[] permissionDetails?;
     boolean deleted;
 
 };
 
-public type TeamDrivePermissionDetails record {
-    string teamDrivePermissionType;
-    string role;
-    string inheritedFrom;
-    boolean inherited;
-};
-
+# Details of whether the permissions on this shared drive item are inherited or directly on this item. 
+# This is an output-only field which is present only for shared drive items.
+#
+# + permissionType - The permission type for this user.   
+# + role - The primary role for this user.  
+# + inherited - Whether this permission is inherited. This field is always populated. This is an output-only field.  
+# + inheritedFrom - The ID of the item from which this permission is inherited. This is an output-only field.  
 public type PermissionDetails record {
     string permissionType;
     string role;
@@ -513,12 +531,28 @@ public type PermissionDetails record {
     boolean inherited;
 };
 
-enum UploadTypes {
-    SIMPLE = "media",
-    MULTIPART = "multipart",
-    RESUMABLE = "resumable"
-}
 
+# Optionals used in Lists or searches files
+#
+# + includeItemsFromAllDrives -  Whether both My Drive and shared drive items should be included in results. (Default: false)  
+# + q -  A query for filtering the file results. See the "Search for files" guide for the supported syntax. 
+# + driveId -  ID of the shared drive to search. 
+# + spaces -  A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.  
+# + corpora -  Groupings of files to which the query applies. Supported groupings are: 'user' (files created by, opened by, or shared directly with the user),
+#              'drive' (files in the specified shared drive as indicated by the 'driveId'), 'domain' (files shared to the user's domain), and 'allDrives' 
+#              (A combination of 'user' and 'drive' for all drives where the user is a member). When able, use 'user' or 'drive', instead of 'allDrives', for efficiency.  
+# + includePermissionsForView -   Specifies which additional view's permissions to include in the response. Only 'published' is supported.
+# + orderBy - A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 
+#            'name_natural', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. 
+#             Each key sorts ascending by default, but may be reversed with the 'desc' modifier.   
+# + pageSize -  The maximum number of files to return per page. 
+#               Partial or empty result pages are possible even before the end of the files list has been reached. 
+#               Acceptable values are 1 to 1000, inclusive. (Default: 100)  
+# + pageToken -   The token for continuing a previous list request on the next page. 
+#                 This should be set to the value of 'nextPageToken' from the previous response. 
+# + fields -   The paths of the fields you want included in the response. 
+#              If not specified, the response includes a default set of fields specific to this method.
+# + supportsAllDrives -   
 public type ListFilesOptional record {
     string? corpora = (); 
     string? driveId = ();
