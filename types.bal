@@ -404,6 +404,45 @@ public type User record {
     string emailAddress;
 };
 
+#  	Capabilities the current user has on this file. Each capability corresponds to a fine-grained action that a user may take
+#
+# + canReadRevisions -   Whether the current user can read the revisions resource of this file. For a shared drive item, 
+#                        whether revisions of non-folder descendants of this item, or this item itself if it is not a folder, can be read.
+# + canMoveItemOutOfDrive -   Whether the current user can move this item outside of this drive by changing its parent. Note that a request
+#                             to change the parent of the item may still fail depending on the new parent that is being added.
+# + canEdit -   Whether the current user can edit this file. Other factors may limit the type of changes a user can make to a file. 
+#               For example, see canChangeCopyRequiresWriterPermission or canModifyContent.
+# + canRename -   
+# + canAddMyDriveParent -   
+# + canMoveChildrenWithinTeamDrive -   
+# + canTrashChildren -   
+# + canAddChildren -   
+# + canListChildren -   
+# + canTrash -   
+# + canMoveItemIntoTeamDrive -   
+# + canRemoveMyDriveParent -   
+# + canCopy -   
+# + canDownload -   
+# + canDelete -   
+# + canAddFolderFromAnotherDrive -   
+# + canComment -   
+# + canUntrash -   
+# + canMoveItemOutOfTeamDrive -   
+# + canMoveChildrenWithinDrive -   
+# + canModifyContentRestriction -   
+# + canMoveTeamDriveItem -   
+# + canChangeCopyRequiresWriterPermission -   
+# + canMoveChildrenOutOfDrive -   
+# + canReadDrive -   
+# + canShare -   
+# + canDeleteChildren -   
+# + canMoveItemWithinDrive -   
+# + canMoveChildrenOutOfTeamDrive -   
+# + canMoveItemWithinTeamDrive -   
+# + canModifyContent -   
+# + canRemoveChildren -   
+# + canChangeViewersCanCopyContent -   
+# + canReadTeamDrive -   
 public type Capabilities record {
     boolean	canAddChildren;
     boolean canAddFolderFromAnotherDrive;
