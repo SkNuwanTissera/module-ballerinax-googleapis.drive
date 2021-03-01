@@ -25,16 +25,16 @@ public type DriveInfo record {
 # + copyRequiresWriterPermission - Whether the options to copy, print, or download this file, should be disabled for readers and commenters 
 # + owners - The owners of the file. Currently, only certain legacy files may have more than one owner. Not populated for items in shared drives.  
 # + mimeType - The MIME type of the file.Google Drive will attempt to automatically detect an appropriate value 
-# from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
-# If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. 
-# The supported import formats are published in the About resource.  
+#              from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
+#              If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. 
+#              The supported import formats are published in the About resource.  
 # + contentRestrictions - Restrictions for accessing the content of the file. Only populated if such a restriction exists.  
-# + 'version - A monotonically increasing version number for the file. This reflects every change made to the file on the server, 
+# + version - A monotonically increasing version number for the file. This reflects every change made to the file on the server, 
 # even those not visible to the user.  
 # + iconLink - A static, unauthenticated link to the file's icon. 
 # + starred - Whether the user has starred the file.  
 # + permissions - The full list of permissions for the file. This is only available if the requesting user can share the file. 
-# Not populated for items in shared drives. 
+#                 Not populated for items in shared drives. 
 # + contentHints - Additional information about the content of the file. These fields are never populated in responses  
 # + isAppAuthorized - Whether the file was created or opened by the requesting app.  
 # + createdTime - The time at which the file was created (RFC 3339 date-time).  
@@ -45,11 +45,12 @@ public type DriveInfo record {
 # + webViewLink - A link for opening the file in a relevant Google editor or viewer in a browser. 
 # + ownedByMe - Whether the user owns the file. Not populated for items in shared drives.  
 # + explicitlyTrashed - Whether the file has been explicitly trashed, as opposed to recursively trashed from a parent folder.  
-# + trashedTime - Parameter Description  
-# + viewedByMe - Parameter Description  
-# + driveId - Parameter Description  
-# + size - Parameter Description  
-# + name - Parameter Description  
+# + trashedTime - The time that the item was trashed (RFC 3339 date-time). Only populated for items in shared drives.  
+# + viewedByMe - Whether the file has been viewed by this user.  
+# + driveId - ID of the shared drive the file resides in. Only populated for items in shared drives  
+# + size - The size of the file's content in bytes. This is applicable to binary files in Google Drive and Google Docs files.  
+# + name - The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the 
+#          top level folders of shared drives, My Drive root folder, and Application Data folder the name is constant.  
 # + spaces - Parameter Description  
 # + imageMediaMetadata - Parameter Description  
 # + trashed - Parameter Description  
