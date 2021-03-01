@@ -195,7 +195,7 @@ public type VideoMediaMetadata record {
     float durationMillis;
 };
 
-# Description
+# Additional metadata about image media, if available.
 #
 # + meteringMode -  The metering mode used to create the photo. 
 # + exposureTime -  The length of the exposure, in seconds.
