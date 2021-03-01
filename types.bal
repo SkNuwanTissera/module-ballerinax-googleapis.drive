@@ -312,7 +312,8 @@ public type DeleteFileOptional record {
     boolean? supportsAllDrives = ();
 };
 
-# Description
+# Optional Query Parameters in COPY files
+# Creates a copy of a file and applies any requested updates with patch semantics. Folders cannot be copied.
 #
 # + ocrLanguage -   
 # + keepRevisionForever -   
