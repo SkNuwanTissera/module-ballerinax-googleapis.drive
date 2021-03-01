@@ -60,19 +60,6 @@ function convertFiletoJSON(File|error file) returns json|error {
     }
 }
 
-function convertJSONtoFile(json|error jsonObj) returns File|error {
-    if jsonObj is json { 
-        File|error file = jsonObj.cloneWithType(File);
-        if (file is File) {
-            return file;
-        } else {
-            return error(ERR_JSON_TO_FILE_CONVERT, file);
-        }
-    } else {
-        return error(ERR_JSON_TO_FILE_CONVERT, jsonObj);
-    }
-}
-
 # Log File as String
 # 
 # + anyObject - Any object
