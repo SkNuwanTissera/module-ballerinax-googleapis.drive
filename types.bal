@@ -41,11 +41,10 @@ public type DriveInfo record {
 # + id - The ID of the file/folder.  
 # + sharedWithMeTime - The time at which the file was shared with the user, if applicable (RFC 3339 date-time).  
 # + writersCanShare - Whether users with only writer permission can modify the file's permissions. Not populated for items in shared drives.  
-# + kind - Parameter Description  
-# + viewersCanCopyContent - Parameter Description  
-# + webViewLink - Parameter Description  
-# + ownedByMe - Parameter Description  
-# + explicitlyTrashed - Parameter Description  
+# + kind - Identifies what kind of resource this is. Value: the fixed string "drive#file".   
+# + webViewLink - A link for opening the file in a relevant Google editor or viewer in a browser. 
+# + ownedByMe - Whether the user owns the file. Not populated for items in shared drives.  
+# + explicitlyTrashed - Whether the file has been explicitly trashed, as opposed to recursively trashed from a parent folder.  
 # + trashedTime - Parameter Description  
 # + viewedByMe - Parameter Description  
 # + driveId - Parameter Description  
@@ -118,7 +117,6 @@ public type File record {
     boolean shared?;
     boolean ownedByMe?;
     Capabilities capabilities?;
-    boolean viewersCanCopyContent?;
     boolean copyRequiresWriterPermission?;
     boolean writersCanShare?;
     Permissions[] permissions?;
