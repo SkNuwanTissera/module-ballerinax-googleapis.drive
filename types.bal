@@ -415,15 +415,15 @@ public type User record {
 # + canRename -   Whether the current user can rename this file.
 # + canAddMyDriveParent -   Whether the current user can add a parent for the item without removing an existing parent in the same request. 
 #                           Not populated for shared drive files. 
-# + canTrashChildren -   
-# + canAddChildren -   
-# + canListChildren -   
-# + canTrash -   
-# + canMoveItemIntoTeamDrive -   
+# + canTrashChildren -  Whether the current user can trash children of this folder. This is false when the item is not a folder. 
+#                       Only populated for items in shared drives. 
+# + canAddChildren -  Whether the current user can add children to this folder. This is always false when the item is not a folder. 
+# + canListChildren -   Whether the current user can list the children of this folder. This is always false when the item is not a folder.
+# + canTrash -   Whether the current user can move this file to trash.  
 # + canRemoveMyDriveParent -   
 # + canCopy -   
-# + canDownload -   
-# + canDelete -   
+# + canDownload -   Whether the current user can download this file.
+# + canDelete -  Whether the current user can delete this file. 
 # + canAddFolderFromAnotherDrive -   
 # + canComment -   
 # + canUntrash -   
@@ -440,7 +440,8 @@ public type User record {
 # + canMoveChildrenOutOfTeamDrive -   
 # + canMoveItemWithinTeamDrive -   
 # + canModifyContent -   
-# + canRemoveChildren -   
+# + canRemoveChildren -   Whether the current user can remove children from this folder. This is always false when the item is not a folder. 
+#                         For a folder in a shared drive, use canDeleteChildren or canTrashChildren instead.
 # + canChangeViewersCanCopyContent -   
 # + canReadTeamDrive -   
 public type Capabilities record {
@@ -461,7 +462,6 @@ public type Capabilities record {
     boolean canMoveChildrenOutOfTeamDrive;
     boolean canMoveChildrenOutOfDrive;
     boolean canMoveChildrenWithinDrive;
-    boolean canMoveItemIntoTeamDrive;
     boolean canMoveItemOutOfTeamDrive;
     boolean canMoveItemOutOfDrive;
     boolean canMoveItemWithinTeamDrive;
