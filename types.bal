@@ -386,14 +386,15 @@ public type UpdateFileMetadataOptional record {
    boolean? useContentAsIndexableText = (); 
 };
 
-# Description
+# User 
 #
-# + permissionId -   
-# + emailAddress -   
-# + kind -   
-# + displayName -   
-# + me -   
-# + photoLink -   
+# + permissionId - The user's ID as visible in Permission resources.  
+# + emailAddress -   The email address of the user. This may not be present in certain contexts if the user has not made 
+#                    their email address visible to the requester.
+# + kind -  Identifies what kind of resource this is. Value: the fixed string "drive#user". 
+# + displayName -   A plain text displayable name for this user.
+# + me -  Whether this user is the requesting user. 
+# + photoLink -   A link to the user's profile photo, if available.
 public type User record {
     string kind;
     string displayName;
