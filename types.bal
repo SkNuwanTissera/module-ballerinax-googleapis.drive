@@ -60,18 +60,20 @@ public type DriveInfo record {
 # + parents -  The IDs of the parent folders which contain the file. If not specified as part of a create request, the file will be placed 
 #              directly in the user's My Drive folder. If not specified as part of a copy request, the file will inherit any discoverable 
 #              parents of the source file. Update requests must use the addParents and removeParents parameters to modify the parents list.
-# + appProperties - Parameter Description  
-# + teamDriveId -  
-# + folderColorRgb - Parameter Description  
-# + headRevisionId - Parameter Description  
-# + modifiedByMeTime - Parameter Description  
-# + shared - Parameter Description  
-# + hasAugmentedPermissions - Parameter Description  
-# + description - Parameter Description  
-# + trashingUser - Parameter Description  
-# + thumbnailLink - Parameter Description  
-# + permissionIds - Parameter Description  
-# + quotaBytesUsed - Parameter Description  
+# + appProperties - A collection of arbitrary key-value pairs which are private to the requesting app.  
+# + folderColorRgb - The color for a folder as an RGB hex string. The supported colors are published in the folderColorPalette field of the About resource.  
+# + headRevisionId - The ID of the file's head revision. This is currently only available for files with binary content in Google Drive.  
+# + modifiedByMeTime - The last time the file was modified by the user (RFC 3339 date-time).  
+# + shared - Whether the file has been shared. Not populated for items in shared drives.  
+# + hasAugmentedPermissions - Whether there are permissions directly on this file. This field is only populated for items in shared drives.  
+# + description - A short description of the file.  
+# + trashingUser - If the file has been explicitly trashed, the user who trashed it. Only populated for items in shared drives.  
+# + thumbnailLink - A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours. Only populated when the requesting 
+#                   app can access the file's content. If the file isn't shared publicly, the URL returned in Files.thumbnailLink must be fetched using 
+#                   a credentialed request.  
+# + permissionIds - List of permission IDs for users with access to this file.  
+# + quotaBytesUsed - The number of storage quota bytes used by the file. This includes the head revision as well as previous 
+#                    revisions with keepForever enabled.  
 # + lastModifyingUser - Parameter Description  
 # + md5Checksum - Parameter Description  
 # + fileExtension - Parameter Description  
@@ -117,7 +119,6 @@ public type File record {
     string sharedWithMeTime?;
     User sharingUser?;
     User[] owners?;
-    string teamDriveId?;
     string driveId?;
     User lastModifyingUser?;
     boolean shared?;
