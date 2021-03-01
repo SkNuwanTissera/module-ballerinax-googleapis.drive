@@ -29,10 +29,12 @@ public type DriveInfo record {
 # If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. 
 # The supported import formats are published in the About resource.  
 # + contentRestrictions - Restrictions for accessing the content of the file. Only populated if such a restriction exists.  
-# + 'version - Parameter Description  
-# + iconLink - Parameter Description  
-# + starred - Parameter Description  
-# + permissions - Parameter Description  
+# + 'version - A monotonically increasing version number for the file. This reflects every change made to the file on the server, 
+# even those not visible to the user.  
+# + iconLink - A static, unauthenticated link to the file's icon. 
+# + starred - Whether the user has starred the file.  
+# + permissions - The full list of permissions for the file. This is only available if the requesting user can share the file. 
+# Not populated for items in shared drives. 
 # + contentHints - Parameter Description  
 # + isAppAuthorized - Parameter Description  
 # + createdTime - Parameter Description  
