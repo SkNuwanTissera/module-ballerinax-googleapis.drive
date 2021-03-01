@@ -11,7 +11,7 @@ The Google Drive connector allows you to access Google Drive operations through 
 
 |                             |            Versions             |
 |:---------------------------:|:-------------------------------:|
-| Ballerina Language          |     Swan Lake Preview8          |
+| Ballerina Language          |     Swan Lake Alpha2            |
 | Google Drive API            |             V3                  |
 
 ## Sample
@@ -32,8 +32,8 @@ access token and refresh token).
 
 **Add project configurations file**
 
-Add the project configuration file by creating a `ballerina.conf` file under the root path of the project structure.
-This file should have following configurations. Add the tokens obtained in the previous step to the `ballerina.conf` file.
+Add the project configuration file by creating a `Config.toml` file under the root path of the project structure.
+This file should have following configurations. Add the tokens obtained in the previous step to the `Config.toml` file.
 
 ```
 ACCESS_TOKEN = "<access_token>"
@@ -167,6 +167,21 @@ More details : https://developers.google.com/drive/api/v3/reference/files/create
     };
     string filePath = "./tests/resources/bar.jpeg";
      File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
+```
+
+### Upload File Using a Byte Array
+More details : https://developers.google.com/drive/api/v3/reference/files/create
+```ballerina
+    UpdateFileMetadataOptional optionals_ = {
+        addParents : parentFolder //Parent folderID
+    };
+
+    File payload_ = {
+        name : "test123.jpeg"
+    };
+    byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
+
+    File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
 ```
 
 #### How to Get a ID for a file or folder in Google drive
