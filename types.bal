@@ -180,6 +180,11 @@ public type ShortcutDetails record {
     string targetMimeType;
 };
 
+# Description
+#
+# + width - The width of the video in pixelsn  
+# + durationMillis - The duration of the video in milliseconds.  
+# + height - The height of the video in pixels.  
 public type VideoMediaMetadata record {
     int width;
     int height;
