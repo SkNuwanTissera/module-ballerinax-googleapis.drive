@@ -315,12 +315,20 @@ public type DeleteFileOptional record {
 # Optional Query Parameters in COPY files
 # Creates a copy of a file and applies any requested updates with patch semantics. Folders cannot be copied.
 #
-# + ocrLanguage -   
-# + keepRevisionForever -   
-# + ignoreDefaultVisibility -   
-# + includePermissionsForView -   
-# + fields -   
-# + supportsAllDrives -   
+# + ocrLanguage - A language hint for OCR processing during image import (ISO 639-1 code).
+# + keepRevisionForever -   Whether to set the 'keepForever' field in the new head revision. 
+#                           This is only applicable to files with binary content in Google Drive. 
+#                           Only 200 revisions for the file can be kept forever. If the limit is reached,
+#                           try deleting pinned revisions. (Default: false)
+# + ignoreDefaultVisibility -  Whether to ignore the domain's default visibility settings for the created file. 
+#                              Domain administrators can choose to make all uploaded files visible to the domain by default; 
+#                              this parameter bypasses that behavior for the request. 
+#                              Permissions are still inherited from parent folders. (Default: false) 
+# + includePermissionsForView -  Specifies which additional view's permissions to include in the response. Only 'published' is supported. 
+# + fields - The paths of the fields you want included in the response. If not specified, the response includes a default set of fields 
+#           specific to this method. For development you can use the special value * to return all fields, but you'll achieve greater 
+#           performance by only selecting the fields you need   
+# + supportsAllDrives -   Whether the requesting application supports both My Drives and shared drives. (Default: false)
 public type CopyFileOptional record {
     string? fields = ();
     boolean? ignoreDefaultVisibility = ();
@@ -332,13 +340,20 @@ public type CopyFileOptional record {
 
 # Description
 #
-# + ocrLanguage -   
-# + keepRevisionForever -   
-# + useContentAsIndexableText -   
-# + ignoreDefaultVisibility -   
-# + uploadType -   
-# + includePermissionsForView -   
-# + supportsAllDrives -   
+# + ocrLanguage -  A language hint for OCR processing during image import (ISO 639-1 code).
+# + keepRevisionForever -   Whether to set the 'keepForever' field in the new head revision. 
+#                           This is only applicable to files with binary content in Google Drive. 
+#                           Only 200 revisions for the file can be kept forever. If the limit is reached,
+#                           try deleting pinned revisions. (Default: false)
+# + useContentAsIndexableText -   Whether to use the uploaded content as indexable text. (Default: false)
+# + ignoreDefaultVisibility -  Whether to ignore the domain's default visibility settings for the created file. 
+#                              Domain administrators can choose to make all uploaded files visible to the domain by default; 
+#                              this parameter bypasses that behavior for the request. Permissions are still inherited from 
+#                              parent folders. (Default: false) 
+# + uploadType -   The type of upload request to the /upload URI. If you are uploading data (using an /upload URI), this field is required. 
+#                  More details : https://developers.google.com/drive/api/v3/reference/files/create
+# + includePermissionsForView -  Specifies which additional view's permissions to include in the response. Only 'published' is supported. 
+# + supportsAllDrives -   Whether the requesting application supports both My Drives and shared drives. (Default: false)
 public type CreateFileOptional record {
     never uploadType?; 
     boolean? ignoreDefaultVisibility = ();
