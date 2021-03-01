@@ -73,19 +73,6 @@ function convertJSONtoFile(json|error jsonObj) returns File|error {
     }
 }
 
-function printFileWatchResource(FileWatchResource|error response) returns error?{
-    if (response is FileWatchResource) {
-        json|error jsonObj = response.cloneWithType(json);
-        if (jsonObj is json) {
-            log:print(jsonObj.toString());
-        } else {
-            log:printError(ERR_WATCH_RESPONSE, err = jsonObj);
-        }
-    } else {
-        log:printError(ERR_WATCH_RESPONSE, err = response);
-    }
-}
-
 # Log File as String
 # 
 # + anyObject - Any object
