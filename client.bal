@@ -80,19 +80,6 @@ public client class Client {
         return uploadFileUsingByteArray(self.httpClient, byteArray, optional, fileMetadata);
     }
 
-    remote function watchFilesById(string filePath, WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
-    returns @tainted FileWatchResource|error{
-        return watchFiles(self.httpClient, optional, fileWatchRequest, filePath);
-    }
-
-    remote function watchFiles(WatchFileOptional? optional = (), FileWatchResource? fileWatchRequest = ()) 
-    returns @tainted FileWatchResource|error{
-        return watchFiles(self.httpClient, optional, fileWatchRequest);
-    }
-
-    remote function watchStop(FileWatchResource? fileWatchRequest = ()) returns @tainted json|error{
-        return stopWatch(self.httpClient, fileWatchRequest);
-    }
 } 
 
 public type Configuration record {
