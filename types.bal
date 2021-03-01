@@ -184,7 +184,7 @@ public type ShortcutDetails record {
     string targetMimeType;
 };
 
-# Description
+# Additional metadata about video media. This may not be available immediately upon upload.
 #
 # + width - The width of the video in pixelsn  
 # + durationMillis - The duration of the video in milliseconds.  
