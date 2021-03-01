@@ -105,7 +105,7 @@ DeleteFileOptional delete_optional = {
 };
 
 @test:Config {
-    dependsOn: [testCreateFile]
+    dependsOn: [testCopyFile, testGetFileByIdwithOptionalParameters]
 }
 function testDeleteFileById(){
 
@@ -139,6 +139,7 @@ function testCopyFile(){
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 }
@@ -169,6 +170,7 @@ function testUpdateFiles() {
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -203,6 +205,7 @@ function testCreateFile() {
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -237,6 +240,7 @@ function testCreateFolder() {
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -260,14 +264,18 @@ function testGetFiles() {
 
     stream<File>|error res = driveClient->getFiles(optional_search);
     if (res is stream<File>){
-        error? e = res.forEach(function (File file) {
+        error? e = res.forEach(function (File res) {
 
-            //Assertions
-            test:assertNotEquals(file?.id, "", msg = "Expect File id");
-            log:print(file?.id.toString());
+            if(res is File){
+                test:assertNotEquals(res?.id, "", msg = "Expect File id");
+                log:print(res?.id.toString());
+            } else {
+                test:assertFail(res.message());
+                log:printError(res.message());
+            }
 
             //Print Whole file
-            error? err = printFileasString(file);
+            error? err = printFileasString(res);
 
         });
     }
