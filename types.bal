@@ -412,9 +412,9 @@ public type User record {
 #                             to change the parent of the item may still fail depending on the new parent that is being added.
 # + canEdit -   Whether the current user can edit this file. Other factors may limit the type of changes a user can make to a file. 
 #               For example, see canChangeCopyRequiresWriterPermission or canModifyContent.
-# + canRename -   
-# + canAddMyDriveParent -   
-# + canMoveChildrenWithinTeamDrive -   
+# + canRename -   Whether the current user can rename this file.
+# + canAddMyDriveParent -   Whether the current user can add a parent for the item without removing an existing parent in the same request. 
+#                           Not populated for shared drive files. 
 # + canTrashChildren -   
 # + canAddChildren -   
 # + canListChildren -   
@@ -460,7 +460,6 @@ public type Capabilities record {
     boolean canModifyContentRestriction;
     boolean canMoveChildrenOutOfTeamDrive;
     boolean canMoveChildrenOutOfDrive;
-    boolean canMoveChildrenWithinTeamDrive;
     boolean canMoveChildrenWithinDrive;
     boolean canMoveItemIntoTeamDrive;
     boolean canMoveItemOutOfTeamDrive;
