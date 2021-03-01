@@ -242,7 +242,7 @@ public type ImageMediaMetadata record {
     string lens;
 };
 
-# Description
+# Geographic location information stored in the image.
 #
 # + altitude - The altitude stored in the image.  
 # + latitude - The latitude stored in the image  
