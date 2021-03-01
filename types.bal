@@ -14,6 +14,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
+# Description
+#
+# + kind - Identifies what kind of resource this is. Value: the fixed string "drive#about".  
+# + user - The authenticated user.  
 public type DriveInfo record {
     string kind?;
     User user?;
