@@ -46,19 +46,6 @@ function printJSONasString(json|error jsonObject) returns error?{
     
 }
 
-function convertFiletoJSON(File|error file) returns json|error {
-    if (file is File){ 
-        json|error jsonObject = file.cloneWithType(json);
-        if (jsonObject is map<json>) {
-            return jsonObject;
-        }  else {
-            return getDriveError(jsonObject);
-        }
-    } else {
-        log:printError(ERR_FILE_TO_JSON_CONVERSION, err = file);
-        return error(ERR_FILE_TO_JSON_CONVERSION, file);
-    }
-}
 
 # Log File as String
 # 
