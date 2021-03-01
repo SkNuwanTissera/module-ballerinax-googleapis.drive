@@ -149,11 +149,19 @@ public type File record {
     ContentRestrictions contentRestrictions?;
 
 };
-
+ 
 public type StringKeyValuePairs record {|
     string...;
 |};
 
+# Description
+#
+# + reason - Reason for why the content of the file is restricted. This is only mutable on requests that also set readOnly=true.  
+# + readOnly - Whether the content of the file is read-only. If a file is read-only, a new revision of the file may not be added,
+#              comments may not be added or modified, and the title of the file may not be modified.  
+# + restrictionTime - The time at which the content restriction was set (formatted RFC 3339 timestamp). Only populated if readOnly is true.  
+# + type - The type of the content restriction. Currently the only possible value is globalContentRestriction.  
+# + restrictingUser - The user who set the content restriction. Only populated if readOnly is true.  
 public type ContentRestrictions record {
     boolean readOnly?;
     string reason?;
