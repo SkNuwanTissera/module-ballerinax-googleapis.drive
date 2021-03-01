@@ -5,8 +5,7 @@ configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
-
-configurable string fileId = "1qlLs1eoaQDFwPSba-ddjsKdgzyUHwzZk";
+configurable string fileId = ?;
 
 ###################################################################################
 # Get files by ID
