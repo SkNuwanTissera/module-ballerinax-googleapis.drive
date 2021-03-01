@@ -266,45 +266,6 @@ isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? op
 
 }
 
-# Prepare URL with File Watch optional parameters.
-# 
-# + fileId - File id
-# + optional - Record that contains optional parameters
-# + return - The prepared URL with encoded query
-isolated function prepareUrlwithWatchFileOptional(WatchFileOptional? optional = (), string? fileId = ()) returns string{
-
-    string[] value = [];
-    map<string> optionalMap = {};
-
-    string path = EMPTY_STRING;
-    if(fileId is string) {
-        path = prepareUrl([DRIVE_PATH, FILES, fileId, WATCH]);
-    } else {
-        path = prepareUrl([DRIVE_PATH, CHANGES, WATCH]);
-    }
-
-    if (optional is WatchFileOptional) {
-        if (optional.acknowledgeAbuse is boolean) {
-            optionalMap[ACKKNOWLEDGE_ABUSE] = optional.acknowledgeAbuse.toString();
-        }
-        if (optional.fields is string) {
-            optionalMap[FIELDS] = optional.fields.toString();
-        }
-        if (optional.supportsAllDrives is boolean) {
-            optionalMap[SUPPORTS_ALL_DRIVES] = optional.supportsAllDrives.toString();
-        }
-        if (optional.pageToken is string) {
-            optionalMap[PAGE_TOKEN] = optional.pageToken.toString();
-        }
-        foreach var val in optionalMap {
-            value.push(val);
-        }
-        path = prepareQueryUrl([path], optionalMap.keys(), value);
-    }
-    return path;
-
-}
-
 # Prepare URL with optional parameters on Delete Request
 # 
 # + fileId - File id
