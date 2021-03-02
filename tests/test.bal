@@ -47,10 +47,16 @@ function testdriveGetAbout() {
 
     // json|error res1 = driveClient->getAbout("*");
     // json|error res2 = driveClient->getAbout("kind");
-    json|error res = driveClient->getAbout("user");
     // json|error res4 = driveClient->getAbout("storageQuota");
-    if (res is json){
-        log:print(res.toString());
+    
+    About|error res = driveClient->getAbout("user");
+    
+    if (res is About){
+        test:assertNotEquals(res?.user, "", msg = "Expect Drive User");
+        log:print(res?.user.toString());
+    } else {
+        test:assertFail(res.message());
+        log:printError(res.message());
     }
 
 }
