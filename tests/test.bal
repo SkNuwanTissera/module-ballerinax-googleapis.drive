@@ -313,13 +313,9 @@ function testGetFiles() {
         });
 
     } else {
-
         test:assertFail(res.message());
         log:printError(res.message());
-
     }
-
-
 }
 
 ##############
