@@ -1,10 +1,10 @@
 import ballerina/log;
 import ballerinax/googleapis_drive as drive;
 
-configurable string CLIENT_ID = ?;
-configurable string CLIENT_SECRET = ?;
+configurable string clientId = ?;
+configurable string clientSecret = ?;
 configurable string REFRESH_URL = ?;
-configurable string REFRESH_TOKEN = ?;
+configurable string refreshToken = ?;
 
 ###################################################################################
 # Create Metadata file 
@@ -20,10 +20,10 @@ public function main() {
 
     drive:Configuration config = {
         clientConfig: {
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
+            clientId: clientId,
+            clientSecret: clientSecret,
             refreshUrl: REFRESH_URL,
-            refreshToken: REFRESH_TOKEN
+            refreshToken: refreshToken
         }
     };
 

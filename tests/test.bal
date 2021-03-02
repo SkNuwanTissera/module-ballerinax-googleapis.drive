@@ -17,9 +17,9 @@
 import ballerina/test;
 import ballerina/log;
 
-configurable string CLIENT_ID = ?;
-configurable string CLIENT_SECRET = ?;
-configurable string REFRESH_TOKEN = ?;
+configurable string clientId = ?;
+configurable string clientSecret = ?;
+configurable string refreshToken = ?;
 
 configurable string fileName = ?;
 configurable string folderName = ?;
@@ -27,10 +27,10 @@ configurable string filePath = ?;
 
 Configuration config = {
     clientConfig: {
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
+        clientId: clientId,
+        clientSecret: clientSecret,
         refreshUrl: REFRESH_URL,
-        refreshToken: REFRESH_TOKEN
+        refreshToken: refreshToken
     }
 };
 
@@ -379,7 +379,6 @@ function testNewUploadByteArray() {
 
     byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
 
-    // Issue : ballerina: too many arguments.
     File|error res = driveClient->uploadFileUsingByteArray(byteArray, optionals_, payload_);
     //Print file ID
     if(res is File){

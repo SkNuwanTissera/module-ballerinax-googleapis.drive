@@ -36,9 +36,9 @@ Add the project configuration file by creating a `Config.toml` file under the ro
 This file should have following configurations. Add the tokens obtained in the previous step to the `Config.toml` file.
 
 ```
-CLIENT_ID = "<client_id">
-CLIENT_SECRET = "<client_secret>"
-REFRESH_TOKEN = "<refresh_token>"
+clientId = "<client_id">
+clientSecret = "<client_secret>"
+refreshToken = "<refresh_token>"
 
 ```
 **Example Code**
@@ -50,16 +50,16 @@ Creating a drive:driveClient by giving the HTTP client config details.
     import ballerina/config;   
     import ballerinax/googleapis_drive as drive;
 
-    configurable string CLIENT_ID = ?;
-    configurable string CLIENT_SECRET = ?;
-    configurable string REFRESH_TOKEN = ?;
+    configurable string clientId = ?;
+    configurable string clientSecret = ?;
+    configurable string refreshToken = ?;
 
     Configuration config = {
         clientConfig: {
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
+            clientId: clientId,
+            clientSecret: clientSecret,
             refreshUrl: REFRESH_URL,
-            refreshToken: REFRESH_TOKEN
+            refreshToken: refreshToken
         }
     };
 
