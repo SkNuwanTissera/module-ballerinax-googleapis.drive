@@ -17,19 +17,24 @@
 import ballerina/log;
 import ballerina/http;
 
-function getDriveInfo(http:Client httpClient, string? fields) returns @tainted json|error{
+function getDriveInfo(http:Client httpClient, string? fields) returns @tainted About|error{
     string path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + _ALL;
     if (fields is string) {
         path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + fields;
     }
-    return sendRequest(httpClient, path);
+    json resp = check sendRequest(httpClient, path);
+    About|error info = resp.cloneWithType(About);
+    if(info is About){
+        return info;
+    } else {
+        return error(ERR_DRIVE_INFO_RESPONSE, info);
+    }
 }
 
 function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
 
     string path = prepareUrlWithFileOptional(fileId, optional);
     json resp = check sendRequest(httpClient, path);
-    log:print("#$#$"+resp.toString());
     File|error file = resp.cloneWithType(File);
     if (file is File) {
         return file;
