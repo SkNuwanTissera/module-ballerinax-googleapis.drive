@@ -295,9 +295,8 @@ function testGetFiles() {
 
     log:print("Gdrive Client -> testGetFiles()");
 
-    ListFilesOptional optional_search = {
-        pageSize : 3
-    };
+    ListFilesOptional optional_search = {};
+    optional_search.pageSize = 3;
 
     stream<File>|error res = driveClient->getFiles(optional_search);
 
