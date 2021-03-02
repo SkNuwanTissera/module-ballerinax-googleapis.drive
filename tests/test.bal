@@ -23,6 +23,7 @@ configurable string REFRESH_TOKEN = ?;
 
 configurable string fileName = ?;
 configurable string folderName = ?;
+configurable string filePath = ?;
 
 Configuration config = {
     clientConfig: {
@@ -104,10 +105,12 @@ function testGetFileByIdwithOptionalParameters() {
     log:print("Gdrive Client -> testGetFileByIdwithOptionalParameters()");
 
     File | error res = driveClient->getFileById(fileId, optional);
+
     if(res is File){
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
     } else {
+        test:assertFail(res.message());
         log:printError(res.message());
     }
 
@@ -118,17 +121,19 @@ function testGetFileByIdwithOptionalParameters() {
 # Delete File by ID
 # #####################
 
-DeleteFileOptional delete_optional = {
-
-    supportsAllDrives : false
-};
-
 @test:Config {
     dependsOn: [testCopyFile, testGetFileByIdwithOptionalParameters]
 }
 function testDeleteFileById(){
 
+    log:print("Gdrive Client -> testDeleteFileById()");
+
+    DeleteFileOptional delete_optional = {
+        supportsAllDrives : false
+    };
+
     boolean|error res = driveClient->deleteFileById(fileId, delete_optional);
+
     if (res is boolean) {
         log:print("File Deleted");
         test:assertTrue(res, msg = "Expects true on success");
@@ -143,17 +148,21 @@ function testDeleteFileById(){
 # Copy File
 # ##########
 
-CopyFileOptional optionals_copy_file = {"includePermissionsForView" : "published"};
-
-File payload_copy_file = {
-    name : fileName //New name
-};
-
 @test:Config {
     dependsOn: [testCreateFile]
 }
 function testCopyFile(){
+
+    log:print("Gdrive Client -> testCopyFile()");
+
+    CopyFileOptional optionals_copy_file = {"includePermissionsForView" : "published"};
+
+    File payload_copy_file = {
+        name : fileName //New name
+    };
+
     File|error res = driveClient->copyFile(fileId ,optionals_copy_file ,payload_copy_file );
+
     if(res is File){
         test:assertNotEquals(res?.id, "", msg = "Expect File id");
         log:print(res?.id.toString());
@@ -168,19 +177,20 @@ function testCopyFile(){
 # ##########################
 # POST Request
 
-UpdateFileMetadataOptional optionals_file_metadata = {
-    addParents : parentFolder
-};
-
-File payload__file_metadata = {
-    name : fileName
-};
-
-
 @test:Config {
     dependsOn: [testCreateFile]
 }
 function testUpdateFiles() {
+
+    log:print("Gdrive Client -> testUpdateFiles()");
+
+    UpdateFileMetadataOptional optionals_file_metadata = {
+        addParents : parentFolder
+    };
+
+    File payload__file_metadata = {
+        name : fileName
+    };
 
     File|error res = driveClient->updateFileMetadataById(fileId, optionals_file_metadata, payload__file_metadata);
 
@@ -203,20 +213,23 @@ function testUpdateFiles() {
 # Create Metadata file
 # ######################
 
-CreateFileOptional optionals_create_file = {
-    ignoreDefaultVisibility : false
-};
-
-File payload_create_file = {
-    mimeType : "application/vnd.google-apps.document",
-    name : fileName
-    //parents : [parentFolder]
-};
-
 @test:Config {
     dependsOn: [testCreateFolder]
 }
 function testCreateFile() {
+
+    log:print("Gdrive Client -> testCreateFile()");
+
+    CreateFileOptional optionals_create_file = {
+        ignoreDefaultVisibility : false
+    };
+
+    File payload_create_file = {
+        mimeType : "application/vnd.google-apps.document",
+        name : fileName
+        //parents : [parentFolder]
+    };
+
     File|error res = driveClient->createMetaDataFile(optionals_create_file, payload_create_file);
 
     //Assertions
@@ -252,6 +265,9 @@ File payload_create_folder = {
 
 @test:Config {}
 function testCreateFolder() {
+
+    log:print("Gdrive Client -> testCreateFolder()");
+
     File|error res = driveClient->createMetaDataFile(optionals_create_folder, payload_create_folder);
 
     //Assertions
@@ -272,17 +288,21 @@ function testCreateFolder() {
 # Get files
 # #################
 
-ListFilesOptional optional_search = {
-    pageSize : 3
-};
-
 @test:Config {
     dependsOn: [testCreateFile]
 }
 function testGetFiles() {
 
+    log:print("Gdrive Client -> testGetFiles()");
+
+    ListFilesOptional optional_search = {
+        pageSize : 3
+    };
+
     stream<File>|error res = driveClient->getFiles(optional_search);
+
     if (res is stream<File>){
+
         error? e = res.forEach(function (File res) {
 
             test:assertNotEquals(res?.id, "", msg = "Expect File id");
@@ -292,9 +312,12 @@ function testGetFiles() {
             error? err = printFileasString(res);
 
         });
+
     } else {
+
         test:assertFail(res.message());
         log:printError(res.message());
+
     }
 
 
@@ -304,22 +327,21 @@ function testGetFiles() {
 # Upload File
 # ############
 
-UpdateFileMetadataOptional optionals_ = {
-    addParents : parentFolder //Parent folderID
-};
-
-File payload_ = {
-    name : fileName
-};
-
-//string filePath = "./tests/resources/bar.txt";
-string filePath = "./tests/resources/bar.jpeg";
-// string filePath = "https://ballerinasknut.s3.amazonaws.com/jon-koop-khYVyHiNZo0-unsplash.jpg";
-
 @test:Config {
     dependsOn: [testCreateFolder]
 }
 function testNewUpload() {
+
+    log:print("Gdrive Client -> testNewUpload()");
+
+    UpdateFileMetadataOptional optionals_ = {
+        addParents : parentFolder //Parent folderID
+    };
+
+    File payload_ = {
+        name : fileName
+    };
+
     // Issue : ballerina: too many arguments.
     File|error res = driveClient->uploadFile(filePath, optionals_, payload_);
 
@@ -344,6 +366,8 @@ function testNewUpload() {
     dependsOn: [testCreateFolder]
 }
 function testNewUploadByteArray() {
+
+    log:print("Gdrive Client -> testNewUploadByteArray()");
 
     UpdateFileMetadataOptional optionals_ = {
     addParents : parentFolder //Parent folderID
