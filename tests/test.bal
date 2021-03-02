@@ -355,6 +355,7 @@ function testNewUploadByteArray() {
     if(res is File){
         string id = res?.id.toString();
         log:print(id);
+        test:assertNotEquals(id, "", msg = "Expect File id");
     } else {
         test:assertFail(res.message());
         log:printError(res.message());
