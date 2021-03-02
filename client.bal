@@ -37,7 +37,7 @@ public client class Client {
     }
 
     remote function getAbout(string? fields) 
-    returns @tainted json|error {
+    returns @tainted About|error {
         return getDriveInfo(self.httpClient , fields);
     }
 
