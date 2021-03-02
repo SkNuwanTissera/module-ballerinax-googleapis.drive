@@ -43,8 +43,9 @@ const int INT_VALUE_42 = 42;
 const int INT_VALUE_83 = 83;
 
 
-//Drive
+// Drive
 const string DRIVE_URL = "https://www.googleapis.com";
+const string REFRESH_URL = "https://www.googleapis.com/oauth2/v3/token";
 const string DRIVE_PATH = "/drive/v3";
 const string ABOUT = "/about";
 const string UPLOAD = "/upload";
