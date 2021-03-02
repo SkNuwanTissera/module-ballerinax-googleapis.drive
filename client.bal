@@ -48,11 +48,13 @@ public client class Client {
         return deleteFileById(self.httpClient, fileId, optional);
     }
 
-    remote function copyFile(string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+    remote function copyFile(string fileId, CopyFileOptional? optional = (),
+                             File? fileResource = ()) returns @tainted File|error{
         return copyFile(self.httpClient, fileId, optional, fileResource);
     }
 
-    remote function updateFileMetadataById(string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error{
+    remote function updateFileMetadataById(string fileId, UpdateFileMetadataOptional? optional = (),
+                                            File? fileResource = ()) returns @tainted File|error{
         return updateFileById(self.httpClient, fileId, optional, fileResource);
     }
 
@@ -61,7 +63,8 @@ public client class Client {
         return createMetaDataFile(self.httpClient, optional, fileData);
     }
 
-    remote function uploadFile(string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+    remote function uploadFile(string filePath, UpdateFileMetadataOptional? optional = (), 
+                                File? fileMetadata = ()) returns @tainted File|error{
         return uploadFile(self.httpClient, filePath, optional, fileMetadata);
     }
 
@@ -69,8 +72,8 @@ public client class Client {
         return getFiles(self.httpClient, optional);
     }
 
-    remote function uploadFileUsingByteArray(byte[] byteArray, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) 
-                                            returns @tainted File|error{
+    remote function uploadFileUsingByteArray(byte[] byteArray, UpdateFileMetadataOptional? optional = (), 
+                                            File? fileMetadata = ()) returns @tainted File|error{
         return uploadFileUsingByteArray(self.httpClient, byteArray, optional, fileMetadata);
     }
 
