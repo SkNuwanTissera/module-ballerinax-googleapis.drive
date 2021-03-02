@@ -39,7 +39,6 @@ This file should have following configurations. Add the tokens obtained in the p
 CLIENT_ID = "<client_id">
 CLIENT_SECRET = "<client_secret>"
 REFRESH_TOKEN = "<refresh_token>"
-REFRESH_URL = "<refresh_URL>"
 
 ```
 **Example Code**
