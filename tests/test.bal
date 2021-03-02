@@ -17,11 +17,8 @@
 import ballerina/test;
 import ballerina/log;
 
-
-configurable string ACCESS_TOKEN = ?;
 configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
-configurable string REFRESH_URL = ?;
 configurable string REFRESH_TOKEN = ?;
 
 Configuration config = {
