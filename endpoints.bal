@@ -31,7 +31,8 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted A
     }
 }
 
-function getFileById(http:Client httpClient, string fileId, GetFileOptional? optional = ()) returns @tainted File|error {
+function getFileById(http:Client httpClient, string fileId, 
+                    GetFileOptional? optional = ()) returns @tainted File|error {
 
     string path = prepareUrlWithFileOptional(fileId, optional);
     json resp = check sendRequest(httpClient, path);
@@ -68,7 +69,8 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
     }
 }
 
-function deleteFileById(http:Client httpClient, string fileId, DeleteFileOptional? optional = ()) returns @tainted boolean|error{
+function deleteFileById(http:Client httpClient, string fileId, 
+                        DeleteFileOptional? optional = ()) returns @tainted boolean|error{
 
     string path = prepareUrlWithDeleteOptional(fileId, optional);
     boolean|error resp = deleteRequest(httpClient, path);
@@ -94,7 +96,8 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
 
 }
 
-function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
+function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), 
+                        File? fileResource = ()) returns @tainted File|error {
 
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateOptional(fileId, optional);
@@ -112,7 +115,8 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
 
 }
 
-function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), File? fileData = ()) returns @tainted File|error {
+function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), 
+                            File? fileData = ()) returns @tainted File|error {
 
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithMetadataFileOptional(optional);
@@ -131,7 +135,8 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
 }
 
 
-function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataOptional? optional = (), 
+                                File? fileMetadata = ()) returns @tainted File|error{
     
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
@@ -186,7 +191,8 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     }
 }
 
-function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, UpdateFileMetadataOptional? optional = (), File? fileMetadata = ()) returns @tainted File|error{
+function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, UpdateFileMetadataOptional? optional = (), 
+                                  File? fileMetadata = ()) returns @tainted File|error{
     
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
