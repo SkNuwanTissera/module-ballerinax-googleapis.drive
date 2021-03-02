@@ -14,10 +14,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/encoding;
-import ballerina/log;
+import ballerina/http;
 import ballerina/io;
+import ballerina/log;
 
 # Send GET request.
 # 
