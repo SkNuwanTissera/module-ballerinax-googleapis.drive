@@ -14,8 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/log;
 import ballerina/http;
+import ballerina/log;
 
 function getDriveInfo(http:Client httpClient, string? fields) returns @tainted About|error{
     string path = DRIVE_PATH + ABOUT + QUESTION_MARK + FIELDS + EQUAL + _ALL;
