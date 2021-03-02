@@ -21,6 +21,9 @@ configurable string CLIENT_ID = ?;
 configurable string CLIENT_SECRET = ?;
 configurable string REFRESH_TOKEN = ?;
 
+configurable string fileName = ?;
+configurable string folderName = ?;
+
 Configuration config = {
     clientConfig: {
         clientId: CLIENT_ID,
@@ -137,7 +140,7 @@ function testDeleteFileById(){
 CopyFileOptional optionals_copy_file = {"includePermissionsForView" : "published"};
 
 File payload_copy_file = {
-    name : "testfile.pdf" //New name
+    name : fileName //New name
 };
 
 @test:Config {
@@ -164,7 +167,7 @@ UpdateFileMetadataOptional optionals_file_metadata = {
 };
 
 File payload__file_metadata = {
-    name : "test"
+    name : fileName
 };
 
 
@@ -200,7 +203,7 @@ CreateFileOptional optionals_create_file = {
 
 File payload_create_file = {
     mimeType : "application/vnd.google-apps.document",
-    name : "nuwan123"
+    name : fileName
     //parents : [parentFolder]
 };
 
@@ -238,7 +241,7 @@ CreateFileOptional optionals_create_folder = {
 
 File payload_create_folder = {
     mimeType : "application/vnd.google-apps.folder",
-    name : "folderInTheRoot"
+    name : folderName
 };
 
 @test:Config {}
@@ -300,7 +303,7 @@ UpdateFileMetadataOptional optionals_ = {
 };
 
 File payload_ = {
-    name : "test123.jpeg"
+    name : fileName
 };
 
 //string filePath = "./tests/resources/bar.txt";
@@ -341,7 +344,7 @@ function testNewUploadByteArray() {
     };
 
     File payload_ = {
-        name : "test123.jpeg"
+        name : fileName
     };
 
     byte[] byteArray = [116,101,115,116,45,115,116,114,105,110,103];
