@@ -17,10 +17,29 @@
 # Drive Info Record Type
 #
 # + kind - Identifies what kind of resource this is. Value: the fixed string "drive#about".  
-# + user - The authenticated user.  
-public type DriveInfo record {
+# + user - The authenticated user.
+# + storageQuota - The user's storage quota limits and usage. All fields are measured in bytes
+# + importFormats - A map of source MIME type to possible targets for all supported imports.
+# + exportFormats - A map of source MIME type to possible targets for all supported exports.
+# + maxImportSizes - A map of maximum import sizes by MIME type, in bytes.
+# + maxUploadSize - The maximum upload size in bytes.
+# + appInstalled - Whether the user has installed the requesting app.
+# + folderColorPalette - The currently supported folder colors as RGB hex strings.
+# + driveThemes - A list of themes that are supported for shared drives.
+# + canCreateDrives - Whether the user can create shared drives.
+public type About record {
     string kind?;
     User user?;
+    StorageQuota storageQuota?;
+    StringArrayValuePairs importFormats?;
+    StringArrayValuePairs exportFormats?;
+    StringKeyValuePairs maxImportSizes?;
+    float maxUploadSize?;
+    boolean appInstalled?;
+    string[] folderColorPalette?;
+    StringKeyValuePairs driveThemes?;
+    boolean canCreateDrives?;
+
 };
 
 # File Record Type
@@ -156,6 +175,14 @@ public type File record {
  
 public type StringKeyValuePairs record {|
     string...;
+|};
+
+public type StringArrayValuePairs record {|
+    string[]...;
+|};
+
+public type StorageQuota record {|
+    float...;
 |};
 
 # Restrictions for accessing the content of the file. Only populated if such a restriction exists.
@@ -386,7 +413,7 @@ public type UpdateFileMetadataOptional record {
    boolean? useContentAsIndexableText = (); 
 };
 
-# User 
+# User Record
 #
 # + permissionId - The user's ID as visible in Permission resources.  
 # + emailAddress -   The email address of the user. This may not be present in certain contexts if the user has not made 
@@ -552,7 +579,7 @@ public type PermissionDetails record {
 #                 This should be set to the value of 'nextPageToken' from the previous response. 
 # + fields -   The paths of the fields you want included in the response. 
 #              If not specified, the response includes a default set of fields specific to this method.
-# + supportsAllDrives -   
+# + supportsAllDrives -  Whether the requesting application supports both My Drives and shared drives. (Default: false) 
 public type ListFilesOptional record {
     string? corpora = (); 
     string? driveId = ();
@@ -566,5 +593,4 @@ public type ListFilesOptional record {
     string? spaces = ();
     boolean? supportsAllDrives = ();
 };
-
 
