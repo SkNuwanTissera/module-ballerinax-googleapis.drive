@@ -49,6 +49,8 @@ function testdriveGetAbout() {
     // json|error res2 = driveClient->getAbout("kind");
     // json|error res4 = driveClient->getAbout("storageQuota");
     
+    log:print("Gdrive Client -> testdriveGetAbout()");
+
     About|error res = driveClient->getAbout("user");
     
     if (res is About){
@@ -69,6 +71,8 @@ function testdriveGetAbout() {
     dependsOn: [testCreateFile]
 }
 function testGetFileById() {
+
+    log:print("Gdrive Client -> testGetFileById()");
 
     File|error res = driveClient->getFileById(fileId);
     if(res is File){
@@ -96,6 +100,8 @@ GetFileOptional optional = {
     dependsOn: [testCreateFile]
 }
 function testGetFileByIdwithOptionalParameters() {
+
+    log:print("Gdrive Client -> testGetFileByIdwithOptionalParameters()");
 
     File | error res = driveClient->getFileById(fileId, optional);
     if(res is File){
