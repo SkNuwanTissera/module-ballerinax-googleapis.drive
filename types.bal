@@ -481,54 +481,66 @@ public type User record {
 #   Each capability corresponds to a fine-grained action that a user may take.
 #
 # + canReadRevisions -   Whether the current user can read the revisions resource of this file. For a shared drive item, 
-#                        whether revisions of non-folder descendants of this item, or this item itself if it is not a folder, can be read.
-# + canMoveItemOutOfDrive -   Whether the current user can move this item outside of this drive by changing its parent. Note that a request
-#                             to change the parent of the item may still fail depending on the new parent that is being added.
-# + canEdit -   Whether the current user can edit this file. Other factors may limit the type of changes a user can make to a file. 
+#                        whether revisions of non-folder descendants of this item, 
+#                        or this item itself if it is not a folder, can be read.
+# + canMoveItemOutOfDrive -   Whether the current user can move this item outside of this drive by changing its parent. 
+#                             Note that a request to change the parent of the item may still fail depending on the new 
+#                             parent that is being added.
+# + canEdit -   Whether the current user can edit this file. 
+#               Other factors may limit the type of changes a user can make to a file. 
 #               For example, see canChangeCopyRequiresWriterPermission or canModifyContent.
 # + canRename -   Whether the current user can rename this file.
-# + canAddMyDriveParent -   Whether the current user can add a parent for the item without removing an existing parent in the same request. 
+# + canAddMyDriveParent -   Whether the current user can add a parent for the item without removing 
+#                           an existing parent in the same request. 
 #                           Not populated for shared drive files. 
-# + canTrashChildren -  Whether the current user can trash children of this folder. This is false when the item is not a folder. 
+# + canTrashChildren -  Whether the current user can trash children of this folder. 
+#                       This is false when the item is not a folder. 
 #                       Only populated for items in shared drives. 
-# + canAddChildren -  Whether the current user can add children to this folder. This is always false when the item is not a folder. 
-# + canListChildren -   Whether the current user can list the children of this folder. This is always false when the item is not a folder.
+# + canAddChildren -  Whether the current user can add children to this folder. 
+#                     This is always false when the item is not a folder. 
+# + canListChildren -   Whether the current user can list the children of this folder. 
+#                       This is always false when the item is not a folder.
 # + canTrash -   Whether the current user can move this file to trash.  
-# + canRemoveMyDriveParent -  Whether the current user can remove a parent from the item without adding another parent in the same request. 
+# + canRemoveMyDriveParent -  Whether the current user can remove a parent from the item without adding 
+#                             another parent in the same request. 
 #                             Not populated for shared drive files. 
-# + canCopy -   Whether the current user can copy this file. For an item in a shared drive, whether the current user can copy non-folder 
+# + canCopy -   Whether the current user can copy this file. For an item in a shared drive, 
+#               whether the current user can copy non-folder 
 #               descendants of this item, or this item itself if it is not a folder.
 # + canDownload -   Whether the current user can download this file.
 # + canDelete -  Whether the current user can delete this file. 
-# + canAddFolderFromAnotherDrive -  Whether the current user can add a folder from another drive (different shared drive or My Drive) to this folder. 
+# + canAddFolderFromAnotherDrive -  Whether the current user can add a folder from 
+#                                   another drive (different shared drive or My Drive) to this folder. 
 #                                   This is false when the item is not a folder. Only populated for items in shared drives. 
 # + canComment - Whether the current user can comment on this file.  
 # + canUntrash - Whether the current user can restore this file from trash.   
 # + canMoveChildrenWithinDrive -   Whether the current user can move children of this folder within this drive. 
 #                                  This is false when the item is not a folder. 
-#                                  Note that a request to move the child may still fail depending on the current user's access to the child and to the destination folder
+#                                  Note that a request to move the child may still fail depending on the 
+#                                  current user's access to the child and to the destination folder
 # + canModifyContentRestriction -   Whether the current user can modify restrictions on content of this file  
-# + canChangeCopyRequiresWriterPermission -   Whether the current user can change the copyRequiresWriterPermission restriction of this file.
+# + canChangeCopyRequiresWriterPermission -   Whether the current user can change the copyRequiresWriterPermission 
+#                                             restriction of this file.
 # + canMoveChildrenOutOfDrive -  Whether the current user can move children of this folder outside of the shared drive. 
-#                                This is false when the item is not a folder. Only populated for items in shared drives. 
-# + canReadDrive -  Whether the current user can read the shared drive to which this file belongs. Only populated for items in shared drives. 
+#                                This is false when the item is not a folder.Only populated for items in shared drives. 
+# + canReadDrive -  Whether the current user can read the shared drive to which this file belongs. 
+#                   Only populated for items in shared drives. 
 # + canShare -   Whether the current user can modify the sharing settings for this file.
-# + canDeleteChildren -   Whether the current user can delete children of this folder. This is false when the item is not a folder. 
+# + canDeleteChildren -   Whether the current user can delete children of this folder. 
+#                         This is false when the item is not a folder. 
 #                         Only populated for items in shared drives.
 # + canMoveItemWithinDrive -   Whether the current user can move this item within this drive. 
-#                              Note that a request to change the parent of the item may still fail depending on the new parent that is being 
-#                              added and the parent that is being removed  
-# + canModifyContent -   
-# + canRemoveChildren -   Whether the current user can remove children from this folder. This is always false when the item is not a folder. 
-#                         For a folder in a shared drive, use canDeleteChildren or canTrashChildren instead.
-# + canChangeViewersCanCopyContent -   
-# + canReadTeamDrive -   
+#                              Note that a request to change the parent of the item may still fail 
+#                              depending on the new parent that is being added and the parent that is being removed. 
+# + canModifyContent -  	Whether the current user can modify the content of this file. 
+# + canRemoveChildren -   Whether the current user can remove children from this folder. 
+#                         This is always false when the item is not a folder. 
+#                         For a folder in a shared drive, use canDeleteChildren or canTrashChildren instead.   
 public type Capabilities record {
     boolean	canAddChildren;
     boolean canAddFolderFromAnotherDrive;
     boolean canAddMyDriveParent;
     boolean canChangeCopyRequiresWriterPermission;
-    boolean canChangeViewersCanCopyContent;
     boolean canComment;
     boolean canCopy;
     boolean canDelete;
@@ -543,7 +555,6 @@ public type Capabilities record {
     boolean canMoveItemOutOfDrive;
     boolean canMoveItemWithinDrive;
     boolean canReadRevisions;
-    boolean canReadTeamDrive;
     boolean canReadDrive;
     boolean canRemoveChildren;
     boolean canRemoveMyDriveParent;
@@ -563,12 +574,15 @@ public type Capabilities record {
 # + emailAddress - The email address of the user or group to which this permission refers.  
 # + view -    	Indicates the view for this permission. 
 #               Only populated for permissions that belong to a view. published is the only supported value.
-# + deleted -   Whether the account associated with this permission has been deleted. This field only pertains to user and group permissions.
-# + permissionDetails -  Details of whether the permissions on this shared drive item are inherited or directly on this item. 
+# + deleted -   Whether the account associated with this permission has been deleted. 
+#               This field only pertains to user and group permissions.
+# + permissionDetails -  Details of whether the permissions on this shared drive item 
+#                        are inherited or directly on this item. 
 #                        This is an output-only field which is present only for shared drive items.
 # + expirationTime -   The time at which this permission will expire (RFC 3339 date-time). 
 # + domain - The domain to which this permission refers.  
-# + id -   The ID of this permission. This is a unique identifier for the grantee, and is published in User resources as permissionId. 
+# + id -   The ID of this permission. This is a unique identifier for the grantee, 
+#          and is published in User resources as permissionId. 
 #          IDs should be treated as opaque values.
 # + photoLink -   A link to the user's profile photo, if available.
 # + type -  The type of the grantee.  
@@ -606,17 +620,24 @@ public type PermissionDetails record {
 };
 
 
-# Optionals used in Lists or searches files
+# Optionals used in Lists or searches files.
 #
-# + includeItemsFromAllDrives -  Whether both My Drive and shared drive items should be included in results. (Default: false)  
+# + includeItemsFromAllDrives -  Whether both My Drive and shared drive items 
+#                                should be included in results. (Default: false)  
 # + q -  A query for filtering the file results. See the "Search for files" guide for the supported syntax. 
 # + driveId -  ID of the shared drive to search. 
-# + spaces -  A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'.  
-# + corpora -  Groupings of files to which the query applies. Supported groupings are: 'user' (files created by, opened by, or shared directly with the user),
-#              'drive' (files in the specified shared drive as indicated by the 'driveId'), 'domain' (files shared to the user's domain), and 'allDrives' 
-#              (A combination of 'user' and 'drive' for all drives where the user is a member). When able, use 'user' or 'drive', instead of 'allDrives', for efficiency.  
-# + includePermissionsForView -   Specifies which additional view's permissions to include in the response. Only 'published' is supported.
-# + orderBy - A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 
+# + spaces -  A comma-separated list of spaces to query within the corpus. 
+#             Supported values are 'drive', 'appDataFolder' and 'photos'.  
+# + corpora -  Groupings of files to which the query applies. 
+#              Supported groupings are: 'user' (files created by, opened by, or shared directly with the user),
+#              'drive' (files in the specified shared drive as indicated by the 'driveId'), 
+#              'domain' (files shared to the user's domain), and 'allDrives' 
+#              (A combination of 'user' and 'drive' for all drives where the user is a member). 
+#              When able, use 'user' or 'drive', instead of 'allDrives', for efficiency.  
+# + includePermissionsForView -   Specifies which additional view's permissions to include in the response. 
+#                                 Only 'published' is supported.
+# + orderBy - A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 
+#             'modifiedByMeTime', 'modifiedTime', 'name', 
 #            'name_natural', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. 
 #             Each key sorts ascending by default, but may be reversed with the 'desc' modifier   
 # + pageSize -  The maximum number of files to return per page
