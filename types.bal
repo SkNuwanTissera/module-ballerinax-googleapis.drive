@@ -173,14 +173,17 @@ public type File record {
 
 };
  
+# Record Type to accpet string values  
 public type StringKeyValuePairs record {|
     string...;
 |};
 
+# Record Type to accept string[] values
 public type StringArrayValuePairs record {|
     string[]...;
 |};
 
+# Record Type to accept float values  
 public type StorageQuota record {|
     float...;
 |};
