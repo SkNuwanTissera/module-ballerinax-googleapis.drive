@@ -24,7 +24,7 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted A
     }
     json resp = check sendRequest(httpClient, path);
     About|error info = resp.cloneWithType(About);
-    if(info is About){
+    if (info is About) {
         return info;
     } else {
         return error(ERR_DRIVE_INFO_RESPONSE, info);
@@ -121,7 +121,7 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithMetadataFileOptional(optional);
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
-        if resp is json {
+    if (resp is json) {
         File|error file = resp.cloneWithType(File);
         if (file is File) {
             return file;
@@ -146,7 +146,7 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
     //update metadata
     json|error respId = resp.id;
     string fileId = EMPTY_STRING;
-    if(respId is json){
+    if (respId is json) {
         fileId = respId.toString();
     }
     string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
@@ -173,7 +173,7 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
     json | error resp = sendRequest(httpClient, path);
 
     File[] files = [];
-    if resp is json {
+    if (resp is json) {
         FilesResponse|error res = resp.cloneWithType(FilesResponse);
         if (res is FilesResponse) {
             int i = files.length();
@@ -202,14 +202,14 @@ function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, Upda
     //update metadata
     json|error respId = resp.id;
     string fileId = EMPTY_STRING;
-    if(respId is json){
+    if (respId is json) {
         fileId = respId.toString();
     }
     string newFileUrl = prepareUrlWithUpdateOptional(fileId, optional);
     json payload = check fileMetadata.cloneWithType(json);
     json|error changeResponse = updateRequestWithPayload(httpClient, newFileUrl, payload);
 
-    if changeResponse is json {
+    if (changeResponse is json) {
         File|error file = changeResponse.cloneWithType(File);
         if (file is File) {
             return file;
