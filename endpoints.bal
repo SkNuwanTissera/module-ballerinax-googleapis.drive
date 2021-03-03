@@ -33,7 +33,6 @@ function getDriveInfo(http:Client httpClient, string? fields) returns @tainted A
 
 function getFileById(http:Client httpClient, string fileId, 
                     GetFileOptional? optional = ()) returns @tainted File|error {
-
     string path = prepareUrlWithFileOptional(fileId, optional);
     json resp = check sendRequest(httpClient, path);
     File|error file = resp.cloneWithType(File);
@@ -42,11 +41,9 @@ function getFileById(http:Client httpClient, string fileId,
     } else {
         return error(ERR_FILE_RESPONSE, file);
     }
-
 }
 
 function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error{
-
     string path = prepareUrl([DRIVE_PATH, FILES]);
     log:print(path.toString());
     json | error resp = sendRequest(httpClient, path);
@@ -71,15 +68,12 @@ function getAllFiles(http:Client httpClient) returns @tainted stream<File>|error
 
 function deleteFileById(http:Client httpClient, string fileId, 
                         DeleteFileOptional? optional = ()) returns @tainted boolean|error{
-
     string path = prepareUrlWithDeleteOptional(fileId, optional);
     boolean|error resp = deleteRequest(httpClient, path);
     return resp;
-
 }
 
 function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optional = (), File? fileResource = ()) returns @tainted File|error {
-
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithCopyOptional(fileId, optional);
     json|error resp = sendRequestWithPayload(httpClient, path, payload);
@@ -93,12 +87,10 @@ function copyFile(http:Client httpClient, string fileId, CopyFileOptional? optio
     } else {
         return resp;
     }
-
 }
 
 function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadataOptional? optional = (), 
                         File? fileResource = ()) returns @tainted File|error {
-
     json payload = check fileResource.cloneWithType(json);
     string path = prepareUrlWithUpdateOptional(fileId, optional);
     json|error resp = updateRequestWithPayload(httpClient, path, payload);
@@ -112,12 +104,10 @@ function updateFileById(http:Client httpClient, string fileId, UpdateFileMetadat
     } else {
         return resp;
     }
-
 }
 
 function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional = (), 
                             File? fileData = ()) returns @tainted File|error {
-
     json payload = check fileData.cloneWithType(json);
     string path = prepareUrlwithMetadataFileOptional(optional);
     json|error resp = uploadRequestWithPayload(httpClient, path, payload);
@@ -131,13 +121,11 @@ function createMetaDataFile(http:Client httpClient, CreateFileOptional? optional
     } else {
         return resp;
     }
-
 }
 
 
 function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataOptional? optional = (), 
-                                File? fileMetadata = ()) returns @tainted File|error{
-    
+                                File? fileMetadata = ()) returns @tainted File|error{    
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
     
@@ -162,12 +150,10 @@ function uploadFile(http:Client httpClient, string filePath, UpdateFileMetadataO
         }
     } else {
         return changeResponse;
-    } 
-    
+    }    
 }
 
 function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) returns @tainted stream<File>|error{
-
     string path = prepareUrlwithFileListOptional(optional);
 
     json | error resp = sendRequest(httpClient, path);
@@ -192,8 +178,7 @@ function getFiles(http:Client httpClient, ListFilesOptional? optional = ()) retu
 }
 
 function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, UpdateFileMetadataOptional? optional = (), 
-                                  File? fileMetadata = ()) returns @tainted File|error{
-    
+                                  File? fileMetadata = ()) returns @tainted File|error{    
     string path = prepareUrl([UPLOAD, DRIVE_PATH, FILES]);
     log:print(path.toString());
     
@@ -218,6 +203,5 @@ function uploadFileUsingByteArray(http:Client httpClient, byte[] byteArray, Upda
         }
     } else {
         return changeResponse;
-    } 
-    
+    }    
 }
