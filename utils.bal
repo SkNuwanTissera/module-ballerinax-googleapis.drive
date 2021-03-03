@@ -25,7 +25,6 @@ import ballerina/log;
 # + path - GET URI path
 # + return - JSON or error if not suceeded
 function sendRequest(http:Client httpClient, string path) returns @tainted json | error {
-
     var httpResponse = httpClient->get(<@untainted>path);
     if (httpResponse is http:Response) {
         int statusCode = httpResponse.statusCode;
@@ -42,7 +41,6 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
     } else {
         return getDriveError(<json|error>httpResponse);
     }
-
 }
 
 # Send DELETE request.
@@ -51,11 +49,9 @@ function sendRequest(http:Client httpClient, string path) returns @tainted json 
 # + path - DELETE URI path
 # + return - boolean or error if not suceeded, True if Deleted successfully.
 function deleteRequest(http:Client httpClient, string path) returns @tainted boolean | error {
-
     var httpResponse = httpClient->delete(<@untainted>path);
     json resp = check checkAndSetErrors(httpResponse);
     return true;
-
 }
 
 # Send POST request with  a Payload.
@@ -66,7 +62,6 @@ function deleteRequest(http:Client httpClient, string path) returns @tainted boo
 # + return - json or error if not suceeded.
 function sendRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
-
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
@@ -87,7 +82,6 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
-
 }
 
 # Send PATCH request with  a Payload.
@@ -98,7 +92,6 @@ returns @tainted json | error {
 # + return - json or error if not suceeded.
 function updateRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
-
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
@@ -120,7 +113,6 @@ returns @tainted json | error {
     } else {
         return getDriveError(<json|error>httpResponse);
     }
-
 }
 
 # Send POST request with  a Payload.
@@ -131,7 +123,6 @@ returns @tainted json | error {
 # + return - json or error if not suceeded.
 function uploadRequestWithPayload(http:Client httpClient, string path, json jsonPayload = ())
 returns @tainted json | error {
-
     http:Request httpRequest = new;
     if (jsonPayload != ()) {
         httpRequest.setJsonPayload(<@untainted>jsonPayload);
@@ -173,11 +164,9 @@ isolated function getDriveError(json|error errorResponse) returns error {
 # + statusCode - The Status code
 # + return - Error Message
 isolated function validateStatusCode(json response, int statusCode) returns error? {
-
     if (statusCode != http:STATUS_OK) {
         return getDriveError(response);
     }
-
 }
 
 
@@ -186,7 +175,6 @@ isolated function validateStatusCode(json response, int statusCode) returns erro
 # + paths - An array of paths prefixes
 # + return - The prepared URL
 isolated function prepareUrl(string[] paths) returns string {
-
     string url = EMPTY_STRING;
     if (paths.length() > 0) {
         foreach var path in paths {
@@ -197,7 +185,6 @@ isolated function prepareUrl(string[] paths) returns string {
         }
     }
     return <@untainted>url;
-
 }
 
 
@@ -209,7 +196,6 @@ isolated function prepareUrl(string[] paths) returns string {
 # + return - The prepared URL with encoded query
 isolated function prepareQueryUrl(string[] paths, string[] queryParamNames, string[] queryParamValues) 
 returns string {
-
     string url = prepareUrl(paths);
     url = url + QUESTION_MARK;
     boolean first = true;
@@ -231,7 +217,6 @@ returns string {
         i = i + 1;
     }
     return url;
-
 }
 
 # Prepare URL with optional parameters.
@@ -240,7 +225,6 @@ returns string {
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? optional = ()) returns string {
-
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
@@ -263,7 +247,6 @@ isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? op
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
-
 }
 
 # Prepare URL with optional parameters on Delete Request
@@ -272,7 +255,6 @@ isolated function prepareUrlWithFileOptional(string fileId , GetFileOptional? op
 # + optional - Delete Record that contains optional parameters
 # + return - The prepared URL with encoded query
 isolated function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptional? optional = ()) returns string {
-
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
@@ -286,7 +268,6 @@ isolated function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptiona
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
-
 }
 
 
@@ -296,7 +277,6 @@ isolated function prepareUrlWithDeleteOptional(string fileId , DeleteFileOptiona
 # + optional - Copy Record that contains optional parameters
 # + return - The prepared URL with encoded query
 isolated function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? optional = ()) returns string {
-
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId, COPY]);
@@ -325,7 +305,6 @@ isolated function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? o
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
-
 }
 
 # Prepare URL with optional parameters on Update Request
@@ -334,7 +313,6 @@ isolated function prepareUrlWithCopyOptional(string fileId , CopyFileOptional? o
 # + optional - Update Record that contains optional parameters
 # + return - The prepared URL with encoded query
 isolated function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadataOptional? optional = ()) returns string {
-
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES, fileId]);
@@ -373,15 +351,13 @@ isolated function prepareUrlWithUpdateOptional(string fileId , UpdateFileMetadat
     path = prepareQueryUrl([path], optionalMap.keys(), value);
 
     return path;
-
 }
 
 # Prepare URL with optional parameters.
 # 
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
-isolated function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {
-    
+isolated function prepareUrlwithMetadataFileOptional(CreateFileOptional? optional = ()) returns string {    
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
@@ -412,7 +388,6 @@ isolated function prepareUrlwithMetadataFileOptional(CreateFileOptional? optiona
         path = prepareQueryUrl([path], optionalMap.keys(), value);
     }
     return path;
-
 }
 
 # Prepare URL with optional parameters.
@@ -420,7 +395,6 @@ isolated function prepareUrlwithMetadataFileOptional(CreateFileOptional? optiona
 # + optional - Record that contains optional parameters
 # + return - The prepared URL with encoded query
 isolated function prepareUrlwithFileListOptional(ListFilesOptional? optional = ()) returns string {
-
     string[] value = [];
     map<string> optionalMap = {};
     string path = prepareUrl([DRIVE_PATH, FILES]);
@@ -475,7 +449,6 @@ isolated function prepareUrlwithFileListOptional(ListFilesOptional? optional = (
 # + filePath - File path subjected to upload
 # + return - Json response or Error
 function uploadFiles(http:Client httpClient, string path, string filePath) returns @tainted json | error {
-
     http:Request httpRequest = new;
     byte[] fileContentByteArray = check io:fileReadBytes(filePath);
     httpRequest.setHeader(CONTENT_LENGTH ,fileContentByteArray.length().toString());
@@ -498,7 +471,6 @@ function uploadFiles(http:Client httpClient, string path, string filePath) retur
     } else {
         return getDriveError(<json|error>httpResponse);
     }
-
 }
 
 # Upload files using a byte Array
@@ -507,7 +479,6 @@ function uploadFiles(http:Client httpClient, string path, string filePath) retur
 # + byteArray - Byte Array subjected to upload
 # + return - Json response or Error
 function uploadFileWithByteArray(http:Client httpClient, string path, byte[] byteArray) returns @tainted json | error {
-
     http:Request httpRequest = new;
     httpRequest.setHeader(CONTENT_LENGTH ,byteArray.length().toString());
     httpRequest.setBinaryPayload(<@untainted> byteArray);
@@ -529,11 +500,9 @@ function uploadFileWithByteArray(http:Client httpClient, string path, byte[] byt
     } else {
         return getDriveError(<json|error>httpResponse);
     }
-
 }
 
 function getIdFromFileResponse(File|error file) returns string {
-
     string fileOrFolderId = EMPTY_STRING;
     if(file is File){
         json|error created_response = file.cloneWithType(json); 
@@ -546,7 +515,6 @@ function getIdFromFileResponse(File|error file) returns string {
         }
     }
     return fileOrFolderId;
-
 }
 
 # Check HTTP response and return JSON payload on success else an error.
